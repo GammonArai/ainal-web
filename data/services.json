@@ -1,0 +1,52 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "name": "スタンダードマッサージ",
+      "description": "疲れた体を癒す基本的なオイルマッサージ",
+      "duration": 60,
+      "price": 15000,
+      "image": "/images/massage-effects-main.jpg"
+    },
+    {
+      "id": 2,
+      "name": "アロママッサージ",
+      "description": "アロマオイルを使用したリラックスマッサージ",
+      "duration": 90,
+      "price": 20000,
+      "image": "/images/aroma-massage.jpg"
+    },
+    {
+      "id": 3,
+      "name": "スポーツマッサージ",
+      "description": "運動後の疲労回復に特化したマッサージ",
+      "duration": 60,
+      "price": 18000,
+      "image": "/images/sports-massage.jpg"
+    },
+    {
+      "id": 4,
+      "name": "睡眠改善マッサージ",
+      "description": "不眠症改善に効果的な特別なマッサージ",
+      "duration": 120,
+      "price": 25000,
+      "image": "/images/sleep-massage.jpg"
+    },
+    {
+      "id": 5,
+      "name": "韓国式アカスリ",
+      "description": "本格的な韓国式アカスリでお肌ツルツル",
+      "duration": 90,
+      "price": 22000,
+      "image": "/images/korean-scrub.jpg"
+    },
+    {
+      "id": 6,
+      "name": "デスクワーク疲労回復",
+      "description": "肩こり・腰痛に特化したビジネスマン向けマッサージ",
+      "duration": 90,
+      "price": 23000,
+      "image": "/images/desk-work-relief.jpg"
+    }
+  ]
+}

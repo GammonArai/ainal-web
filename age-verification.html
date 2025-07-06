@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>年齢確認 | アナルマッサージ</title>
+    <meta name="description" content="18歳以上の方のみご利用いただけます。年齢確認にご協力ください。">
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: var(--gradient-dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .age-verification-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-16);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-2xl);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .verification-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-6);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .verification-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .verification-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+            font-family: var(--font-serif);
+        }
+
+        .verification-warning {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .verification-warning h3 {
+            color: #ef4444;
+            margin-bottom: var(--space-3);
+            font-weight: 700;
+        }
+
+        .verification-warning p {
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .verification-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: var(--space-8);
+            font-size: 1.1rem;
+        }
+
+        .verification-buttons {
+            display: flex;
+            gap: var(--space-4);
+            flex-direction: column;
+        }
+
+        .btn-age {
+            padding: var(--space-5) var(--space-8);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            min-height: 60px;
+        }
+
+        .btn-over18 {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-over18:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-under18 {
+            background: transparent;
+            color: #6b7280;
+            border: 2px solid #d1d5db;
+        }
+
+        .btn-under18:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .legal-notice {
+            margin-top: var(--space-8);
+            padding: var(--space-4);
+            background: var(--light-gray);
+            border-radius: var(--radius-lg);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: left;
+        }
+
+        .legal-notice h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+            font-size: 0.9rem;
+        }
+
+        .legal-notice ul {
+            margin: 0;
+            padding-left: var(--space-4);
+        }
+
+        .legal-notice li {
+            margin-bottom: var(--space-1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .age-verification-container {
+                padding: var(--space-8);
+                margin: var(--space-4);
+            }
+
+            .verification-title {
+                font-size: 1.5rem;
+            }
+
+            .verification-buttons {
+                gap: var(--space-3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="age-verification-container">
+        <div class="verification-icon">
+            <i class="fas fa-id-card"></i>
+        </div>
+        
+        <h1 class="verification-title">年齢確認</h1>
+        
+        <div class="verification-warning">
+            <h3><i class="fas fa-exclamation-triangle"></i> 重要な確認事項</h3>
+            <p>当サイトは18歳未満の方のご利用を固くお断りしております。<br>
+            法律により18歳未満の方の風俗営業への入店は禁止されています。</p>
+        </div>
+        
+        <p class="verification-text">
+            あなたは18歳以上ですか？<br>
+            正確な情報をお答えください。
+        </p>
+        
+        <div class="verification-buttons">
+            <button onclick="confirmAge(true)" class="btn-age btn-over18">
+                <i class="fas fa-check"></i>
+                はい、18歳以上です
+            </button>
+            
+            <button onclick="confirmAge(false)" class="btn-age btn-under18">
+                <i class="fas fa-times"></i>
+                いいえ、18歳未満です
+            </button>
+        </div>
+        
+        <div class="legal-notice">
+            <h4>法的記載事項</h4>
+            <ul>
+                <li>風俗営業等の規制及び業務の適正化等に関する法律に基づく運営</li>
+                <li>福岡中央警察署届出済み（届出番号：第○○号）</li>
+                <li>事業者：株式会社我門</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 年齢確認の結果を処理
+        function confirmAge(isOver18) {
+            if (isOver18) {
+                // 年齢確認をセッションストレージに保存
+                sessionStorage.setItem('ageVerified', 'true');
+                sessionStorage.setItem('ageVerifiedTime', new Date().getTime());
+                
+                // メインサイトにリダイレクト
+                window.location.href = 'index.html';
+            } else {
+                // 18歳未満の場合は他のサイトにリダイレクト
+                alert('申し訳ございません。18歳未満の方はご利用いただけません。');
+                window.location.href = 'https://www.google.com';
+            }
+        }
+
+        // ページ読み込み時に年齢確認済みかチェック
+        window.addEventListener('load', function() {
+            const ageVerified = sessionStorage.getItem('ageVerified');
+            const verifiedTime = sessionStorage.getItem('ageVerifiedTime');
+            
+            // 24時間以内に確認済みの場合はスキップ
+            if (ageVerified === 'true' && verifiedTime) {
+                const hoursSinceVerification = (new Date().getTime() - parseInt(verifiedTime)) / (1000 * 60 * 60);
+                if (hoursSinceVerification < 24) {
+                    window.location.href = 'index.html';
+                }
+            }
+        });
+
+        // Escキーやブラウザバックを防ぐ
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // ブラウザバック防止
+        history.pushState(null, null, location.href);
+        window.addEventListener('popstate', function() {
+            history.go(1);
+        });
+    </script>
+</body>
+</html>

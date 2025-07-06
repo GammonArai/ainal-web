@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライバシーポリシー | 愛なるマッサージ</title>
+    <meta name="description" content="愛なるマッサージのプライバシーポリシー。お客様の個人情報保護に関する取り組みと方針をご確認ください。">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="site-config.js"></script>
+    <style>
+        .page-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.05)"/><circle cx="900" cy="250" r="80" fill="rgba(255,255,255,0.03)"/></svg>');
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-header-content h1 {
+            margin-bottom: var(--space-6);
+        }
+        
+        .page-header-content p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0;
+            padding: var(--space-4) var(--space-6);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .privacy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-20) var(--space-6);
+        }
+        
+        .privacy-section {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-10);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .privacy-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-4);
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .section-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-md);
+            background: var(--gradient-primary);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .privacy-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: var(--space-6);
+        }
+        
+        .privacy-list {
+            list-style: none;
+            margin: var(--space-6) 0;
+            padding: 0;
+        }
+        
+        .privacy-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--border-gray);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .privacy-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .privacy-list i {
+            color: var(--accent-purple);
+            margin-top: 2px;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+        
+        .highlight-box {
+            background: var(--light-gray);
+            border-left: 4px solid var(--accent-purple);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin: var(--space-6) 0;
+        }
+        
+        .highlight-text {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .table-section {
+            overflow-x: auto;
+            margin: var(--space-6) 0;
+        }
+        
+        .privacy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-4) 0;
+        }
+        
+        .privacy-table th,
+        .privacy-table td {
+            padding: var(--space-4);
+            border: 1px solid var(--border-gray);
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .privacy-table th {
+            background: var(--light-gray);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .privacy-table td {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .date-info {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin: var(--space-8) 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            .privacy-content {
+                padding: var(--space-12) var(--space-4);
+            }
+            
+            .privacy-section {
+                padding: var(--space-6);
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .privacy-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body class="modern-massage">
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><i class="fas fa-spa"></i> 愛なるマッサージ</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="hotels.html" class="nav-link">対応可能ホテル</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="services.html" class="nav-link">施術内容</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="therapists.html" class="nav-link">施術者紹介</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="safety.html" class="nav-link">感染対策</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="manga.html" class="nav-link">施術イメージ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="column.html" class="nav-link">健康コラム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="recruit.html" class="nav-link">求人情報</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ページヘッダー -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1><i class="fas fa-user-shield"></i> プライバシーポリシー</h1>
+                    <p>お客様の個人情報保護に関する取り組みについて</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- プライバシーポリシーコンテンツ -->
+        <div class="privacy-content">
+            
+            <!-- 基本方針 -->
+            <section class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h2 class="section-title">基本方針</h2>
+                </div>
+                
+                <p class="privacy-text">
+                    愛なるマッサージ（以下「当店」）は、お客様からお預かりする個人情報の重要性を認識し、個人情報の保護に関する法律（個人情報保護法）およびその他関連法令等を遵守し、お客様の個人情報を適切に取り扱います。
+                </p>
+                
+                <div class="highlight-box">
+                    <p class="highlight-text">
+                        <i class="fas fa-lock"></i>
+                        お客様の個人情報は、サービス提供のためのみに使用し、第三者に開示・提供することはありません。
+                    </p>
+                </div>
+            </section>
+
+            <!-- 収集する情報 -->
+            <section class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h2 class="section-title">収集する個人情報</h2>
+                </div>
+                
+                <p class="privacy-text">
+                    当店では、以下の個人情報を収集させていただく場合があります：
+                </p>
+                
+                <div class="table-section">
+                    <table class="privacy-table">
+                        <thead>
+                            <tr>
+                                <th>情報の種類</th>
+                                <th>収集目的</th>
+                                <th>収集方法</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>氏名・フリガナ</td>
+                                <td>お客様の識別、ご予約管理</td>
+                                <td>Telegram Bot登録時</td>
+                            </tr>
+                            <tr>
+                                <td>電話番号</td>
+                                <td>緊急時連絡、予約確認</td>
+                                <td>Telegram Bot登録時</td>
+                            </tr>
+                            <tr>
+                                <td>TelegramユーザーID</td>
+                                <td>サービス利用時の認証</td>
+                                <td>Telegram Bot利用時</td>
+                            </tr>
+                            <tr>
+                                <td>生年月日・年齢</td>
+                                <td>年齢確認、適切なサービス提供</td>
+                                <td>Telegram Bot登録時</td>
+                            </tr>
+                            <tr>
+                                <td>性別</td>
+                                <td>適切なサービス提供</td>
+                                <td>Telegram Bot登録時（任意）</td>
+                            </tr>
+                            <tr>
+                                <td>ご要望・アレルギー等</td>
+                                <td>安全で快適なサービス提供</td>
+                                <td>Telegram Bot登録時（任意）</td>
+                            </tr>
+                            <tr>
+                                <td>ご利用履歴</td>
+                                <td>サービス品質向上、お客様サポート</td>
+                                <td>サービス利用時</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 利用目的 -->
+            <section class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h2 class="section-title">個人情報の利用目的</h2>
+                </div>
+                
+                <p class="privacy-text">
+                    収集した個人情報は、以下の目的でのみ利用いたします：
+                </p>
+                
+                <ul class="privacy-list">
+                    <li>
+                        <i class="fas fa-calendar-check"></i>
+                        <span>ご予約の受付・管理・確認</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-spa"></i>
+                        <span>マッサージ・アカスリサービスの提供</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-shield-virus"></i>
+                        <span>お客様の健康・安全管理（アレルギー対応等）</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <span>緊急時の連絡・対応</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-chart-line"></i>
+                        <span>サービス品質の向上・改善</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-credit-card"></i>
+                        <span>現金決済に関する処理</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-user-check"></i>
+                        <span>年齢確認・本人確認</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>重要なお知らせの配信（Telegram経由）</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 第三者提供 -->
+            <section class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-user-times"></i>
+                    </div>
+                    <h2 class="section-title">第三者への提供</h2>
+                </div>
+                
+                <p class="privacy-text">
+                    当店は、以下の場合を除き、お客様の個人情報を第三者に開示・提供することはありません：
+                </p>
+                
+                <ul class="privacy-list">
+                    <li>
+                        <i class="fas fa-handshake"></i>
+                        <span>お客様の同意がある場合</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-balance-scale"></i>
+                        <span>法令に基づく場合</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-ambulance"></i>
+                        <span>人の生命、身体または財産の保護のために必要がある場合</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-building"></i>
+                        <span>国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合</span>
+                    </li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <p class="highlight-text">
+                        <i class="fas fa-info-circle"></i>
+                        現金決済時の取引記録は、適切な会計処理と税務申告のために記録・保管されます。
+                    </p>
+                </div>
+            </section>
+
+            <!-- データの保管・削除 -->
+            <section class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-archive"></i>
+                    </div>
+                    <h2 class="section-title">個人情報の保管・削除</h2>
+                </div>
+                
+                <p class="privacy-text">
+                    個人情報の保管および削除について、以下の方針で取り扱います：
+                </p>
+                
+                <ul class="privacy-list">
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span><strong>保管期間</strong>：最終利用日から3年間</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-trash-alt"></i>
+                        <span><strong>自動削除</strong>：保管期間経過後、自動的に削除</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-user-edit"></i>
+                        <span><strong>削除依頼</strong>：お客様からの削除依頼は随時受付</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-lock"></i>
+                        <span><strong>安全管理</strong>：適切な技術的・組織的安全管理措置を実施</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- お客様の権利 -->
+            <section class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <h2 class="section-title">お客様の権利</h2>
+                </div>
+                
+                <p class="privacy-text">
+                    お客様は、ご自身の個人情報について以下の権利を有します：
+                </p>
+                
+                <ul class="privacy-list">
+                    <li>
+                        <i class="fas fa-eye"></i>
+                        <span><strong>開示請求</strong>：保有する個人情報の開示を求める権利</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-edit"></i>
+                        <span><strong>訂正請求</strong>：個人情報の内容の訂正・追加・削除を求める権利</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-ban"></i>
+                        <span><strong>利用停止請求</strong>：個人情報の利用の停止を求める権利</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-times-circle"></i>
+                        <span><strong>削除請求</strong>：個人情報の削除を求める権利</span>
+                    </li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <p class="highlight-text">
+                        <i class="fab fa-telegram"></i>
+                        これらの権利行使をご希望の場合は、Telegram Bot（@AnalSenseiBot）よりお申し出ください。
+                    </p>
+                </div>
+            </section>
+
+            <!-- Telegram Botについて -->
+            <section class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <h2 class="section-title">Telegram Botの利用について</h2>
+                </div>
+                
+                <p class="privacy-text">
+                    当店では予約・連絡にTelegram Botを使用しています：
+                </p>
+                
+                <ul class="privacy-list">
+                    <li>
+                        <i class="fas fa-robot"></i>
+                        <span>Bot名：@AnalSenseiBot</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Telegramのプライバシーポリシーも適用されます</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-comment"></i>
+                        <span>メッセージ履歴は当店のサービス提供のためのみ利用</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-user-secret"></i>
+                        <span>TelegramユーザーIDは外部に開示いたしません</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 問い合わせ -->
+            <section class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="section-title">お問い合わせ</h2>
+                </div>
+                
+                <p class="privacy-text">
+                    個人情報の取り扱いに関するご質問・ご相談は、以下までお問い合わせください：
+                </p>
+                
+                <div class="highlight-box">
+                    <p class="highlight-text">
+                        <i class="fab fa-telegram"></i>
+                        <strong>Telegram Bot：</strong><a href="https://t.me/AnalSenseiBot" target="_blank" style="color: var(--accent-purple); text-decoration: none;">@AnalSenseiBot</a><br>
+                        <i class="fas fa-building"></i>
+                        <strong>事業者名：</strong>愛なるマッサージ<br>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <strong>所在地：</strong>福岡市中洲・博多・天神エリア
+                    </p>
+                </div>
+            </section>
+
+            <!-- 改定 -->
+            <section class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h2 class="section-title">プライバシーポリシーの改定</h2>
+                </div>
+                
+                <p class="privacy-text">
+                    当店は、法令改正やサービス内容の変更等に伴い、本プライバシーポリシーを改定する場合があります。改定後のプライバシーポリシーは、当ウェブサイトに掲載した時点より効力を生じるものとします。
+                </p>
+                
+                <div class="highlight-box">
+                    <p class="highlight-text">
+                        <i class="fas fa-bell"></i>
+                        重要な変更がある場合は、Telegram Botを通じてお客様にお知らせいたします。
+                    </p>
+                </div>
+            </section>
+
+            <!-- 制定日 -->
+            <div class="date-info">
+                <p><strong>制定日：</strong>2024年6月15日</p>
+                <p><strong>最終更新日：</strong>2024年6月15日</p>
+            </div>
+        </div>
+
+        <!-- 予約・お問い合わせ -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>ご不明な点がございましたらお気軽にお問い合わせください</h2>
+                    <p>個人情報の取り扱いについて、丁寧にご説明いたします</p>
+                    <div class="cta-buttons">
+                        <a href="https://t.me/AnalSenseiBot" target="_blank" class="btn btn-primary btn-large">
+                            <i class="fab fa-telegram"></i>
+                            Telegram Botで相談
+                        </a>
+                        <a href="index.html" class="btn btn-secondary btn-large">
+                            <i class="fas fa-home"></i>
+                            ホームに戻る
+                        </a>
+                    </div>
+                    <p style="margin-top: var(--space-6); font-size: 0.95rem; opacity: 0.8;">
+                        個人情報保護に関するご質問・ご相談はいつでも承ります
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>愛なるマッサージ</h3>
+                    <p>心と体に愛を込めた癒しの出張マッサージ・アカスリ専門店</p>
+                    <div style="margin-top: var(--space-4);">
+                        <p><i class="fab fa-telegram"></i> <a href="https://t.me/AnalSenseiBot" target="_blank" style="color: rgba(255,255,255,0.9); text-decoration: none;">@AnalSenseiBot</a></p>
+                        <p><i class="fas fa-money-bill-wave"></i> 現金決済対応</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 福岡市中洲・博多・天神エリア</p>
+                    </div>
+                    <div style="margin-top: var(--space-6);">
+                        <h4 style="margin-bottom: var(--space-3); font-size: 1rem;">フォローする</h4>
+                        <a href="https://x.com/ainaru_massage" target="_blank" style="display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#1da1f2'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
+                            <i class="fab fa-x-twitter" style="font-size: 1.2rem;"></i>
+                            <span>@ainaru_massage</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>サービス</h4>
+                    <ul>
+                        <li><a href="services.html#massage">マッサージ</a></li>
+                        <li><a href="services.html#akasuri">アカスリ</a></li>
+                        <li><a href="safety.html">感染対策</a></li>
+                        <li><a href="terms.html">ご利用規約</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>ご案内</h4>
+                    <ul>
+                        <li><a href="hotels.html">対応可能ホテル</a></li>
+                        <li><a href="privacy.html">プライバシーポリシー</a></li>
+                        <li><a href="terms.html">ご利用規約</a></li>
+                        <li><a href="recruit.html">求人情報</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 愛なるマッサージ. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

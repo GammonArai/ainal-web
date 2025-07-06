@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>施術内容・料金 | 愛なるマッサージ</title>
+    <meta name="description" content="愛なるマッサージの施術内容と料金表。プレミアムマッサージ、アナル開発、前立腺ケアなど豊富なコースをご用意。完全予約制・現金決済。">
+    <meta name="keywords" content="マッサージ,料金,施術内容,アナル開発,前立腺,リラクゼーション,福岡,中洲">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="site-config.js"></script>
+    
+    <style>
+        .services-hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.05)"/><circle cx="900" cy="250" r="80" fill="rgba(255,255,255,0.03)"/></svg>');
+        }
+        
+        .services-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .services-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: var(--space-6);
+        }
+        
+        .services-hero p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.2rem;
+            font-weight: 500;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: var(--space-4) var(--space-6);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .pricing-overview {
+            background: white;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-xl);
+            padding: var(--space-8);
+            margin: -60px auto 0;
+            max-width: 800px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .price-highlight {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .price-range {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-purple);
+            margin-bottom: var(--space-2);
+        }
+        
+        .price-range .currency {
+            font-size: 1.5rem;
+        }
+        
+        .price-note {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: var(--space-6);
+        }
+        
+        .quick-features {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-8);
+            flex-wrap: wrap;
+        }
+        
+        .quick-feature {
+            text-align: center;
+        }
+        
+        .quick-feature i {
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            margin-bottom: var(--space-2);
+        }
+        
+        .quick-feature span {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .service-category {
+            padding: var(--space-20) 0;
+        }
+        
+        .service-category:nth-child(even) {
+            background: var(--light-gray);
+        }
+        
+        .category-header {
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+        
+        .category-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+        
+        .category-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-8);
+            margin-top: var(--space-12);
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+        }
+        
+        .service-card.featured {
+            border: 3px solid var(--accent-purple);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.02) 0%, white 100%);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 5;
+        }
+        
+        .service-header {
+            padding: var(--space-8);
+            text-align: center;
+            position: relative;
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-6);
+            font-size: 2rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+        }
+        
+        .service-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: var(--space-6);
+        }
+        
+        .price-section {
+            background: var(--light-gray);
+            padding: var(--space-6);
+            text-align: center;
+        }
+        
+        .price-options {
+            display: flex;
+            justify-content: space-around;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .price-option {
+            text-align: center;
+        }
+        
+        .duration {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-purple);
+            margin-bottom: var(--space-1);
+        }
+        
+        .price .currency {
+            font-size: 1.2rem;
+        }
+        
+        .price-note-small {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .service-features {
+            padding: var(--space-6);
+        }
+        
+        .features-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+            text-align: center;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-2) 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .features-list i {
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .service-action {
+            padding: var(--space-6);
+            text-align: center;
+            border-top: 1px solid var(--border-gray);
+        }
+        
+        .btn-service {
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .btn-service:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .additional-info {
+            background: white;
+            padding: var(--space-20) 0;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-8);
+        }
+        
+        .info-card {
+            background: var(--light-gray);
+            padding: var(--space-8);
+            border-radius: var(--radius-xl);
+            text-align: center;
+        }
+        
+        .info-card i {
+            font-size: 3rem;
+            color: var(--accent-purple);
+            margin-bottom: var(--space-4);
+        }
+        
+        .info-card h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .discount-banner {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: var(--space-8) 0;
+            text-align: center;
+            margin: var(--space-12) 0;
+        }
+        
+        .discount-content h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: var(--space-4);
+        }
+        
+        .discount-details {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-6);
+        }
+        
+        .terms-conditions {
+            background: var(--light-gray);
+            padding: var(--space-16) 0;
+        }
+        
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+        }
+        
+        .terms-item {
+            background: white;
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .terms-item h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .terms-item h4 i {
+            color: var(--accent-purple);
+        }
+        
+        @media (max-width: 768px) {
+            .services-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-options {
+                flex-direction: column;
+                gap: var(--space-6);
+            }
+            
+            .quick-features {
+                flex-direction: column;
+                gap: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body class="modern-massage">
+    <!-- ヘッダー -->
+    <div id="unified-header"></div>
+    
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ヒーローセクション -->
+        <section class="services-hero">
+            <div class="container">
+                <div class="services-hero-content">
+                    <h1><i class="fas fa-spa"></i> 施術内容・料金</h1>
+                    <p>経験豊富なプロセラピストによる完全個室での極上サービス。お客様のご要望に合わせた多彩なコースをご用意しております。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- サービス概要 -->
+        <div class="container">
+            <div class="pricing-overview">
+                <div class="price-highlight">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-4);">
+                        性機能向上・前立腺開発専門施術
+                    </div>
+                    <p class="price-note">完全受身 | 医療系着衣スタッフ | 現金決済のみ</p>
+                </div>
+                
+                <div class="quick-features">
+                    <div class="quick-feature">
+                        <i class="fas fa-user-md"></i>
+                        <span>医療系着衣</span>
+                    </div>
+                    <div class="quick-feature">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <span>完全受身施術</span>
+                    </div>
+                    <div class="quick-feature">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>性機能向上</span>
+                    </div>
+                    <div class="quick-feature">
+                        <i class="fas fa-users"></i>
+                        <span>2名対応可能</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- アナル開発・前立腺ケア -->
+        <section class="service-category">
+            <div class="container">
+                <div class="category-header">
+                    <h2 class="category-title">アナル・性感帯開発施術</h2>
+                    <p class="category-description">
+                        キャストは医療系着衣（白衣・スクラブ等）で、お客様は完全受身の施術となります。<br>
+                        性機能向上を目的とした前立腺・性感帯開発の施術を行います。<br>
+                        多様な複合的マルチプルオーガズムの追求を目指します。
+                    </p>
+                </div>
+                
+                <!-- 基本料金表 -->
+                <div style="background: white; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); padding: var(--space-8); margin-bottom: var(--space-8);">
+                    <h3 style="text-align: center; color: var(--text-primary); margin-bottom: var(--space-6); font-size: 1.5rem;">基本料金</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-8);">
+                        <div style="text-align: center; padding: var(--space-4); background: var(--light-gray); border-radius: var(--radius-lg);">
+                            <div style="font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-2);">60分</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--accent-purple);">¥15,000</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-4); background: var(--light-gray); border-radius: var(--radius-lg);">
+                            <div style="font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-2);">90分</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--accent-purple);">¥20,000</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-4); background: var(--light-gray); border-radius: var(--radius-lg);">
+                            <div style="font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-2);">120分</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--accent-purple);">¥30,000</div>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: var(--space-1);">睾丸マッサージ追加可能</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--gradient-accent); color: white; padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; margin-bottom: var(--space-6);">
+                        <h4 style="color: white; margin-bottom: var(--space-3);">2名対応</h4>
+                        <div style="display: flex; justify-content: center; gap: var(--space-8); flex-wrap: wrap;">
+                            <div>
+                                <span style="font-size: 1.1rem; font-weight: 600;">90分</span>
+                                <span style="font-size: 1.5rem; font-weight: 800; margin-left: var(--space-2);">¥35,000</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 1.1rem; font-weight: 600;">120分</span>
+                                <span style="font-size: 1.5rem; font-weight: 800; margin-left: var(--space-2);">¥50,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #ff6b6b; color: white; padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; margin-bottom: var(--space-6);">
+                        <strong>【ホテル料金は、通常の1.5倍となります】</strong>
+                    </div>
+                    
+                    <div style="background: var(--light-gray); padding: var(--space-4); border-radius: var(--radius-lg); margin-bottom: var(--space-6);">
+                        <h4 style="color: var(--text-primary); margin-bottom: var(--space-3);">時間延長</h4>
+                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: var(--space-4);">
+                            <div style="text-align: center;">
+                                <div style="font-weight: 600;">30分延長</div>
+                                <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-purple);">¥8,000</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-weight: 600;">2名対応 30分延長</div>
+                                <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-purple);">¥12,000</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); text-align: center; margin: var(--space-2) 0 0;">ご予約の際にお申し込みください（ご希望に添えない場合もあります）</p>
+                    </div>
+                    
+                    <div style="background: var(--gradient-primary); color: white; padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                        <strong>※ご新規様の指名可能　【別途指名料¥2,000】</strong>
+                    </div>
+                </div>
+                
+                <!-- 基本内容詳細 -->
+                <div style="background: white; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); padding: var(--space-8); margin-top: var(--space-8);">
+                    <h3 style="text-align: center; color: var(--text-primary); margin-bottom: var(--space-6); font-size: 1.5rem;">基本内容</h3>
+                    
+                    <div style="background: var(--light-gray); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-6);">
+                        <p style="color: var(--text-secondary); line-height: 1.8; margin: 0;">
+                            基本内容はアナル・性感帯開発の施術となります<br>
+                            前立腺開発・拡張・Pバン・複数回ウェット<br>
+                            ドライオーガズム・エナジーオーガズム etc<br>
+                            多様な複合的マルチプルオーガズムの追求
+                        </p>
+                    </div>
+                    
+                    <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                        <p style="margin: 0; color: #856404;">
+                            <strong>120分コース</strong>：基本内容 ＋ 睾丸マッサージ<br>
+                            <small>※基本内容のみも可能</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Мフェチ性感コース -->
+        <section class="service-category">
+            <div class="container">
+                <div class="category-header">
+                    <h2 class="category-title">Мフェチ性感コース</h2>
+                    <p class="category-description">
+                        キャストは好みの衣装着衣で、お客様は完全受身のプレイとなります。<br>
+                        M性感プレイをはじめとし、フェティッシュプレイ、SMテイストなど幅広く対応したコースとなります。
+                    </p>
+                </div>
+                
+                <!-- Мフェチ性感コース料金表 -->
+                <div style="background: white; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); padding: var(--space-8); margin-bottom: var(--space-8);">
+                    <h3 style="text-align: center; color: var(--text-primary); margin-bottom: var(--space-6); font-size: 1.5rem;">基本料金</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-8);">
+                        <div style="text-align: center; padding: var(--space-4); background: var(--light-gray); border-radius: var(--radius-lg);">
+                            <div style="font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-2);">60分</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--accent-purple);">¥15,000</div>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: var(--space-1);">※ワンフェチプレイのみ対応</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-4); background: var(--light-gray); border-radius: var(--radius-lg);">
+                            <div style="font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-2);">90分</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--accent-purple);">¥20,000</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-4); background: var(--light-gray); border-radius: var(--radius-lg);">
+                            <div style="font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-2);">120分</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--accent-purple);">¥30,000</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--gradient-accent); color: white; padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; margin-bottom: var(--space-6);">
+                        <h4 style="color: white; margin-bottom: var(--space-3);">3Pプレイ</h4>
+                        <div style="display: flex; justify-content: center; gap: var(--space-8); flex-wrap: wrap;">
+                            <div>
+                                <span style="font-size: 1.1rem; font-weight: 600;">90分</span>
+                                <span style="font-size: 1.5rem; font-weight: 800; margin-left: var(--space-2);">¥35,000</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 1.1rem; font-weight: 600;">120分</span>
+                                <span style="font-size: 1.5rem; font-weight: 800; margin-left: var(--space-2);">¥50,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--light-gray); padding: var(--space-4); border-radius: var(--radius-lg); margin-bottom: var(--space-6);">
+                        <h4 style="color: var(--text-primary); margin-bottom: var(--space-3);">オプション</h4>
+                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: var(--space-4);">
+                            <div style="text-align: center;">
+                                <div style="font-weight: 600;">聖水</div>
+                                <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-purple);">¥2,000</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-weight: 600;">カップル（男女ペア）</div>
+                                <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-purple);">¥5,000</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #ff6b6b; color: white; padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; margin-bottom: var(--space-6);">
+                        <strong>【ホテル料金は、通常の1.5倍となります】</strong>
+                    </div>
+                    
+                    <div style="background: var(--light-gray); padding: var(--space-4); border-radius: var(--radius-lg); margin-bottom: var(--space-6);">
+                        <h4 style="color: var(--text-primary); margin-bottom: var(--space-3);">時間延長</h4>
+                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: var(--space-4);">
+                            <div style="text-align: center;">
+                                <div style="font-weight: 600;">30分延長</div>
+                                <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-purple);">¥8,000</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-weight: 600;">3P 30分延長</div>
+                                <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-purple);">¥12,000</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); text-align: center; margin: var(--space-2) 0 0;">ご予約の際にお申し込みください（ご希望に添えない場合もあります）</p>
+                    </div>
+                    
+                    <div style="background: var(--gradient-primary); color: white; padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                        <strong>60分コースはお好みのフェチを一つ、申込みの際にお伝えください</strong>
+                    </div>
+                </div>
+                
+                <!-- 基本内容詳細 -->
+                <div style="background: white; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); padding: var(--space-8); margin-top: var(--space-8);">
+                    <h3 style="text-align: center; color: var(--text-primary); margin-bottom: var(--space-6); font-size: 1.5rem;">基本内容</h3>
+                    
+                    <div style="background: var(--light-gray); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-4);">
+                        <p style="color: var(--text-secondary); line-height: 1.8; margin: 0 0 var(--space-4);">
+                            <strong>基本内容：</strong>カウンセリング (初回の方は会員登録含む)
+                        </p>
+                        
+                        <div style="margin-bottom: var(--space-4);">
+                            <h4 style="color: var(--text-primary); margin-bottom: var(--space-2);">Ｍ性感プレイ</h4>
+                            <p style="color: var(--text-secondary); margin: 0;">
+                                目隠し / 言葉責め / 乳首責め / アナル責め etc.
+                            </p>
+                        </div>
+                        
+                        <div style="margin-bottom: var(--space-4);">
+                            <h4 style="color: var(--text-primary); margin-bottom: var(--space-2);">Ｍプレイ</h4>
+                            <p style="color: var(--text-secondary); margin: 0;">
+                                鞭 / スパンキング / 拘束 / 顔面騎乗 etc.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: var(--text-primary); margin-bottom: var(--space-2);">フェチプレイ</h4>
+                            <p style="color: var(--text-secondary); margin: 0;">
+                                脚 / 匂い / 体液 etc. フェティッシュプレイ<br>
+                                対応キャストの得意とするプレイ
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                        <p style="margin: 0; color: #856404;">
+                            <strong>60分コース</strong>：ワンフェチプレイのみ対応<br>
+                            <small>お好みのフェチを一つ、申込みの際にお伝えください</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 割引キャンペーン -->
+        <div class="container">
+            <div class="discount-banner">
+                <div class="discount-content">
+                    <h3><i class="fas fa-graduation-cap"></i> 研修コース特別価格</h3>
+                    <div class="discount-details">
+                        師範セラピスト + 新人セラピスト2名の研修コースを<br>
+                        <strong>通常料金より10%オフ</strong>でご提供
+                    </div>
+                    <p style="font-size: 0.9rem; opacity: 0.9;">
+                        ※新人セラピストの技術向上にご協力いただけるお客様限定
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 追加情報 -->
+        <section class="additional-info">
+            <div class="container">
+                <h2 class="section-title">サービス詳細情報</h2>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <i class="fas fa-shield-virus"></i>
+                        <h3>完全衛生管理</h3>
+                        <p>医療レベルの消毒・滅菌を実施。使い捨て器具使用で安全性を確保しています。</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <i class="fas fa-user-md"></i>
+                        <h3>経験豊富なスタッフ</h3>
+                        <p>専門知識と技術を持つ経験豊富なスタッフが、お客様に最高の体験をご提供いたします。</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <i class="fas fa-lock"></i>
+                        <h3>プライバシー保護</h3>
+                        <p>完全個室・完全予約制で、お客様のプライバシーを最大限に配慮いたします。</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <i class="fas fa-headset"></i>
+                        <h3>アフターサポート</h3>
+                        <p>施術後のケア方法や日常のメンテナンスについて丁寧にアドバイスいたします。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 利用規約・注意事項 -->
+        <section class="terms-conditions">
+            <div class="container">
+                <h2 class="section-title">ご利用時の注意事項</h2>
+                
+                <div class="terms-grid">
+                    <div class="terms-item">
+                        <h4><i class="fas fa-calendar-times"></i> 予約・キャンセル</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li>• 完全予約制（当日予約不可）</li>
+                            <li>• キャンセルは24時間前まで</li>
+                            <li>• 無断キャンセルは以後お断り</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="terms-item">
+                        <h4><i class="fas fa-money-bill-wave"></i> お支払い</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li>• 現金決済のみ</li>
+                            <li>• 事前お支払い</li>
+                            <li>• 領収書発行可能</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="terms-item">
+                        <h4><i class="fas fa-user-check"></i> 身分確認</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li>• Google Forms事前登録</li>
+                            <li>• 身分証明書確認</li>
+                            <li>• 18歳未満利用不可</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="terms-item">
+                        <h4><i class="fas fa-thermometer-half"></i> 健康チェック</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li>• 体調不良時は利用不可</li>
+                            <li>• 感染症対策徹底</li>
+                            <li>• 健康状態確認シート記入</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA セクション -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>極上の癒し体験をお試しください</h2>
+                    <p>
+                        経験豊富なプロセラピストが、完全個室であなただけの特別な時間をお約束いたします。<br>
+                        まずは予約の流れをご確認ください。
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="index.html#booking-flow" class="btn btn-primary btn-large">
+                            <i class="fas fa-calendar-check"></i>
+                            予約の流れを見る
+                        </a>
+                        <a href="https://twitter.com/ainaru_massage" target="_blank" class="btn btn-secondary btn-large">
+                            <i class="fab fa-twitter"></i>
+                            公式Xをフォロー
+                        </a>
+                    </div>
+                    <p style="margin-top: var(--space-6); font-size: 0.95rem; opacity: 0.8;">
+                        <i class="fas fa-shield-alt"></i> 1日1組限定・完全予約制・現金決済のみ
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <div id="unified-footer"></div>
+    
+    <script>
+        // 統一ヘッダー・フッターを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerContainer = document.getElementById('unified-header');
+            if (headerContainer) {
+                headerContainer.innerHTML = generateUnifiedHeader('services.html');
+            }
+            
+            const footerContainer = document.getElementById('unified-footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = generateUnifiedFooter();
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+    <script>
+        function checkAgeVerification() {
+            const ageVerified = sessionStorage.getItem('ageVerified');
+            const verifiedTime = sessionStorage.getItem('ageVerifiedTime');
+            
+            if (!ageVerified || ageVerified !== 'true') {
+                window.location.href = 'age-verification.html';
+                return false;
+            }
+            
+            if (verifiedTime) {
+                const hoursSinceVerification = (new Date().getTime() - parseInt(verifiedTime)) / (1000 * 60 * 60);
+                if (hoursSinceVerification >= 24) {
+                    sessionStorage.removeItem('ageVerified');
+                    sessionStorage.removeItem('ageVerifiedTime');
+                    window.location.href = 'age-verification.html';
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        window.addEventListener('load', function() {
+            checkAgeVerification();
+        });
+    </script>
+</body>
+</html>

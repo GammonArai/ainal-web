@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# 重要ページの優先度指定
+Allow: /index.html
+Allow: /services.html
+Allow: /hotels.html
+Allow: /therapists.html
+Allow: /safety.html
+Allow: /column.html
+
+# 管理ページとプライベートページはクロール禁止
+Disallow: /admin.html
+Disallow: /admin-*.html
+Disallow: /backend/
+Disallow: /database/
+Disallow: /scripts/
+Disallow: /logs/
+Disallow: /.env
+Disallow: /package.json
+Disallow: /package-lock.json
+
+# 年齢確認ページはクロール対象外
+Disallow: /age-verification.html
+
+# サイトマップの場所
+Sitemap: https://ainaru-massage.com/sitemap.xml
+
+# クロール頻度制限（サーバー負荷軽減）
+Crawl-delay: 1

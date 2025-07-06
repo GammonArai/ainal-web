@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お客様の声 - 愛なるマッサージ</title>
+    <meta name="description" content="愛なるマッサージをご利用いただいたお客様からの評価とレビューをご覧ください。安心してサービスをお選びいただけます。">
+    <meta name="keywords" content="マッサージ,レビュー,評価,口コミ,お客様の声,福岡,出張マッサージ">
+    
+    <!-- PWAマニフェスト -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- PWAメタタグ -->
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="愛なるマッサージ">
+    
+    <!-- アプリアイコン -->
+    <link rel="apple-touch-icon" href="/images/icon-192x192.png">
+    <link rel="shortcut icon" href="/images/icon-192x192.png">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link rel="stylesheet" href="pwa-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="i18n/translations.js"></script>
+    <script src="language-selector.js"></script>
+    <script src="site-config.js"></script>
+    
+    <style>
+        .reviews-hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--space-16) 0 var(--space-12);
+            text-align: center;
+        }
+        
+        .reviews-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-4);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .reviews-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .reviews-stats {
+            background: white;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-lg);
+            padding: var(--space-8);
+            margin: -3rem auto var(--space-12);
+            max-width: 800px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-6);
+            text-align: center;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-purple);
+            margin-bottom: var(--space-1);
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 2px;
+            margin: var(--space-2) 0;
+        }
+        
+        .star {
+            color: #fbbf24;
+            font-size: 1.2rem;
+        }
+        
+        .star.empty {
+            color: #e5e7eb;
+        }
+        
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+        
+        .reviews-filters {
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            align-items: center;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .filter-select,
+        .filter-input {
+            padding: var(--space-2) var(--space-4);
+            border: 1px solid var(--border-gray);
+            border-radius: var(--radius-lg);
+            font-size: 0.9rem;
+        }
+        
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-12);
+        }
+        
+        .review-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-6);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .review-card.featured {
+            border: 2px solid var(--accent-purple);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, white 100%);
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--accent-purple);
+            color: white;
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+        
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .reviewer-info h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .review-date {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        
+        .review-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+        }
+        
+        .review-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-4);
+        }
+        
+        .review-ratings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            padding: var(--space-4);
+            background: var(--light-gray);
+            border-radius: var(--radius-lg);
+        }
+        
+        .rating-item {
+            text-align: center;
+        }
+        
+        .rating-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-1);
+        }
+        
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+        }
+        
+        .rating-stars .star {
+            font-size: 0.9rem;
+        }
+        
+        .review-photos {
+            display: flex;
+            gap: var(--space-2);
+            margin-bottom: var(--space-4);
+            overflow-x: auto;
+        }
+        
+        .review-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .review-photo:hover {
+            transform: scale(1.1);
+        }
+        
+        .review-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--border-gray);
+        }
+        
+        .helpful-votes {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+        
+        .helpful-btn {
+            background: none;
+            border: 1px solid var(--border-gray);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2) var(--space-3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .helpful-btn:hover {
+            background: var(--light-gray);
+        }
+        
+        .helpful-btn.voted {
+            background: var(--accent-purple);
+            color: white;
+            border-color: var(--accent-purple);
+        }
+        
+        .report-btn {
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: var(--space-2);
+        }
+        
+        .report-btn:hover {
+            color: #ef4444;
+        }
+        
+        .load-more-btn {
+            display: block;
+            margin: var(--space-8) auto;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-xl);
+            padding: var(--space-4) var(--space-8);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .load-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .load-more-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .write-review-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .write-review-fab:hover {
+            transform: scale(1.1);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: var(--space-16);
+            color: var(--text-muted);
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: var(--space-4);
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .reviews-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .reviews-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                justify-content: space-between;
+            }
+            
+            .write-review-fab {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body class="modern-massage">
+    <!-- ヘッダー -->
+    <div id="unified-header"></div>
+    
+    <!-- ヒーローセクション -->
+    <section class="reviews-hero">
+        <div class="container">
+            <h1>お客様の声</h1>
+            <p>愛なるマッサージをご利用いただいたお客様からの貴重なご意見・ご感想をご紹介します</p>
+        </div>
+    </section>
+
+    <!-- 統計情報 -->
+    <div class="container">
+        <div class="reviews-stats">
+            <div class="stats-grid" id="reviewStats">
+                <!-- JavaScriptで動的に生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <main class="reviews-container">
+        <!-- フィルター -->
+        <div class="reviews-filters">
+            <div class="filter-group">
+                <label for="serviceFilter">サービス:</label>
+                <select id="serviceFilter" class="filter-select">
+                    <option value="">すべて</option>
+                    <option value="massage">マッサージ</option>
+                    <option value="scrub">アカスリ</option>
+                    <option value="combination">コンビネーション</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="ratingFilter">評価:</label>
+                <select id="ratingFilter" class="filter-select">
+                    <option value="">すべて</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★☆ 以上</option>
+                    <option value="3">★★★☆☆ 以上</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="sortFilter">並び順:</label>
+                <select id="sortFilter" class="filter-select">
+                    <option value="created_at-desc">新しい順</option>
+                    <option value="created_at-asc">古い順</option>
+                    <option value="rating-desc">評価の高い順</option>
+                    <option value="helpful_count-desc">参考になった順</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>
+                    <input type="checkbox" id="featuredFilter"> 特集レビューのみ
+                </label>
+            </div>
+        </div>
+
+        <!-- レビュー一覧 -->
+        <div class="reviews-grid" id="reviewsGrid">
+            <!-- JavaScriptで動的に生成 -->
+        </div>
+
+        <!-- 読み込みボタン -->
+        <button class="load-more-btn" id="loadMoreBtn" style="display: none;">
+            さらに読み込む
+        </button>
+
+        <!-- 空の状態 -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-comments"></i>
+            <h3>レビューがありません</h3>
+            <p>まだレビューが投稿されていません。<br>最初のレビューを投稿してみませんか？</p>
+        </div>
+    </main>
+
+    <!-- フローティングアクションボタン -->
+    <button class="write-review-fab" onclick="openReviewModal()" title="レビューを書く">
+        <i class="fas fa-pen"></i>
+    </button>
+
+    <!-- PWA UI要素 -->
+    <!-- <div id="pwa-status"></div> オンライン表示削除 -->
+    <button id="install-app-btn">アプリをインストール</button>
+
+    <!-- PWA初期化 -->
+    <script src="pwa-init.js"></script>
+    <script src="performance-optimizer.js"></script>
+    
+    <script>
+        // グローバル変数
+        let currentPage = 1;
+        let isLoading = false;
+        let hasMore = true;
+        let currentFilters = {};
+
+        // ページ初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 統一ヘッダー読み込み
+            const headerContainer = document.getElementById('unified-header');
+            if (headerContainer) {
+                headerContainer.innerHTML = generateUnifiedHeader('reviews.html');
+            }
+
+            // 初期データ読み込み
+            loadReviewStatistics();
+            loadReviews();
+
+            // フィルターイベント設定
+            setupFilterEvents();
+
+            // Performance Optimizer初期化
+            if (window.PerformanceOptimizer) {
+                const optimizer = new PerformanceOptimizer();
+            }
+        });
+
+        // フィルターイベント設定
+        function setupFilterEvents() {
+            const filters = ['serviceFilter', 'ratingFilter', 'sortFilter', 'featuredFilter'];
+            
+            filters.forEach(filterId => {
+                const element = document.getElementById(filterId);
+                if (element) {
+                    element.addEventListener('change', () => {
+                        resetAndLoadReviews();
+                    });
+                }
+            });
+
+            // 読み込みボタン
+            document.getElementById('loadMoreBtn').addEventListener('click', loadMoreReviews);
+        }
+
+        // レビュー統計読み込み
+        async function loadReviewStatistics() {
+            try {
+                const response = await fetch('/api/v1/reviews/statistics');
+                const data = await response.json();
+
+                if (data.success && data.statistics.length > 0) {
+                    displayStatistics(data.statistics[0]);
+                }
+            } catch (error) {
+                console.error('Failed to load review statistics:', error);
+            }
+        }
+
+        // 統計表示
+        function displayStatistics(stats) {
+            const container = document.getElementById('reviewStats');
+            
+            container.innerHTML = `
+                <div class="stat-item">
+                    <div class="stat-value">${stats.total_reviews}</div>
+                    <div class="stat-label">総レビュー数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${stats.average_rating?.toFixed(1) || '0.0'}</div>
+                    <div class="star-rating">
+                        ${generateStarRating(stats.average_rating || 0)}
+                    </div>
+                    <div class="stat-label">平均評価</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${stats.total_therapist_rating?.toFixed(1) || '0.0'}</div>
+                    <div class="stat-label">セラピスト評価</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${stats.total_service_rating?.toFixed(1) || '0.0'}</div>
+                    <div class="stat-label">サービス評価</div>
+                </div>
+            `;
+        }
+
+        // レビュー読み込み
+        async function loadReviews(append = false) {
+            if (isLoading) return;
+            
+            isLoading = true;
+            
+            try {
+                const params = new URLSearchParams({
+                    page: currentPage,
+                    limit: 12,
+                    ...getCurrentFilters()
+                });
+
+                const response = await fetch(`/api/v1/reviews?${params}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    displayReviews(data.reviews, append);
+                    
+                    hasMore = data.reviews.length === 12;
+                    updateLoadMoreButton();
+                    
+                    if (data.reviews.length === 0 && currentPage === 1) {
+                        showEmptyState();
+                    } else {
+                        hideEmptyState();
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load reviews:', error);
+            } finally {
+                isLoading = false;
+            }
+        }
+
+        // フィルター取得
+        function getCurrentFilters() {
+            const filters = {};
+            
+            const serviceType = document.getElementById('serviceFilter').value;
+            if (serviceType) filters.service_type = serviceType;
+            
+            const rating = document.getElementById('ratingFilter').value;
+            if (rating) filters.min_rating = rating;
+            
+            const featured = document.getElementById('featuredFilter').checked;
+            if (featured) filters.featured = 'true';
+            
+            const sort = document.getElementById('sortFilter').value.split('-');
+            if (sort.length === 2) {
+                filters.sort_by = sort[0];
+                filters.sort_order = sort[1];
+            }
+            
+            return filters;
+        }
+
+        // レビューリセット&読み込み
+        function resetAndLoadReviews() {
+            currentPage = 1;
+            hasMore = true;
+            document.getElementById('reviewsGrid').innerHTML = '';
+            loadReviews();
+        }
+
+        // さらに読み込み
+        function loadMoreReviews() {
+            if (hasMore && !isLoading) {
+                currentPage++;
+                loadReviews(true);
+            }
+        }
+
+        // レビュー表示
+        function displayReviews(reviews, append = false) {
+            const container = document.getElementById('reviewsGrid');
+            
+            if (!append) {
+                container.innerHTML = '';
+            }
+            
+            reviews.forEach(review => {
+                const reviewCard = createReviewCard(review);
+                container.appendChild(reviewCard);
+            });
+        }
+
+        // レビューカード作成
+        function createReviewCard(review) {
+            const card = document.createElement('div');
+            card.className = `review-card ${review.is_featured ? 'featured' : ''}`;
+            
+            const userInitial = review.user_name ? review.user_name.charAt(0).toUpperCase() : '?';
+            const reviewDate = new Date(review.created_at).toLocaleDateString('ja-JP');
+            
+            card.innerHTML = `
+                ${review.is_featured ? '<div class="featured-badge">特集</div>' : ''}
+                
+                <div class="review-header">
+                    <div class="reviewer-avatar">${userInitial}</div>
+                    <div class="reviewer-info">
+                        <h3>${review.user_name || '匿名ユーザー'}</h3>
+                        <div class="review-date">${reviewDate}</div>
+                    </div>
+                    <div class="star-rating">
+                        ${generateStarRating(review.rating)}
+                    </div>
+                </div>
+
+                ${review.title ? `<h4 class="review-title">${escapeHtml(review.title)}</h4>` : ''}
+                
+                <div class="review-content">
+                    ${escapeHtml(review.comment || '')}
+                </div>
+
+                ${generateDetailedRatings(review)}
+                
+                ${generateReviewPhotos(review.photos)}
+
+                <div class="review-actions">
+                    <div class="helpful-votes">
+                        <button class="helpful-btn" onclick="voteHelpful(${review.id}, true)">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>参考になった (${review.helpful_count || 0})</span>
+                        </button>
+                    </div>
+                    <button class="report-btn" onclick="reportReview(${review.id})">
+                        <i class="fas fa-flag"></i> 通報
+                    </button>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // 詳細評価生成
+        function generateDetailedRatings(review) {
+            const ratings = [
+                { label: 'セラピスト', value: review.therapist_rating },
+                { label: 'サービス', value: review.service_rating },
+                { label: 'コスパ', value: review.value_rating },
+                { label: '清潔感', value: review.cleanliness_rating },
+                { label: 'コミュニケーション', value: review.communication_rating }
+            ].filter(rating => rating.value);
+
+            if (ratings.length === 0) return '';
+
+            return `
+                <div class="review-ratings">
+                    ${ratings.map(rating => `
+                        <div class="rating-item">
+                            <div class="rating-label">${rating.label}</div>
+                            <div class="rating-stars">
+                                ${generateStarRating(rating.value)}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // レビュー写真生成
+        function generateReviewPhotos(photos) {
+            if (!photos || photos.length === 0) return '';
+
+            return `
+                <div class="review-photos">
+                    ${photos.map(photo => `
+                        <img src="/uploads/reviews/${photo.filename}" 
+                             alt="レビュー写真"
+                             class="review-photo"
+                             onclick="openPhotoModal('${photo.filename}')">
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // 星評価生成
+        function generateStarRating(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+            return `
+                ${'<i class="fas fa-star star"></i>'.repeat(fullStars)}
+                ${hasHalfStar ? '<i class="fas fa-star-half-alt star"></i>' : ''}
+                ${'<i class="far fa-star star empty"></i>'.repeat(emptyStars)}
+            `;
+        }
+
+        // ヘルプフル投票
+        async function voteHelpful(reviewId, isHelpful) {
+            try {
+                const response = await fetch(`/api/v1/reviews/${reviewId}/helpful`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ is_helpful: isHelpful })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // UI更新（投票ボタンを無効化など）
+                    showMessage('投票ありがとうございます', 'success');
+                    setTimeout(() => {
+                        resetAndLoadReviews();
+                    }, 1000);
+                } else {
+                    showMessage(data.message || '投票に失敗しました', 'error');
+                }
+            } catch (error) {
+                console.error('Failed to vote:', error);
+                showMessage('投票に失敗しました', 'error');
+            }
+        }
+
+        // レビュー通報
+        async function reportReview(reviewId) {
+            const reason = prompt('通報理由を選択してください:\\n1: スパム\\n2: 不適切な内容\\n3: 偽のレビュー\\n4: 嫌がらせ\\n5: その他');
+            
+            const reasons = {
+                '1': 'spam',
+                '2': 'inappropriate', 
+                '3': 'fake',
+                '4': 'harassment',
+                '5': 'other'
+            };
+
+            if (!reasons[reason]) return;
+
+            try {
+                const response = await fetch(`/api/v1/reviews/${reviewId}/report`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ reason: reasons[reason] })
+                });
+
+                const data = await response.json();
+                showMessage(data.message || '通報を受け付けました', data.success ? 'success' : 'error');
+            } catch (error) {
+                console.error('Failed to report:', error);
+                showMessage('通報に失敗しました', 'error');
+            }
+        }
+
+        // 読み込みボタン更新
+        function updateLoadMoreButton() {
+            const btn = document.getElementById('loadMoreBtn');
+            btn.style.display = hasMore ? 'block' : 'none';
+            btn.disabled = isLoading;
+            btn.textContent = isLoading ? '読み込み中...' : 'さらに読み込む';
+        }
+
+        // 空の状態表示/非表示
+        function showEmptyState() {
+            document.getElementById('emptyState').style.display = 'block';
+        }
+
+        function hideEmptyState() {
+            document.getElementById('emptyState').style.display = 'none';
+        }
+
+        // レビューモーダル開く
+        function openReviewModal() {
+            // レビュー投稿ページにリダイレクト
+            window.location.href = '/write-review.html';
+        }
+
+        // 写真モーダル開く
+        function openPhotoModal(filename) {
+            // 写真拡大表示
+            const modal = document.createElement('div');
+            modal.className = 'photo-modal';
+            modal.innerHTML = `
+                <div class="photo-modal-overlay" onclick="this.parentElement.remove()">
+                    <img src="/uploads/reviews/${filename}" alt="レビュー写真" style="max-width: 90%; max-height: 90%; object-fit: contain;">
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // ユーティリティ関数
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showMessage(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+
+    <style>
+        .photo-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            cursor: pointer;
+        }
+
+        .photo-modal-overlay {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            background: white;
+            color: var(--text-primary);
+            padding: var(--space-4) var(--space-6);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            z-index: 2000;
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.toast-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .toast.toast-error {
+            background: #ef4444;
+            color: white;
+        }
+    </style>
+</body>
+</html>

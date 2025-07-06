@@ -1,0 +1,36 @@
+{
+  "hotels": [
+    {
+      "id": 1,
+      "name": "ホテルサンライズ中洲",
+      "area": "中洲",
+      "address": "福岡市博多区中洲4-6-12",
+      "image": "/images/sunrise-nakasu.jpg",
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "ホテルムーンサイド中洲",
+      "area": "中洲",
+      "address": "福岡市博多区中洲5-2-18",
+      "image": "/images/moonside-nakasu.jpg",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "ホテルスターライト中洲",
+      "area": "中洲",
+      "address": "福岡市博多区中洲3-7-24",
+      "image": "/images/starlight-nakasu.jpg",
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "ホテルプラチナ中洲",
+      "area": "中洲",
+      "address": "福岡市博多区中洲4-3-15",
+      "image": "/images/platinum-nakasu.jpg",
+      "available": true
+    }
+  ]
+}

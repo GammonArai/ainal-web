@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康コラム | 愛なるマッサージ</title>
+    <meta name="description" content="愛なるマッサージの健康コラム。マッサージ、アカスリの効果や健康に関する情報を専門セラピストがお届けします。">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="site-config.js"></script>
+    <style>
+        .page-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.05)"/><circle cx="900" cy="250" r="80" fill="rgba(255,255,255,0.03)"/></svg>');
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-header-content h1 {
+            margin-bottom: var(--space-6);
+        }
+        
+        .page-header-content p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0;
+            padding: var(--space-4) var(--space-6);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* コラム一覧表示用 */
+        .column-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-12);
+        }
+        
+        .column-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .column-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .column-image {
+            height: 160px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .column-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-placeholder {
+            color: var(--text-muted);
+            font-size: 2rem;
+        }
+        
+        .column-content {
+            padding: var(--space-6);
+        }
+        
+        .column-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .column-category {
+            background: var(--gradient-accent);
+            color: white;
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .column-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            line-height: 1.4;
+        }
+        
+        .column-excerpt {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-4);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .read-more {
+            color: var(--accent-purple);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        .read-more:hover {
+            color: var(--accent-cyan);
+        }
+        
+        /* 記事全文表示用 */
+        .article-view {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            margin-top: var(--space-12);
+        }
+        
+        .article-header {
+            position: relative;
+            height: 300px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .article-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .article-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: var(--space-8);
+        }
+        
+        .article-body {
+            padding: var(--space-8);
+        }
+        
+        .article-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+            line-height: 1.3;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--border-gray);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        .article-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: var(--text-primary);
+            margin: var(--space-8) 0 var(--space-4);
+        }
+        
+        .article-content h1 { font-size: 1.8rem; }
+        .article-content h2 { font-size: 1.5rem; }
+        .article-content h3 { font-size: 1.3rem; }
+        
+        .article-content p {
+            margin-bottom: var(--space-4);
+        }
+        
+        .article-content ul, .article-content ol {
+            margin: var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+        
+        .article-content li {
+            margin-bottom: var(--space-2);
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid var(--accent-purple);
+            padding-left: var(--space-4);
+            margin: var(--space-6) 0;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+        
+        .article-content code {
+            background: var(--light-gray);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-sm);
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .back-to-list {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: var(--space-6);
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-list:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        @media (max-width: 768px) {
+            .column-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+            
+            .article-header {
+                height: 200px;
+            }
+            
+            .article-body {
+                padding: var(--space-6);
+            }
+            
+            .article-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body class="modern-massage">
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><i class="fas fa-spa"></i> 愛なるマッサージ</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="hotels.html" class="nav-link">対応可能ホテル</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="services.html" class="nav-link">施術内容</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="therapists.html" class="nav-link">施術者紹介</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="safety.html" class="nav-link">感染対策</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="manga.html" class="nav-link">施術イメージ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="column.html" class="nav-link active">健康コラム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="recruit.html" class="nav-link">求人情報</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ページヘッダー -->
+        <section class="page-header">
+            <div class="page-header-content">
+                <div class="container">
+                    <h1 style="font-size: 3rem; font-weight: 800;">
+                        健康コラム
+                    </h1>
+                    <p>
+                        専門セラピストが、マッサージ・アカスリの効果や<br>
+                        日常の健康管理について詳しく解説いたします
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- コラム一覧 -->
+        <section id="column-list" class="section">
+            <div class="container">
+                <div class="column-grid" id="column-grid">
+                    <!-- JavaScriptで動的生成 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 記事表示エリア -->
+        <section id="article-view" class="article-view">
+            <div class="container">
+                <a href="#" class="back-to-list" onclick="showColumnList()">
+                    <i class="fas fa-arrow-left"></i>
+                    コラム一覧に戻る
+                </a>
+                
+                <div class="article-header" id="article-header">
+                    <div class="article-overlay">
+                        <div class="article-meta" id="article-meta-overlay">
+                            <!-- 記事メタ情報 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="article-body">
+                    <h1 class="article-title" id="article-title"></h1>
+                    <div class="article-meta" id="article-meta">
+                        <!-- 記事メタ情報 -->
+                    </div>
+                    <div class="article-content" id="article-content">
+                        <!-- マークダウン記事内容 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <div id="unified-footer"></div>
+    
+    <script>
+        // 統一フッターを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerContainer = document.getElementById('unified-footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = generateUnifiedFooter();
+            }
+        });
+    </script>
+
+    <script>
+        // 記事データと動的読み込み関数
+        let columnData = [];
+        
+        // 記事一覧を読み込み
+        async function loadArticleList() {
+            try {
+                const response = await fetch('articles/articles.json');
+                const articles = await response.json();
+                columnData = articles;
+                renderColumnGrid();
+            } catch (error) {
+                console.error('記事一覧の読み込みに失敗しました:', error);
+                // フォールバック用のサンプルデータ
+                columnData = [
+            {
+                id: 1,
+                title: "マッサージがもたらす心身への効果",
+                category: "マッサージ効果",
+                excerpt: "現代社会でストレスを抱える方々に、マッサージがどのような心身への効果をもたらすのかを科学的根拠と共に詳しく解説します。",
+                author: "田中美香",
+                date: "2025-01-20",
+                image: "images/massage-effects-main.jpg",
+                content: `# マッサージがもたらす心身への効果
+
+現代社会では多くの人がストレスや疲労に悩まされています。そんな中、マッサージは単なるリラクゼーションを超えた、科学的に証明された健康効果をもたらします。
+
+## 身体への効果
+
+### 血液循環の改善
+マッサージによる適度な圧力は、血管を刺激し血流を促進します。これにより：
+
+- 筋肉への酸素供給が増加
+- 老廃物の排出が促進
+- 新陳代謝の向上
+- 冷え性の改善
+
+### 筋肉の緊張緩和
+デスクワークや日常生活で蓄積された筋肉の緊張を効果的に和らげます。
+
+> 「マッサージ後の筋肉の柔軟性向上は、施術から48時間後まで持続することが研究で確認されています」
+
+## 精神への効果
+
+### ストレス軽減
+マッサージは副交感神経を刺激し、リラックス状態を促進します。これにより：
+
+- コルチゾール（ストレスホルモン）の減少
+- セロトニンの分泌促進
+- 深い睡眠の促進
+- 不安感の軽減
+
+### 心理的ウェルビーイングの向上
+定期的なマッサージは、自己肯定感や幸福感の向上にも寄与します。
+
+## 当店でのマッサージ体験
+
+愛なるマッサージでは、これらの科学的効果を最大限に引き出すため：
+
+1. **個人に合わせた施術**: お客様の体調や希望に応じてカスタマイズ
+2. **経験豊富なセラピスト**: 解剖学的知識に基づいた確かな技術
+3. **清潔な環境**: 安心してリラックスできる衛生管理
+
+## まとめ
+
+マッサージは一時的な気持ち良さだけでなく、長期的な健康維持に重要な役割を果たします。定期的な施術により、心身のバランスを整え、より豊かな日常生活を送ることができます。
+
+**次回のご予約は、[予約の流れ](index.html#booking-flow)をご確認ください。**`
+            },
+            {
+                id: 2,
+                title: "アカスリで実現する美肌効果とその科学",
+                category: "美容効果",
+                excerpt: "韓国伝統のアカスリ技術が、なぜ美肌効果をもたらすのか。その科学的メカニズムと適切な施術方法について専門的に解説します。",
+                author: "佐藤恵子",
+                date: "2025-01-18",
+                image: "images/korean-scrub.jpg",
+                content: `# アカスリで実現する美肌効果とその科学
+
+アカスリは韓国の伝統的な美容法として知られていますが、その効果は科学的にも証明されています。古い角質を除去することで得られる美肌効果について詳しく解説します。
+
+## アカスリの基本原理
+
+### 角質層のターンオーバー促進
+正常な肌のターンオーバーは約28日ですが、年齢とともに遅くなります。アカスリによる物理的な刺激は：
+
+- 古い角質の効率的な除去
+- 新しい細胞の生成促進
+- 肌の自然な更新サイクルの正常化
+
+### 血行促進による栄養供給
+施術中の摩擦により皮膚の血流が促進され：
+
+- 細胞への栄養素の供給増加
+- 老廃物の排出促進
+- 肌の自然な治癒力の向上
+
+## 期待できる美容効果
+
+### 1. 肌の透明感向上
+古い角質が除去されることで：
+- くすみの改善
+- 肌のトーンアップ
+- 自然な輝きの回復
+
+### 2. 毛穴の詰まり解消
+- 黒ずみの除去
+- 毛穴の引き締め
+- ニキビ予防効果
+
+### 3. 保湿効果の向上
+角質層が整うことで：
+- 化粧品の浸透力向上
+- 水分保持力の改善
+- バリア機能の強化
+
+## 当店のアカスリ技術
+
+### 韓国伝統技法
+経験豊富なセラピストが、本場韓国の技術を忠実に再現：
+
+1. **適切な圧力**: 肌を傷つけない絶妙な力加減
+2. **温度管理**: 毛穴を開く最適な温度設定
+3. **段階的施術**: 肌の状態に応じた丁寧なアプローチ
+
+### 衛生管理
+- 使い捨てアカスリタオルの使用
+- 医療レベルの消毒・滅菌
+- 個別対応による清潔な環境
+
+## 施術後のケア
+
+アカスリ後の肌は一時的に敏感になるため：
+
+- **24時間以内**: 刺激の強い化粧品は避ける
+- **保湿**: 十分な水分補給と保湿ケア
+- **紫外線対策**: 普段以上に日焼け止めを重視
+
+## 頻度の目安
+
+最適な効果を得るための推奨頻度：
+
+- **初回から1ヶ月**: 2週間に1回
+- **維持期**: 月1回程度
+- **個人差**: 肌質や年齢により調整
+
+> 「定期的なアカスリにより、肌の水分量が平均20%向上することが当店の調査で確認されています」
+
+## まとめ
+
+アカスリは単なる角質除去以上の効果をもたらす、科学的根拠に基づいた美容法です。適切な技術と衛生管理のもとで行われる施術により、健康で美しい肌を実現できます。
+
+**美肌を目指す方は、ぜひ一度お試しください。**`
+            },
+            {
+                id: 3,
+                title: "デスクワーカーのための疲労回復法",
+                category: "健康管理",
+                excerpt: "長時間のデスクワークで蓄積される疲労を効果的に回復する方法を、専門セラピストの視点から実践的にアドバイスします。",
+                author: "山田智子",
+                date: "2025-01-15",
+                image: "images/desk-work-relief.jpg",
+                content: `# デスクワーカーのための疲労回復法
+
+現代のオフィスワーカーの多くが長時間のデスクワークにより、様々な身体の不調を抱えています。専門セラピストの視点から、効果的な疲労回復法をご紹介します。
+
+## デスクワーク疲労の特徴
+
+### 主な症状
+- **首・肩の凝り**: 前傾姿勢による筋緊張
+- **腰痛**: 長時間の座位による腰椎への負担
+- **眼精疲労**: 画面凝視による眼筋の疲労
+- **血行不良**: 同一姿勢による循環障害
+
+### 疲労の蓄積メカニズム
+デスクワークでは以下の悪循環が生じます：
+
+1. 長時間の同一姿勢 → 筋肉の硬直
+2. 血流の滞り → 酸素・栄養不足
+3. 老廃物の蓄積 → 疲労物質の残留
+4. 筋肉の機能低下 → さらなる疲労
+
+## 即効性のある回復法
+
+### 簡単ストレッチ（オフィスでも可能）
+
+#### 首・肩の緊張緩和
+\`\`\`
+1. 首を左右にゆっくり傾ける（10秒×3回）
+2. 肩を大きく回す（前後各10回）
+3. 肩甲骨を寄せる動作（5秒キープ×5回）
+\`\`\`
+
+#### 腰痛予防ストレッチ
+\`\`\`
+1. 座ったまま膝を胸に引き寄せる
+2. 椅子を使った腰ひねり
+3. 立ち上がって腰を反らす動作
+\`\`\`
+
+### 血行促進テクニック
+- **足首回し**: 座ったまま足首を回してふくらはぎの血流促進
+- **深呼吸**: 腹式呼吸で全身の血流改善
+- **軽い歩行**: 1時間に1回、3-5分の歩行
+
+## 根本的な改善アプローチ
+
+### 姿勢の最適化
+正しいデスクワーク姿勢：
+
+1. **モニターの高さ**: 目線がやや下向きになる位置
+2. **椅子の調整**: 足裏全体が床につく高さ
+3. **肘の角度**: 90度を保つ
+4. **腰のサポート**: 椅子の背もたれを活用
+
+### ワークステーション改善
+- **エルゴノミクスキーボード**: 手首の負担軽減
+- **足置き台**: 血流改善
+- **クッション**: 腰部サポート強化
+
+## プロフェッショナルケア
+
+### マッサージの効果
+定期的なプロのマッサージにより：
+
+- **深部筋肉の緊張緩和**
+- **血液・リンパ循環の正常化**
+- **自律神経のバランス調整**
+- **ストレス軽減**
+
+### 当店でのアプローチ
+愛なるマッサージでは、デスクワーカー特有の症状に対応：
+
+1. **問診による症状把握**
+2. **個別カスタマイズ施術**
+3. **日常ケアのアドバイス**
+4. **定期メンテナンスプラン**
+
+## 日常生活での予防策
+
+### 生活習慣の改善
+- **定期的な運動**: 週2-3回の有酸素運動
+- **質の良い睡眠**: 7-8時間の充分な休息
+- **栄養バランス**: 筋肉修復に必要な栄養素摂取
+- **水分補給**: 血液の粘度を下げる十分な水分
+
+### メンタルケア
+身体の疲労と精神的ストレスは相互に影響するため：
+
+- **リラクゼーション**: 瞑想や深呼吸の習慣
+- **趣味の時間**: ストレス発散の機会確保
+- **社会的交流**: 孤立感の軽減
+
+## まとめ
+
+デスクワーク疲労は現代人の宿命ですが、適切な対策により大幅に軽減できます。日常の小さなケアとプロフェッショナルなメンテナンスを組み合わせることで、健康的で生産性の高い働き方を実現できます。
+
+**慢性的な疲労にお悩みの方は、お気軽にご相談ください。**`
+            },
+            {
+                id: 4,
+                title: "良質な睡眠を促すマッサージテクニック",
+                category: "睡眠改善",
+                excerpt: "不眠に悩む方必見。マッサージによる睡眠の質向上について、生理学的メカニズムから実践的なセルフケアまで詳しく解説します。",
+                author: "田中美香",
+                date: "2025-01-12",
+                image: "images/sleep-massage.jpg",
+                content: `# 良質な睡眠を促すマッサージテクニック
+
+質の良い睡眠は健康維持の基本ですが、現代人の多くが睡眠に関する悩みを抱えています。マッサージがどのように睡眠の質を向上させるのか、科学的根拠と実践法をご紹介します。
+
+## 睡眠とマッサージの関係
+
+### 自律神経への影響
+マッサージは自律神経系に直接作用し：
+
+- **副交感神経の活性化**: リラックス状態の促進
+- **交感神経の抑制**: 緊張状態からの解放
+- **睡眠ホルモンの分泌促進**: メラトニンの自然な産生
+
+### 生理学的メカニズム
+質の良い睡眠には以下が重要：
+
+1. **体温の自然な低下**
+2. **筋肉の弛緩**
+3. **心拍数の安定**
+4. **血圧の低下**
+
+マッサージはこれらすべてを促進します。
+
+## 睡眠改善に効果的な部位
+
+### 1. 頭部・首・肩
+この部位への施術は特に効果的：
+
+**頭部マッサージ**
+- 頭皮の血行促進
+- 緊張性頭痛の緩和
+- 副交感神経の刺激
+
+**首・肩マッサージ**
+- 首の筋緊張緩和
+- 肩こりの解消
+- 脳への血流改善
+
+### 2. 手足の末端
+血行促進により全身のリラックスを促進：
+
+- **手のひら・指**: 反射区刺激による全身効果
+- **足裏・ふくらはぎ**: 下半身の血流改善
+
+## 睡眠前のセルフマッサージ
+
+### 簡単な頭皮マッサージ
+就寝30分前に実践：
+
+\`\`\`
+1. 指の腹で頭皮全体を軽く圧迫（30秒）
+2. 生え際から頭頂部へ向かって軽くマッサージ
+3. 耳の周りを円を描くように刺激
+4. 首の付け根を親指で優しく圧迫
+\`\`\`
+
+### 足のマッサージ
+血行促進と体温調整：
+
+\`\`\`
+1. 足裏全体を親指で圧迫
+2. 足指を一本ずつ軽く引っ張る
+3. アキレス腱周りを軽くもむ
+4. ふくらはぎを下から上へマッサージ
+\`\`\`
+
+### 呼吸法との組み合わせ
+マッサージ中の呼吸法：
+
+- **4-7-8呼吸法**: 4秒吸って、7秒止めて、8秒で吐く
+- **腹式呼吸**: お腹の動きを意識した深い呼吸
+- **リズミカルな呼吸**: マッサージのリズムと同調
+
+## プロの睡眠改善マッサージ
+
+### 当店の睡眠特化コース
+愛なるマッサージでは、睡眠障害に特化したコースを提供：
+
+1. **カウンセリング**: 睡眠パターンと生活習慣の分析
+2. **個別施術**: 症状に応じたオーダーメイドマッサージ
+3. **アロマテラピー**: 睡眠促進効果のある精油の使用
+4. **ホームケア指導**: 自宅でできるケア方法の指導
+
+### 使用するアロマ
+睡眠促進に効果的な精油：
+
+- **ラベンダー**: 最も研究されている睡眠促進精油
+- **カモミール**: 不安軽減とリラックス効果
+- **ベルガモット**: ストレス軽減と気分安定
+- **イランイラン**: 心拍数と血圧の安定
+
+## 睡眠環境の最適化
+
+### マッサージ効果を高める環境づくり
+- **室温**: 18-22度の涼しめの設定
+- **照明**: 就寝1時間前から暖色系の暗めの照明
+- **音環境**: 静寂または自然音の活用
+- **寝具**: 体圧分散に優れたマットレス
+
+### 就寝前のルーチン
+マッサージを含む理想的な就寝ルーチン：
+
+\`\`\`
+21:00 - 入浴・リラックスタイム
+21:30 - セルフマッサージ（15分）
+22:00 - 読書やストレッチ
+22:30 - 照明を暗くして就寝準備
+23:00 - 就寝
+\`\`\`
+
+## 注意点とコツ
+
+### 効果的な実践のために
+- **継続性**: 毎日同じ時間に行う
+- **強さの調整**: 痛みを感じない程度の圧力
+- **時間**: 15-20分程度が最適
+- **環境**: 静かでリラックスできる空間
+
+### 避けるべきこと
+- 就寝直前の強いマッサージ
+- カフェイン摂取後の施術
+- 満腹時や空腹時の実践
+
+## まとめ
+
+マッサージによる睡眠改善は、薬に頼らない自然で安全な方法です。セルフケアとプロフェッショナルケアを組み合わせることで、より深く質の高い睡眠を得ることができます。
+
+**睡眠の質向上をお考えの方は、専門的なアドバイスとケアをご提供いたします。**`
+            },
+            {
+                id: 5,
+                title: "冬の乾燥肌対策とアカスリの関係",
+                category: "スキンケア",
+                excerpt: "冬場に特に気になる乾燥肌。アカスリがどのように乾燥肌の改善に役立つのか、適切なスキンケア方法と合わせて解説します。",
+                author: "佐藤恵子",
+                date: "2025-01-10",
+                image: "images/winter-skincare.jpg",
+                content: `# 冬の乾燥肌対策とアカスリの関係
+
+冬場の乾燥肌は多くの方が悩む問題です。アカスリが乾燥肌にどのような効果をもたらすのか、専門的な視点から解説いたします。
+
+## 冬の乾燥肌のメカニズム
+
+### 環境要因
+- **湿度の低下**: 外気の乾燥による水分蒸発
+- **暖房による影響**: 室内の湿度低下
+- **温度差**: 血行不良による新陳代謝の低下
+
+### 肌の変化
+冬場は以下の変化が起こります：
+- 皮脂分泌の減少
+- 角質層の水分保持力低下
+- バリア機能の弱化
+
+## アカスリによる乾燥肌改善効果
+
+### 古い角質の除去
+蓄積された古い角質を適切に除去することで：
+- 新しい健康な肌の露出
+- 保湿成分の浸透力向上
+- 肌のターンオーバー正常化
+
+### 血行促進効果
+アカスリの物理的刺激により：
+- 毛細血管の血流改善
+- 栄養素の供給増加
+- 老廃物の排出促進
+
+## 冬場のアカスリ注意点
+
+### 施術頻度の調整
+- **通常時**: 月1-2回
+- **冬場**: 月1回程度に調整
+- **個人差**: 肌の状態に応じて判断
+
+### 施術後のケア
+特に重要なアフターケア：
+1. **即座の保湿**: 施術直後の十分な水分補給
+2. **優しいスキンケア**: 刺激の少ない製品使用
+3. **室内湿度管理**: 50-60%の湿度維持
+
+## 当店の冬場対応
+
+### 個別カスタマイズ
+- 肌質診断による強度調整
+- 季節に応じた施術プラン
+- 適切なアフターケア指導
+
+**冬の乾燥肌でお困りの方は、お気軽にご相談ください。**`
+            },
+            {
+                id: 6,
+                title: "ストレス性肩こりの解消法",
+                category: "ストレス対策",
+                excerpt: "精神的ストレスが原因となる肩こりについて、そのメカニズムと効果的な解消法をマッサージ技術と併せて詳しく解説します。",
+                author: "山田智子",
+                date: "2025-01-08",
+                image: "images/stress-shoulder.jpg",
+                content: `# ストレス性肩こりの解消法
+
+現代社会におけるストレス性肩こりは、単純な筋肉疲労とは異なる複雑なメカニズムを持ちます。根本的な解決策について詳しく解説します。
+
+## ストレス性肩こりの特徴
+
+### 従来の肩こりとの違い
+- **原因**: 精神的ストレスが主因
+- **症状**: 重だるさ、頭痛を伴う
+- **持続性**: 休息しても改善しにくい
+- **再発性**: 繰り返し症状が現れる
+
+### 心身の関係性
+ストレスは以下の生理学的変化を引き起こします：
+- 自律神経の乱れ
+- 血管収縮による血行不良
+- 筋肉の持続的緊張
+- 炎症反応の増加
+
+## 効果的な解消アプローチ
+
+### 1. マッサージによる直接的緩和
+**深層筋へのアプローチ**
+- 僧帽筋の緊張緩和
+- 肩甲骨周りの可動域改善
+- 頸椎の負担軽減
+
+**自律神経の調整**
+- 副交感神経の活性化
+- リラックス反応の誘発
+- ストレスホルモンの減少
+
+### 2. 生活習慣の改善
+**ストレス管理技術**
+- 深呼吸法の実践
+- 瞑想・マインドフルネス
+- 適度な運動習慣
+
+**環境調整**
+- 作業環境の最適化
+- 休息の質向上
+- 睡眠環境の改善
+
+## 当店での専門的アプローチ
+
+### カウンセリング重視
+- ストレス要因の特定
+- 生活習慣の詳細聞き取り
+- 個別対応プランの策定
+
+### 統合的ケア
+身体と心の両面からのアプローチで根本的改善を目指します。
+
+**ストレス性肩こりでお悩みの方は、専門的なケアをご提供いたします。**`
+            },
+            {
+                id: 7,
+                title: "免疫力向上とマッサージの関係",
+                category: "健康増進",
+                excerpt: "マッサージが免疫システムに与える影響について、最新の研究結果を基に科学的に解説し、健康維持への活用法をご紹介します。",
+                author: "田中美香",
+                date: "2025-01-05",
+                image: "images/immune-system.jpg",
+                content: `# 免疫力向上とマッサージの関係
+
+近年の研究により、マッサージが免疫システムに与える影響が科学的に証明されています。健康維持における重要な効果について詳しく解説します。
+
+## 免疫システムとマッサージ
+
+### 免疫機能への直接的効果
+マッサージは以下の免疫系に影響を与えます：
+- **リンパ球の活性化**: 免疫細胞の機能向上
+- **NK細胞の増加**: 自然免疫力の強化
+- **抗体産生の促進**: 感染症への抵抗力向上
+
+### ストレス軽減による間接的効果
+- コルチゾール減少による免疫抑制の軽減
+- 睡眠の質向上による免疫力回復
+- 自律神経バランス改善
+
+## リンパ系への影響
+
+### リンパ循環の促進
+マッサージによるリンパ流改善：
+- 老廃物の効率的排出
+- 免疫細胞の循環促進
+- 炎症反応の正常化
+
+### デトックス効果
+- 毒素排出の促進
+- 細胞レベルでの浄化
+- 代謝機能の向上
+
+## 季節別免疫力対策
+
+### 冬季の風邪・インフルエンザ対策
+- 定期的なマッサージによる予防効果
+- 血行促進による体温維持
+- ストレス軽減による抵抗力向上
+
+### 春季のアレルギー対策
+- 免疫バランスの調整
+- 炎症反応の軽減
+- 自律神経の安定化
+
+## 当店での免疫力サポート
+
+### 個別対応プログラム
+お客様の体調や免疫状態に応じたカスタマイズ施術をご提供いたします。
+
+**免疫力向上を目指す方は、ぜひご相談ください。**`
+            },
+            {
+                id: 8,
+                title: "運動後のリカバリーマッサージ",
+                category: "スポーツケア",
+                excerpt: "運動やトレーニング後の効果的なリカバリーマッサージについて、筋肉回復のメカニズムと最適な施術タイミングを解説します。",
+                author: "山田智子",
+                date: "2025-01-03",
+                image: "images/sports-massage.jpg",
+                content: `# 運動後のリカバリーマッサージ
+
+運動後の適切なマッサージは、筋肉回復を促進し、次回のパフォーマンス向上に重要な役割を果たします。科学的根拠に基づく最適な方法をご紹介します。
+
+## 運動後の筋肉状態
+
+### 疲労の蓄積メカニズム
+運動により以下の変化が起こります：
+- **乳酸の蓄積**: 筋肉疲労の原因物質
+- **微細な筋損傷**: 筋繊維の小さな破綻
+- **炎症反応**: 修復過程での自然な反応
+- **血流の変化**: 局所的な循環障害
+
+### 回復のプロセス
+自然回復には以下の段階があります：
+1. 老廃物の除去（24-48時間）
+2. 筋繊維の修復（2-7日）
+3. 機能の完全回復（1-2週間）
+
+## リカバリーマッサージの効果
+
+### 即効性の効果
+**運動直後（30分以内）**
+- 血流促進による老廃物除去
+- 筋緊張の緩和
+- 副交感神経の活性化
+
+### 中長期的効果
+**24-48時間後**
+- 筋肉痛の軽減
+- 炎症反応の正常化
+- 柔軟性の早期回復
+
+## 運動強度別アプローチ
+
+### 軽度運動後
+- 軽いストローク中心
+- 全身の血流促進
+- リラクゼーション重視
+
+### 中強度運動後
+- 深層筋への適度な圧迫
+- 特定部位の集中ケア
+- ストレッチとの組み合わせ
+
+### 高強度運動後
+- 段階的な圧力調整
+- 炎症部位の慎重な対応
+- 医学的知識に基づく施術
+
+## タイミングの重要性
+
+### 最適な施術タイミング
+1. **運動直後**: 軽いマッサージ（15-20分）
+2. **4-6時間後**: 本格的な施術（60-90分）
+3. **翌日以降**: メンテナンス（定期的）
+
+## 当店でのスポーツケア
+
+### アスリートサポート
+競技レベルに応じた専門的なリカバリープログラムをご提供しています。
+
+**運動後の効果的なリカバリーをお求めの方は、お気軽にご相談ください。**`
+            },
+            {
+                id: 9,
+                title: "妊娠中・産後のマッサージケア",
+                category: "マタニティケア",
+                excerpt: "妊娠中から産後にかけての身体の変化に対応した、安全で効果的なマッサージケアについて専門的にご案内いたします。",
+                author: "佐藤恵子",
+                date: "2025-01-01",
+                image: "images/maternity-massage.jpg",
+                content: `# 妊娠中・産後のマッサージケア
+
+妊娠期間中から産後にかけての身体は大きな変化を経験します。この時期に適した安全で効果的なマッサージケアについて詳しく解説します。
+
+## 妊娠期の身体変化
+
+### 生理学的変化
+- **ホルモンバランス**: リラキシンによる関節の緩み
+- **体重増加**: 腰椎への負担増加
+- **血液循環**: 血液量増加と循環の変化
+- **姿勢変化**: 重心移動による筋バランス変化
+
+### よくある不調
+- 腰痛・肩こり
+- むくみ・静脈瘤
+- 不眠・不安感
+- 消化不良
+
+## 妊娠期マッサージの効果
+
+### 身体への効果
+- **血行促進**: むくみの軽減
+- **筋緊張緩和**: 腰痛・肩こりの改善
+- **関節可動域の維持**: 柔軟性の保持
+
+### 精神への効果
+- **ストレス軽減**: 妊娠への不安緩和
+- **リラクゼーション**: 質の良い睡眠促進
+- **母子結合の促進**: 胎児への良い影響
+
+## 安全な施術のために
+
+### 禁忌・注意事項
+以下の場合は施術を避けます：
+- 妊娠初期（12週未満）
+- 切迫流産・早産の兆候
+- 妊娠高血圧症候群
+- 胎盤の異常
+
+### 施術時の配慮
+- **体位**: 側臥位での安全な姿勢
+- **圧力**: 軽めの優しいタッチ
+- **避ける部位**: 腹部・特定のツボ
+- **時間**: 短めの施術時間
+
+## 産後ケアの重要性
+
+### 産後の身体状況
+- 腹筋の分離・弱化
+- 骨盤底筋の機能低下
+- 授乳による肩こり
+- ホルモンバランスの変化
+
+### リカバリー支援
+マッサージによる回復促進：
+- 子宮復古の促進
+- 血行改善による回復促進
+- 精神的サポート
+
+## 当店での専門ケア
+
+### 資格を持つスタッフ
+マタニティケア専門の知識と技術を持つセラピストが対応いたします。
+
+### 安全第一の方針
+医師の許可確認と、お客様の状態に応じた慎重な施術を行います。
+
+**妊娠中・産後のケアについて、まずはご相談ください。**`
+            },
+            {
+                id: 10,
+                title: "高齢者向けマッサージの注意点",
+                category: "シニアケア",
+                excerpt: "高齢者の方に安全で効果的なマッサージを提供するための注意点と、年齢に応じた施術方法について専門的に解説します。",
+                author: "田中美香",
+                date: "2024-12-28",
+                image: "images/senior-massage.jpg",
+                content: `# 高齢者向けマッサージの注意点
+
+高齢者の方へのマッサージには、年齢特有の身体状況を考慮した特別な配慮が必要です。安全で効果的な施術のポイントを詳しく解説します。
+
+## 高齢者の身体的特徴
+
+### 加齢による変化
+- **皮膚**: 薄く脆弱、乾燥しやすい
+- **筋肉**: 筋力低下、筋量減少
+- **骨格**: 骨密度低下、関節可動域制限
+- **血管**: 血管壁の硬化、血圧変動
+
+### 併存疾患への配慮
+多くの高齢者が抱える健康問題：
+- 高血圧・糖尿病
+- 骨粗鬆症
+- 関節症
+- 循環器疾患
+
+## 安全な施術のための原則
+
+### 施術前の確認事項
+1. **医師の許可**: 持病の確認と許可取得
+2. **服薬状況**: 血液をサラサラにする薬等の確認
+3. **体調チェック**: その日の身体状況
+4. **過去の施術歴**: アレルギーや禁忌の確認
+
+### 施術中の注意点
+- **優しい圧力**: 弱めの刺激から開始
+- **短い時間**: 30-45分程度が適切
+- **安全な体位**: 負担の少ない姿勢選択
+- **頻繁な確認**: 痛みや不快感の有無
+
+## 高齢者特有の効果
+
+### 健康維持効果
+- **血行促進**: 冷え性の改善
+- **関節可動域維持**: 日常動作の維持
+- **筋緊張緩和**: 慢性疼痛の軽減
+- **睡眠の質向上**: 不眠の改善
+
+### QOL向上効果
+- **社会的接触**: 孤独感の軽減
+- **リラクゼーション**: ストレス軽減
+- **身体への関心**: 健康意識の向上
+
+## 認知症の方への配慮
+
+### 特別な注意点
+- **コミュニケーション**: 簡単で分かりやすい説明
+- **環境整備**: 落ち着いた安心できる空間
+- **短時間施術**: 集中力に応じた時間調整
+- **家族同席**: 可能な場合の家族立会い
+
+## 当店でのシニアケア
+
+### 専門的対応
+- 高齢者ケア経験豊富なスタッフ
+- 医療知識に基づく安全管理
+- 個別カスタマイズプログラム
+
+### 家族との連携
+ご家族とも連携を取りながら、安全で効果的なケアをご提供いたします。
+
+**高齢者の方のマッサージについて、まずはご相談ください。**`
+            },
+            {
+                id: 11,
+                title: "アロマオイルの効果と選び方",
+                category: "アロマテラピー",
+                excerpt: "マッサージに使用するアロマオイルの種類と効果、お客様の状態に応じた最適な選び方について詳しく解説いたします。",
+                author: "佐藤恵子",
+                date: "2024-12-25",
+                image: "images/aroma-massage.jpg",
+                content: `# アロマオイルの効果と選び方
+
+アロマオイルマッサージは、香りの効果と触覚刺激の相乗効果により、従来のマッサージを超えた癒し体験を提供します。適切な選び方と効果について解説します。
+
+## アロマテラピーの科学的根拠
+
+### 嗅覚による影響
+- **大脳辺縁系への直接作用**: 感情・記憶を司る脳領域
+- **自律神経への影響**: 交感神経・副交感神経の調整
+- **ホルモン分泌調整**: 内分泌系への働きかけ
+
+### 皮膚からの吸収
+- **経皮吸収**: 有効成分の血流への取り込み
+- **局所効果**: 施術部位での直接的作用
+- **全身循環**: 全身への穏やかな影響
+
+## 主要アロマオイルとその効果
+
+### リラクゼーション系
+**ラベンダー**
+- 鎮静・リラックス効果
+- 睡眠の質向上
+- 皮膚再生促進
+
+**カモミール**
+- 抗炎症作用
+- ストレス軽減
+- 敏感肌にも優しい
+
+### 活性化系
+**ローズマリー**
+- 血行促進
+- 集中力向上
+- 筋肉疲労回復
+
+**ペパーミント**
+- 清涼感・爽快感
+- 頭痛緩和
+- 消化促進
+
+### 女性特有の悩み対応
+**クラリセージ**
+- ホルモンバランス調整
+- PMS症状緩和
+- 更年期症状軽減
+
+## 状況別の選び方
+
+### ストレス・疲労時
+1. **ラベンダー**: 深いリラクゼーション
+2. **ベルガモット**: 不安感の軽減
+3. **イランイラン**: 心の安定
+
+### 筋肉疲労・コリ
+1. **ユーカリ**: 抗炎症・血行促進
+2. **ジュニパー**: デトックス効果
+3. **マージョラム**: 筋肉緊張緩和
+
+### 美肌・アンチエイジング
+1. **フランキンセンス**: 細胞再生促進
+2. **ローズ**: 保湿・美肌効果
+3. **ゼラニウム**: 皮脂バランス調整
+
+## 安全な使用のために
+
+### 注意事項
+- **パッチテスト**: アレルギー反応の確認
+- **希釈濃度**: 適切な濃度での使用
+- **禁忌の確認**: 妊娠中・疾患時の注意
+- **保存方法**: 直射日光を避けた冷暗所保存
+
+### 品質の見極め
+- **100%天然**: 合成香料でない純粋オイル
+- **産地・抽出法**: 明確な品質情報
+- **価格**: 適正価格での購入
+
+## 当店でのアロママッサージ
+
+### カスタマイズブレンド
+お客様の体調・気分に応じて、セラピストが最適なブレンドを作成いたします。
+
+### 厳選されたオイル
+品質にこだわった高品質なエッセンシャルオイルのみを使用しています。
+
+**香りに包まれた極上の癒し体験をぜひお試しください。**`
+            },
+            {
+                id: 12,
+                title: "マッサージ効果を長持ちさせるアフターケア",
+                category: "アフターケア",
+                excerpt: "マッサージ後の効果を最大限に持続させるためのアフターケア方法と、日常生活で気をつけるべきポイントをご紹介します。",
+                author: "山田智子",
+                date: "2024-12-22",
+                image: "images/aftercare-tips.jpg",
+                content: `# マッサージ効果を長持ちさせるアフターケア
+
+マッサージの効果を最大限に活用し、長期間持続させるためには、施術後のアフターケアが重要です。専門セラピストが実践的なアドバイスをご紹介します。
+
+## マッサージ効果の持続期間
+
+### 一般的な効果継続時間
+- **血行促進効果**: 24-48時間
+- **筋緊張緩和**: 3-7日間
+- **リラクゼーション効果**: 2-5日間
+- **痛み軽減**: 1週間-1ヶ月
+
+### 個人差に影響する要因
+- 年齢・体力
+- 生活習慣
+- ストレスレベル
+- 運動習慣
+
+## 施術直後のケア（0-6時間）
+
+### 水分補給の重要性
+**推奨摂取量**: 施術後2-3時間で500ml以上
+
+**効果**:
+- 老廃物の排出促進
+- 血液の粘度低下
+- 脱水症状の予防
+
+### 適度な休息
+- **30分-1時間の安静**: 急激な活動を避ける
+- **入浴**: 2-3時間後がベスト
+- **アルコール**: 控える（血管拡張の重複を避ける）
+
+## 中期ケア（6時間-3日）
+
+### 軽い運動の推奨
+**ウォーキング**
+- 20-30分の軽い歩行
+- 血流維持効果
+- リンパ循環促進
+
+**ストレッチ**
+- マッサージ部位の軽いストレッチ
+- 関節可動域の維持
+- 筋肉の柔軟性継続
+
+### 栄養面のサポート
+**推奨栄養素**:
+- **タンパク質**: 筋肉修復支援
+- **ビタミンB群**: 疲労回復促進
+- **マグネシウム**: 筋肉弛緩作用
+- **抗酸化物質**: 炎症軽減
+
+## 長期効果維持（4日以降）
+
+### 生活習慣の改善
+**睡眠の質向上**
+- 7-8時間の充分な睡眠
+- 規則正しい睡眠時間
+- 寝具環境の最適化
+
+**ストレス管理**
+- 深呼吸・瞑想の習慣
+- 趣味・リラクゼーション時間
+- 人間関係の円滑化
+
+### 日常的なセルフケア
+
+#### 簡単マッサージ
+**首・肩周り**（5分間）
+1. 肩回し運動（前後各10回）
+2. 首の側屈・回旋（各方向10秒）
+3. 肩甲骨寄せ（10回）
+
+**腰部ケア**（5分間）
+1. 腰ひねり運動
+2. 膝抱え込み
+3. 軽い前屈・後屈
+
+## 避けるべき行動
+
+### 施術直後（当日）
+- **激しい運動**: 筋肉への過度な負担
+- **長時間の立位**: 血流の停滞
+- **高温環境**: サウナ・熱い風呂
+
+### 継続的に避けるべき習慣
+- **長時間の同一姿勢**: デスクワーク等での同じ姿勢
+- **運動不足**: 血流の慢性的な停滞
+- **偏った食事**: 炎症を促進する食品の過摂取
+
+## 効果測定とメンテナンス
+
+### セルフチェックポイント
+- **疼痛レベル**: 10段階での自己評価
+- **可動域**: 関節の動かしやすさ
+- **睡眠の質**: 入眠・熟睡感
+- **ストレス感**: 精神的な軽さ
+
+### 次回施術のタイミング
+**推奨間隔**:
+- **メンテナンス**: 月1-2回
+- **集中ケア**: 週1回（症状がある場合）
+- **予防**: 2-3ヶ月に1回
+
+## 当店でのフォローアップ
+
+### アフターケア指導
+施術後に個別のアフターケアプランをご提案いたします。
+
+### 継続サポート
+定期的なご来店で、効果の持続と健康維持をサポートいたします。
+
+**マッサージ効果を最大限に活用したい方は、アフターケアもお任せください。**`
+                }];
+                renderColumnGrid();
+            }
+        }
+
+        // コラム一覧を生成
+        function renderColumnGrid() {
+            const grid = document.getElementById('column-grid');
+            grid.innerHTML = columnData.map(article => `
+                <div class="column-card" onclick="showArticle(${article.id})">
+                    <div class="column-image">
+                        ${article.image ? 
+                            `<img src="images/${article.image}" alt="${article.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                             <div class="image-placeholder" style="display:none;">
+                                <i class="fas fa-image"></i>
+                             </div>` :
+                            `<div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                            </div>`
+                        }
+                    </div>
+                    <div class="column-content">
+                        <div class="column-meta">
+                            <span class="column-category">${article.category}</span>
+                            <span class="column-date">
+                                <i class="fas fa-calendar"></i>
+                                ${article.date}
+                            </span>
+                        </div>
+                        <h3 class="column-title">${article.title}</h3>
+                        <p class="column-excerpt">${article.excerpt}</p>
+                        <a href="#" class="read-more">
+                            続きを読む
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 記事表示（マークダウンファイルから読み込み）
+        async function showArticle(articleId) {
+            const article = columnData.find(a => a.id === articleId);
+            if (!article) return;
+
+            let htmlContent = '';
+            
+            try {
+                // マークダウンファイルを読み込み
+                const response = await fetch(`articles/${article.file}`);
+                const markdownContent = await response.text();
+                
+                // フロントマター（メタデータ）を除去
+                const contentWithoutFrontmatter = markdownContent.replace(/^---[\s\S]*?---\n/, '');
+                
+                // マークダウンをHTMLに変換
+                htmlContent = marked.parse(contentWithoutFrontmatter);
+            } catch (error) {
+                console.error('記事の読み込みに失敗しました:', error);
+                // フォールバック: JSONの内容を使用
+                htmlContent = article.content ? marked.parse(article.content) : '<p>記事の読み込みに失敗しました。</p>';
+            }
+
+            // タイトルと内容を設定
+            document.getElementById('article-title').textContent = article.title;
+            document.getElementById('article-content').innerHTML = htmlContent;
+
+            // メタ情報を設定
+            const metaHTML = `
+                <span class="column-category">${article.category}</span>
+                <span class="column-date">
+                    <i class="fas fa-calendar"></i>
+                    ${article.date}
+                </span>
+                <span class="author">
+                    <i class="fas fa-user"></i>
+                    ${article.author}
+                </span>
+            `;
+            document.getElementById('article-meta').innerHTML = metaHTML;
+
+            // ヘッダー画像を設定
+            const header = document.getElementById('article-header');
+            if (article.image) {
+                header.innerHTML = `
+                    <img src="images/${article.image}" alt="${article.title}" onerror="this.style.display='none';">
+                    <div class="article-overlay">
+                        <div class="article-meta">${metaHTML}</div>
+                    </div>
+                `;
+            } else {
+                header.innerHTML = `
+                    <div class="article-overlay">
+                        <div class="article-meta">${metaHTML}</div>
+                    </div>
+                `;
+            }
+
+            // 表示切り替え
+            document.getElementById('column-list').style.display = 'none';
+            document.getElementById('article-view').style.display = 'block';
+            
+            // ページトップにスクロール
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // コラム一覧に戻る
+        function showColumnList() {
+            document.getElementById('column-list').style.display = 'block';
+            document.getElementById('article-view').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ページ読み込み時に記事一覧を読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            loadArticleList();
+        });
+
+        // ナビゲーション管理
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function() {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                // ナビゲーションリンククリック時にメニューを閉じる
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

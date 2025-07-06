@@ -1,0 +1,108 @@
+# ヘルスケアポータル - Git除外設定
+
+# ログファイル
+*.log
+logs/
+*.log.*
+
+# OS生成ファイル
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# エディタ設定
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 一時ファイル
+tmp/
+temp/
+*.tmp
+*.temp
+
+# 開発環境設定
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 依存関係（将来的にNode.jsを使用する場合）
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ビルド成果物（将来的な拡張用）
+dist/
+build/
+*.min.js
+*.min.css
+
+# キャッシュ
+.cache/
+.parcel-cache/
+
+# テスト結果
+coverage/
+.nyc_output/
+
+# 個人設定・機密情報
+config/local.json
+config/production.json
+secrets/
+*.key
+*.pem
+*.crt
+
+# バックアップファイル
+*.backup
+*.bak
+*.orig
+
+# Python関連（server.py用）
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# データベース（将来的な拡張用）
+*.db
+*.sqlite
+*.sqlite3
+
+# 医療データ（機密性重視）
+patient-data/
+medical-records/
+private-charts/
+confidential/
+
+# 本番環境用設定
+production-config/
+ssl-certificates/
+server-logs/
+
+# 開発用ダンプ
+*.sql
+*.dump
+
+# 画像の作業ファイル
+*.psd
+*.ai
+*.sketch
+
+# 圧縮ファイル
+*.zip
+*.tar.gz
+*.rar

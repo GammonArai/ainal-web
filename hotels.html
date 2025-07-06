@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>対応可能ホテル一覧 | 愛なるマッサージ</title>
+    <meta name="description" content="愛なるマッサージの対応可能ホテル一覧。中洲エリアの各ホテルへ出張マッサージサービスをご提供いたします。">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="site-config.js"></script>
+    <style>
+        .page-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.05)"/><circle cx="900" cy="250" r="80" fill="rgba(255,255,255,0.03)"/></svg>');
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-header-content h1 {
+            margin-bottom: var(--space-6);
+        }
+        
+        .page-header-content p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0;
+            padding: var(--space-4) var(--space-6);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .area-section {
+            padding: var(--space-20) 0;
+        }
+        
+        .area-section.alternate {
+            background: var(--light-gray);
+        }
+        
+        .area-header {
+            text-align: center;
+            margin-bottom: var(--space-16);
+        }
+        
+        .area-header h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .area-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+        
+        .hotel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-8);
+        }
+        
+        .hotel-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .hotel-image {
+            height: 200px;
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hotel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hotel-image .placeholder-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .hotel-content {
+            padding: var(--space-8);
+        }
+        
+        .hotel-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+        }
+        
+        .hotel-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .hotel-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .hotel-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .hotel-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .hotel-info {
+            margin-bottom: var(--space-6);
+        }
+        
+        .hotel-address {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-2);
+            margin-bottom: var(--space-3);
+            color: var(--text-secondary);
+        }
+        
+        .hotel-address i {
+            color: var(--accent-cyan);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .hotel-features {
+            list-style: none;
+            margin: var(--space-4) 0;
+        }
+        
+        .hotel-features li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .hotel-features i {
+            color: var(--accent-purple);
+            font-size: 0.9rem;
+            width: 16px;
+        }
+        
+        .hotel-grade {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: var(--gradient-accent);
+            color: white;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+        }
+        
+        .booking-info {
+            background: var(--light-gray);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            margin-top: var(--space-6);
+        }
+        
+        .booking-info h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+        }
+        
+        .booking-details {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .booking-details strong {
+            color: var(--accent-purple);
+        }
+        
+        .hotel-price {
+            background: var(--gradient-accent);
+            color: white;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin: var(--space-4) 0;
+            font-weight: 700;
+        }
+        
+        .hotel-price .price-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .hotel-price .price-amount {
+            font-size: 1.3rem;
+            display: block;
+            margin-top: var(--space-1);
+        }
+        
+        .service-area {
+            background: var(--gradient-dark);
+            color: white;
+            padding: var(--space-16);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin: var(--space-12) 0;
+        }
+        
+        .service-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.03)"/><circle cx="900" cy="300" r="80" fill="rgba(255,255,255,0.02)"/></svg>');
+        }
+        
+        .service-area-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .service-area h2 {
+            font-size: 2rem;
+            margin-bottom: var(--space-4);
+            color: white;
+        }
+        
+        .service-area p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+        
+        .hotel-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--light-gray);
+            border: 2px dashed var(--border-gray);
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-align: center;
+            padding: var(--space-4);
+        }
+        
+        .hotel-image-placeholder i {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-2);
+            opacity: 0.6;
+        }
+        
+        .hotel-image-placeholder span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: var(--space-1);
+        }
+        
+        .hotel-image-placeholder small {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            line-height: 1.2;
+        }
+        
+        @media (max-width: 768px) {
+            .hotel-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hotel-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body class="modern-massage">
+    <!-- ヘッダー（統一設定から自動生成） -->
+    <div id="unified-header"></div>
+    
+    <script>
+        // 統一ヘッダーを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerContainer = document.getElementById('unified-header');
+            if (headerContainer) {
+                headerContainer.innerHTML = generateUnifiedHeader('hotels.html');
+            }
+        });
+    </script>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ページヘッダー -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1><i class="fas fa-building"></i> 対応可能ホテル一覧</h1>
+                    <div style="margin-top: var(--space-8);">
+                        <p>中洲エリアの各ホテルへ出張マッサージサービスをご提供いたします</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 中洲エリア -->
+        <section class="area-section">
+            <div class="container">
+                <div class="area-header">
+                    <h2>中洲エリア対応可能ホテル</h2>
+                    <p><strong>24時間対応可能な中洲エリアのラブホテル</strong><br>
+                    時間単位でお得にご利用いただけます。現代のセキュリティで安心・安全な環境です。</p>
+                </div>
+                <div class="hotel-grid">
+                    <div class="hotel-card">
+                        <div class="hotel-image">
+                            <img src="images/sunrise-nakasu.jpg" alt="ホテルサンライズ中洲" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="hotel-image-placeholder" style="display:none;">
+                                <i class="fas fa-image"></i>
+                                <span>画像アップロード予定</span>
+                                <small>CMSでホテル写真を追加<br>(サンライズ中洲)</small>
+                            </div>
+                        </div>
+                        <div class="hotel-content">
+                            <div class="hotel-grade">
+                                <i class="fas fa-clock"></i>
+                                <span>24時間対応</span>
+                            </div>
+                            <h3 class="hotel-name">ホテルサンライズ中洲</h3>
+                            <div class="hotel-address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>福岡市博多区中洲エリア</span>
+                            </div>
+                            <ul class="hotel-features">
+                                <li><i class="fas fa-check"></i> 24時間対応</li>
+                                <li><i class="fas fa-check"></i> 時間単位利用</li>
+                                <li><i class="fas fa-check"></i> 清潔な個室</li>
+                                <li><i class="fas fa-check"></i> プライベート空間</li>
+                            </ul>
+                            <div class="booking-info">
+                                <h4>ホテル情報</h4>
+                                <div class="booking-details">
+                                    <div style="margin-bottom: var(--space-3); padding: var(--space-3); background: var(--light-gray); border-radius: var(--radius-lg);">
+                                        <i class="fas fa-phone" style="color: var(--accent-purple);"></i> 
+                                        <strong>ホテル直通:</strong> <a href="tel:092-111-1111" style="color: var(--accent-purple); text-decoration: none; font-weight: 600;">092-111-1111</a>
+                                    </div>
+                                    ウェブサイト: <strong><a href="https://sunrise-nakasu.jp" target="_blank" style="color: var(--accent-purple);">公式サイト</a></strong><br>
+                                    予約方法: <strong style="color: var(--accent-purple);">会員制予約システム</strong><br>
+                                    最短到着: <strong>15分</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hotel-card">
+                        <div class="hotel-image">
+                            <img src="images/moonside-nakasu.jpg" alt="ホテルムーンサイド中洲" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="hotel-image-placeholder" style="display:none;">
+                                <i class="fas fa-image"></i>
+                                <span>画像アップロード予定</span>
+                                <small>CMSでホテル写真を追加<br>(ムーンサイド中洲)</small>
+                            </div>
+                        </div>
+                        <div class="hotel-content">
+                            <div class="hotel-grade">
+                                <i class="fas fa-clock"></i>
+                                <span>24時間対応</span>
+                            </div>
+                            <h3 class="hotel-name">ホテルムーンサイド中洲</h3>
+                            <div class="hotel-address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>福岡市博多区中洲エリア</span>
+                            </div>
+                            <ul class="hotel-features">
+                                <li><i class="fas fa-check"></i> 駅近アクセス良好</li>
+                                <li><i class="fas fa-check"></i> 時間制料金</li>
+                                <li><i class="fas fa-check"></i> 高級アメニティ</li>
+                                <li><i class="fas fa-check"></i> 安心セキュリティ</li>
+                            </ul>
+                            <div class="booking-info">
+                                <h4>ホテル情報</h4>
+                                <div class="booking-details">
+                                    <div style="margin-bottom: var(--space-3); padding: var(--space-3); background: var(--light-gray); border-radius: var(--radius-lg);">
+                                        <i class="fas fa-phone" style="color: var(--accent-purple);"></i> 
+                                        <strong>ホテル直通:</strong> <a href="tel:092-222-2222" style="color: var(--accent-purple); text-decoration: none; font-weight: 600;">092-222-2222</a>
+                                    </div>
+                                    ウェブサイト: <strong><a href="https://moonside-nakasu.com" target="_blank" style="color: var(--accent-purple);">公式サイト</a></strong><br>
+                                    予約方法: <strong style="color: var(--accent-purple);">会員制予約システム</strong><br>
+                                    最短到着: <strong>20分</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hotel-card">
+                        <div class="hotel-image">
+                            <img src="images/platinum-nakasu.jpg" alt="ホテルプラチナ中洲" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="hotel-image-placeholder" style="display:none;">
+                                <i class="fas fa-image"></i>
+                                <span>画像アップロード予定</span>
+                                <small>CMSでホテル写真を追加<br>(プラチナ中洲)</small>
+                            </div>
+                        </div>
+                        <div class="hotel-content">
+                            <div class="hotel-grade">
+                                <i class="fas fa-clock"></i>
+                                <span>24時間対応</span>
+                            </div>
+                            <h3 class="hotel-name">ホテルプラチナ中洲</h3>
+                            <div class="hotel-address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>福岡市博多区中洲エリア</span>
+                            </div>
+                            <ul class="hotel-features">
+                                <li><i class="fas fa-check"></i> 中洲中心部立地</li>
+                                <li><i class="fas fa-check"></i> 高級内装</li>
+                                <li><i class="fas fa-check"></i> 時間単位利用</li>
+                                <li><i class="fas fa-check"></i> 完全個室制</li>
+                            </ul>
+                            <div class="booking-info">
+                                <h4>ホテル情報</h4>
+                                <div class="booking-details">
+                                    <div style="margin-bottom: var(--space-3); padding: var(--space-3); background: var(--light-gray); border-radius: var(--radius-lg);">
+                                        <i class="fas fa-phone" style="color: var(--accent-purple);"></i> 
+                                        <strong>ホテル直通:</strong> <a href="tel:092-333-3333" style="color: var(--accent-purple); text-decoration: none; font-weight: 600;">092-333-3333</a>
+                                    </div>
+                                    ウェブサイト: <strong><a href="https://platinum-nakasu.jp" target="_blank" style="color: var(--accent-purple);">公式サイト</a></strong><br>
+                                    予約方法: <strong style="color: var(--accent-purple);">会員制予約システム</strong><br>
+                                    最短到着: <strong>10分</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hotel-card">
+                        <div class="hotel-image">
+                            <img src="images/starlight-nakasu.jpg" alt="ホテルスターライト中洲" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="hotel-image-placeholder" style="display:none;">
+                                <i class="fas fa-image"></i>
+                                <span>画像アップロード予定</span>
+                                <small>CMSでホテル写真を追加<br>(スターライト中洲)</small>
+                            </div>
+                        </div>
+                        <div class="hotel-content">
+                            <div class="hotel-grade">
+                                <i class="fas fa-clock"></i>
+                                <span>24時間対応</span>
+                            </div>
+                            <h3 class="hotel-name">ホテルスターライト中洲</h3>
+                            <div class="hotel-address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>福岡市博多区中洲エリア</span>
+                            </div>
+                            <ul class="hotel-features">
+                                <li><i class="fas fa-check"></i> 中洲川端駅近</li>
+                                <li><i class="fas fa-check"></i> モダンな内装</li>
+                                <li><i class="fas fa-check"></i> 時間単位利用</li>
+                                <li><i class="fas fa-check"></i> プライベート空間</li>
+                            </ul>
+                            <div class="booking-info">
+                                <h4>ホテル情報</h4>
+                                <div class="booking-details">
+                                    <div style="margin-bottom: var(--space-3); padding: var(--space-3); background: var(--light-gray); border-radius: var(--radius-lg);">
+                                        <i class="fas fa-phone" style="color: var(--accent-purple);"></i> 
+                                        <strong>ホテル直通:</strong> <a href="tel:092-444-4444" style="color: var(--accent-purple); text-decoration: none; font-weight: 600;">092-444-4444</a>
+                                    </div>
+                                    ウェブサイト: <strong><a href="https://starlight-nakasu.com" target="_blank" style="color: var(--accent-purple);">公式サイト</a></strong><br>
+                                    予約方法: <strong style="color: var(--accent-purple);">会員制予約システム</strong><br>
+                                    最短到着: <strong>15分</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hotel-card">
+                        <div class="hotel-image">
+                            <img src="images/analsensei.png" alt="ホテルダイヤモンド中洲" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="hotel-image-placeholder" style="display:none;">
+                                <i class="fas fa-image"></i>
+                                <span>画像アップロード予定</span>
+                                <small>CMSでホテル写真を追加<br>(ダイヤモンド中洲)</small>
+                            </div>
+                        </div>
+                        <div class="hotel-content">
+                            <div class="hotel-grade">
+                                <i class="fas fa-crown"></i>
+                                <span>プレミアム</span>
+                            </div>
+                            <h3 class="hotel-name">ホテルダイヤモンド中洲</h3>
+                            <div class="hotel-address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>福岡市博多区中洲エリア</span>
+                            </div>
+                            <ul class="hotel-features">
+                                <li><i class="fas fa-check"></i> 中洲最高級ホテル</li>
+                                <li><i class="fas fa-check"></i> VIPルーム完備</li>
+                                <li><i class="fas fa-check"></i> 24時間コンシェルジュ</li>
+                                <li><i class="fas fa-check"></i> 完全防音個室</li>
+                            </ul>
+                            <div class="booking-info">
+                                <h4>ホテル情報</h4>
+                                <div class="booking-details">
+                                    <div style="margin-bottom: var(--space-3); padding: var(--space-3); background: var(--light-gray); border-radius: var(--radius-lg);">
+                                        <i class="fas fa-phone" style="color: var(--accent-purple);"></i> 
+                                        <strong>ホテル直通:</strong> <a href="tel:092-555-5555" style="color: var(--accent-purple); text-decoration: none; font-weight: 600;">092-555-5555</a>
+                                    </div>
+                                    ウェブサイト: <strong><a href="https://diamond-nakasu.jp" target="_blank" style="color: var(--accent-purple);">公式サイト</a></strong><br>
+                                    予約方法: <strong style="color: var(--accent-purple);">会員制予約システム</strong><br>
+                                    最短到着: <strong>5分</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hotel-card">
+                        <div class="hotel-image">
+                            <img src="images/completion-scene.jpg" alt="ホテルパール中洲" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="hotel-image-placeholder" style="display:none;">
+                                <i class="fas fa-image"></i>
+                                <span>画像アップロード予定</span>
+                                <small>CMSでホテル写真を追加<br>(パール中洲)</small>
+                            </div>
+                        </div>
+                        <div class="hotel-content">
+                            <div class="hotel-grade">
+                                <i class="fas fa-clock"></i>
+                                <span>24時間対応</span>
+                            </div>
+                            <h3 class="hotel-name">ホテルパール中洲</h3>
+                            <div class="hotel-address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>福岡市博多区中洲エリア</span>
+                            </div>
+                            <ul class="hotel-features">
+                                <li><i class="fas fa-check"></i> リーズナブル料金</li>
+                                <li><i class="fas fa-check"></i> 清潔で快適</li>
+                                <li><i class="fas fa-check"></i> アクセス良好</li>
+                                <li><i class="fas fa-check"></i> 時間制利用</li>
+                            </ul>
+                            <div class="booking-info">
+                                <h4>ホテル情報</h4>
+                                <div class="booking-details">
+                                    <div style="margin-bottom: var(--space-3); padding: var(--space-3); background: var(--light-gray); border-radius: var(--radius-lg);">
+                                        <i class="fas fa-phone" style="color: var(--accent-purple);"></i> 
+                                        <strong>ホテル直通:</strong> <a href="tel:092-666-6666" style="color: var(--accent-purple); text-decoration: none; font-weight: 600;">092-666-6666</a>
+                                    </div>
+                                    ウェブサイト: <strong><a href="https://pearl-nakasu.com" target="_blank" style="color: var(--accent-purple);">公式サイト</a></strong><br>
+                                    予約方法: <strong style="color: var(--accent-purple);">会員制予約システム</strong><br>
+                                    最短到着: <strong>12分</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- サービスエリア -->
+        <section class="area-section">
+            <div class="container">
+                <div class="service-area">
+                    <div class="service-area-content">
+                        <h2>中洲エリアのラブホテルについて</h2>
+                        <p>
+                            中洲エリアのラブホテルは24時間対応可能で、時間単位でお得にご利用いただけます。<br>
+                            現代のセキュリティシステムで安心・安全な環境をご提供しています。<br>
+                            <strong>※上記以外のホテルでも中洲エリア内であれば対応可能です</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 予約・お問い合わせ -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>ホテルでの極上のリラクゼーション</h2>
+                    <p>プライベートな空間で、心身ともにリフレッシュしていただけます</p>
+                    <div class="cta-buttons">
+                        <a href="index.html#booking-flow" class="btn btn-primary btn-large">
+                            <i class="fas fa-calendar-check"></i>
+                            予約の流れを見る
+                        </a>
+                        <a href="services.html" class="btn btn-secondary btn-large">
+                            <i class="fas fa-spa"></i>
+                            施術内容を見る
+                        </a>
+                    </div>
+                    <p style="margin-top: var(--space-6); font-size: 0.95rem; opacity: 0.8;">
+                        1日1件限定・完全予約制 | 現金決済のみ
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター（統一設定から自動生成） -->
+    <div id="unified-footer"></div>
+    
+    <script>
+        // 統一フッターを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerContainer = document.getElementById('unified-footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = generateUnifiedFooter();
+            }
+        });
+    </script>
+
+    <script>
+        function openMap(hotelName, address) {
+            const query = encodeURIComponent(hotelName + ' ' + address);
+            const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+            window.open(googleMapsUrl, '_blank');
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

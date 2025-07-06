@@ -1,0 +1,14 @@
+.git
+.gitignore
+node_modules
+.env
+.env.local
+.env.*.local
+*.log
+logs
+*.md
+.DS_Store
+create_favicon.py
+backend/logs
+backend/uploads
+*.sql

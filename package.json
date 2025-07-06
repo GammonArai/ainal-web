@@ -1,0 +1,73 @@
+{
+  "name": "ainaru-massage-cms",
+  "version": "1.0.0",
+  "description": "愛なるマッサージ - 出張マッサージ・アカスリ専門店CMS",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "serve": "node backend/server.js",
+    "start:backend": "node backend/server.js",
+    "dev:backend": "nodemon backend/server.js",
+    "init:db": "node backend/scripts/init-database.js",
+    "migrate:postgresql": "node backend/scripts/migrate-to-postgresql.js",
+    "test": "echo 'ブラウザで http://localhost:8080 を開いてテストしてください'",
+    "build": "echo 'このプロジェクトは静的サイトです。ビルドは不要です。'",
+    "lint": "echo 'HTMLとCSSの検証を実行中...'",
+    "validate": "echo 'フォームとJavaScript機能を検証中...'",
+    "setup:local": "node backend/scripts/setup-local-dev.js",
+    "test:bot": "node backend/scripts/test-telegram-bot.js",
+    "test:api": "node backend/scripts/test-api.js"
+  },
+  "keywords": [
+    "massage",
+    "spa",
+    "wellness",
+    "booking",
+    "cms",
+    "therapy",
+    "portal",
+    "privacy",
+    "security"
+  ],
+  "author": "Ainaru Massage Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GammonArai/ainal-web.git"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "bcryptjs": "^2.4.3",
+    "chart.js": "^4.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.10.0",
+    "helmet": "^7.0.0",
+    "joi": "^17.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.1",
+    "mysql2": "^3.6.0",
+    "pg": "^8.11.0",
+    "node-cron": "^4.1.1",
+    "sharp": "^0.34.2",
+    "telegraf": "^4.15.6",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "axios": "^1.6.0",
+    "nodemon": "^3.0.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "python": ">=3.6"
+  }
+}

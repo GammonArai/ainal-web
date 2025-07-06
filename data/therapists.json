@@ -1,0 +1,37 @@
+{
+  "therapists": [
+    {
+      "id": 1,
+      "name": "佐藤 慶子",
+      "age": 28,
+      "experience": "5年",
+      "specialties": ["アロママッサージ", "睡眠改善マッサージ"],
+      "bio": "お客様一人一人に合わせた施術を心がけています。",
+      "image": "/images/sato-keiko.jpg",
+      "rating": 4.8,
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "田中 美香",
+      "age": 32,
+      "experience": "8年",
+      "specialties": ["スポーツマッサージ", "デスクワーク疲労回復"],
+      "bio": "スポーツトレーナーの経験を活かした施術が得意です。",
+      "image": "/images/tanaka-mika.jpg",
+      "rating": 4.9,
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "山田 智子",
+      "age": 26,
+      "experience": "3年",
+      "specialties": ["韓国式アカスリ", "スタンダードマッサージ"],
+      "bio": "韓国で本格的な技術を学びました。優しい施術を提供します。",
+      "image": "/images/yamada-tomoko.jpg",
+      "rating": 4.7,
+      "available": true
+    }
+  ]
+}

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>求人情報 | 愛なるマッサージ</title>
+    <meta name="description" content="愛なるマッサージの求人情報。出張マッサージセラピスト募集中。経験者・未経験者歓迎。福岡エリアで一緒に働きませんか？">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="site-config.js"></script>
+    <style>
+        .page-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.05)"/><circle cx="900" cy="250" r="80" fill="rgba(255,255,255,0.03)"/></svg>');
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-header-content h1 {
+            margin-bottom: var(--space-6);
+        }
+        
+        .page-header-content p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0;
+            padding: var(--space-4) var(--space-6);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .recruit-hero {
+            background: var(--gradient-dark);
+            color: white;
+            padding: var(--space-16);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin: var(--space-12) 0;
+        }
+        
+        .recruit-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.03)"/><circle cx="900" cy="300" r="80" fill="rgba(255,255,255,0.02)"/></svg>');
+        }
+        
+        .recruit-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .recruit-hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: var(--space-4);
+            color: white;
+        }
+        
+        .recruit-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+        
+        .job-section {
+            padding: var(--space-20) 0;
+        }
+        
+        .job-section.alternate {
+            background: var(--light-gray);
+        }
+        
+        .job-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: var(--space-8);
+        }
+        
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .job-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .job-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+        }
+        
+        .job-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .job-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .job-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .job-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .job-type {
+            background: var(--gradient-accent);
+            color: white;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: var(--space-2);
+        }
+        
+        .job-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+        }
+        
+        .detail-item i {
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .detail-content h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .detail-content p {
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .requirements {
+            background: var(--light-gray);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin: var(--space-6) 0;
+        }
+        
+        .requirements h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .requirements-list {
+            list-style: none;
+            margin: 0;
+        }
+        
+        .requirements-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-2);
+            padding: var(--space-2) 0;
+            color: var(--text-secondary);
+        }
+        
+        .requirements-list i {
+            color: var(--accent-purple);
+            font-size: 0.9rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+        
+        .benefit-item {
+            text-align: center;
+            padding: var(--space-6);
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .benefit-item i {
+            font-size: 2.5rem;
+            color: var(--accent-purple);
+            margin-bottom: var(--space-4);
+            background: rgba(99, 102, 241, 0.1);
+            padding: var(--space-4);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+        }
+        
+        .benefit-item h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .benefit-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        
+        .apply-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--space-16);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin: var(--space-12) 0;
+        }
+        
+        .apply-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.03)"/><circle cx="900" cy="300" r="80" fill="rgba(255,255,255,0.02)"/></svg>');
+        }
+        
+        .apply-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .apply-section h2 {
+            font-size: 2rem;
+            margin-bottom: var(--space-4);
+            color: white;
+        }
+        
+        .apply-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: var(--space-8);
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            text-align: left;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+        }
+        
+        .contact-item i {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .contact-item div h4 {
+            color: white;
+            margin-bottom: var(--space-1);
+            font-size: 1rem;
+        }
+        
+        /* フランチャイズセクション用スタイル */
+        .franchise-card {
+            border-left: 4px solid var(--accent-cyan);
+        }
+        
+        .job-icon.franchise {
+            background: var(--gradient-cyan);
+        }
+        
+        .franchise-features {
+            margin-top: var(--space-16);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+        
+        .feature-card {
+            background: white;
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            font-size: 1.1rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        
+        .contact-item div p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .job-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .job-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body class="modern-massage">
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><i class="fas fa-spa"></i> 愛なるマッサージ</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="hotels.html" class="nav-link">対応可能ホテル</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="services.html" class="nav-link">施術内容</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="therapists.html" class="nav-link">施術者紹介</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="safety.html" class="nav-link">感染対策</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="manga.html" class="nav-link">施術イメージ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="column.html" class="nav-link">健康コラム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="recruit.html" class="nav-link active">求人情報</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ページヘッダー -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1><i class="fas fa-users"></i> 求人情報</h1>
+                    <p>愛なるマッサージで一緒に働きませんか？経験者・未経験者問わず歓迎いたします</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 求人メッセージ -->
+        <section class="job-section">
+            <div class="container">
+                <div class="recruit-hero">
+                    <div class="recruit-hero-content">
+                        <h2>女性スタッフが活躍する安心の職場環境</h2>
+                        <p>
+                            <strong>当店スタッフは全員女性です</strong><br>
+                            お客様・スタッフ双方が安心してサービスをご利用・ご提供いただける環境を大切にしています。<br>
+                            女性ならではの細やかな気配りと技術で、お客様に癒しをお届けしませんか？
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 募集職種 -->
+        <section class="job-section">
+            <div class="container">
+                <h2 class="section-title">募集職種</h2>
+                
+                <!-- セラピスト募集 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="job-icon">
+                            <i class="fas fa-hands"></i>
+                        </div>
+                        <div>
+                            <h3 class="job-title">出張セラピスト</h3>
+                            <div class="job-type">正社員・業務委託</div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-details">
+                        <div class="detail-item">
+                            <i class="fas fa-female"></i>
+                            <div class="detail-content">
+                                <h4>募集対象</h4>
+                                <p><strong>女性スタッフのみ募集</strong><br>
+                                安心・安全な職場環境<br>
+                                ※経験・技術に応じて優遇</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <div class="detail-content">
+                                <h4>安心の職場環境</h4>
+                                <p>女性専用職場<br>
+                                柔軟なシフト制<br>
+                                サポート体制完備</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="detail-content">
+                                <h4>勤務地</h4>
+                                <p>福岡市内各ホテルへの出張<br>
+                                中洲・博多・天神エリア中心<br>
+                                移動は電車・タクシー</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div class="detail-content">
+                                <h4>研修制度</h4>
+                                <p>未経験者歓迎<br>
+                                基礎技術講習（無料）<br>
+                                マンツーマン指導あり<br>
+                                技術向上サポート</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="requirements">
+                        <h4><i class="fas fa-check-circle"></i> 応募資格・歓迎条件</h4>
+                        <ul class="requirements-list">
+                            <li><i class="fas fa-circle"></i> 27歳以上の健康な女性</li>
+                            <li><i class="fas fa-circle"></i> 人とのコミュニケーションを大切にできる方</li>
+                            <li><i class="fas fa-circle"></i> 女性専用職場で安心して働きたい方</li>
+                            <li><i class="fas fa-star"></i> マッサージ・整体の資格をお持ちの方（歓迎）</li>
+                            <li><i class="fas fa-star"></i> 接客・サービス業経験のある方（歓迎）</li>
+                            <li><i class="fas fa-star"></i> 福岡市内在住または近郊の方（歓迎）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 働く環境・福利厚生 -->
+        <section class="job-section alternate">
+            <div class="container">
+                <h2 class="section-title">働く環境・福利厚生</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="fas fa-heart"></i>
+                        <h4>働きやすい環境</h4>
+                        <p>アットホームな職場で、スタッフ同士が支え合います</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-female"></i>
+                        <h4>女性専用職場</h4>
+                        <p>全スタッフ女性で安心して働ける環境です</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <h4>柔軟な働き方</h4>
+                        <p>週3日〜、時間も相談可能で自分のペースで働けます</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>技術講習・研修</h4>
+                        <p>基礎講習から応用技術まで無料で学べます</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>安心サポート</h4>
+                        <p>困った時はすぐに相談できる体制が整っています</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-users"></i>
+                        <h4>女性同士のチームワーク</h4>
+                        <p>女性スタッフ同士で支え合う温かい職場です</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- フランチャイズパートナー募集 -->
+        <section class="job-section alternate">
+            <div class="container">
+                <h2 class="section-title">🚀 フランチャイズパートナー募集</h2>
+                <div style="text-align: center; margin-bottom: var(--space-12);">
+                    <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                        愛なるマッサージブランドで、あなたの街で事業を始めませんか？<br>
+                        <strong>札幌ススキノ・名古屋栄エリア</strong>での事業パートナーを募集中です
+                    </p>
+                </div>
+
+                <!-- 札幌ススキノ -->
+                <div class="job-card franchise-card">
+                    <div class="job-header">
+                        <div class="job-icon franchise">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <div>
+                            <h3 class="job-title">札幌ススキノ店 フランチャイズパートナー</h3>
+                            <div class="job-type">事業パートナー・独立開業</div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-details">
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="detail-content">
+                                <h4>展開エリア</h4>
+                                <p><strong>札幌市中央区ススキノエリア</strong><br>
+                                北海道最大の繁華街での事業展開<br>
+                                観光客・ビジネス客へのアプローチ</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <i class="fas fa-chart-line"></i>
+                            <div class="detail-content">
+                                <h4>市場ポテンシャル</h4>
+                                <p>年間2,000万人の観光客<br>
+                                ホテル密集地域での出張サービス需要<br>
+                                北海道唯一の愛なるマッサージ店舗</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <i class="fas fa-handshake"></i>
+                            <div class="detail-content">
+                                <h4>サポート内容</h4>
+                                <p>ブランド使用権・運営ノウハウ提供<br>
+                                研修・技術指導・集客支援<br>
+                                初期投資：200万円〜（相談可）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 名古屋栄 -->
+                <div class="job-card franchise-card">
+                    <div class="job-header">
+                        <div class="job-icon franchise">
+                            <i class="fas fa-torii-gate"></i>
+                        </div>
+                        <div>
+                            <h3 class="job-title">名古屋栄店 フランチャイズパートナー</h3>
+                            <div class="job-type">事業パートナー・独立開業</div>
+                        </div>
+                    </div>
+                    
+                    <div class="job-details">
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="detail-content">
+                                <h4>展開エリア</h4>
+                                <p><strong>名古屋市中区栄エリア</strong><br>
+                                中部地方最大の商業地域<br>
+                                ビジネス・ショッピング客集積地</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <i class="fas fa-chart-line"></i>
+                            <div class="detail-content">
+                                <h4>市場ポテンシャル</h4>
+                                <p>中部経済圏230万人の商圏<br>
+                                高級ホテル・ビジネスホテル多数<br>
+                                東海地方唯一の愛なるマッサージ店舗</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <i class="fas fa-handshake"></i>
+                            <div class="detail-content">
+                                <h4>サポート内容</h4>
+                                <p>ブランド使用権・運営ノウハウ提供<br>
+                                研修・技術指導・集客支援<br>
+                                初期投資：250万円〜（相談可）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- フランチャイズの特徴 -->
+                <div class="franchise-features">
+                    <h3 style="text-align: center; margin-bottom: var(--space-8); color: var(--text-primary);">
+                        <i class="fas fa-star"></i> フランチャイズの特徴
+                    </h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h4>確立されたブランド</h4>
+                            <p>福岡で実績のある愛なるマッサージブランドを使用し、信頼性のあるスタートが可能</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h4>充実の研修制度</h4>
+                            <p>技術研修から経営ノウハウまで、成功に必要なすべてを福岡本店で学べます</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h4>最新集客システム</h4>
+                            <p>X (Twitter) ベースの会員制予約システムなど、効率的な集客ツールを提供</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4>継続サポート</h4>
+                            <p>開業後も運営サポート・技術指導・新サービス導入など継続的に支援</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 応募条件 -->
+                <div style="background: white; border-radius: var(--radius-xl); padding: var(--space-8); box-shadow: var(--shadow-md); margin-top: var(--space-12);">
+                    <h3 style="text-align: center; margin-bottom: var(--space-6); color: var(--text-primary);">
+                        <i class="fas fa-user-check"></i> 応募条件
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
+                        <div>
+                            <h4 style="color: var(--accent-purple); margin-bottom: var(--space-3);">基本条件</h4>
+                            <ul style="color: var(--text-secondary); line-height: 1.6;">
+                                <li>20歳以上の方</li>
+                                <li>サービス業経験者優遇</li>
+                                <li>地域密着で長期運営可能な方</li>
+                                <li>ブランド価値を理解し守れる方</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent-purple); margin-bottom: var(--space-3);">資金・資格</h4>
+                            <ul style="color: var(--text-secondary); line-height: 1.6;">
+                                <li>初期投資資金の準備</li>
+                                <li>運転資金（6ヶ月分）</li>
+                                <li>マッサージ関連資格あれば優遇</li>
+                                <li>法人・個人事業主どちらでも可</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 応募・お問い合わせ -->
+        <section class="job-section">
+            <div class="container">
+                <div class="apply-section">
+                    <div class="apply-content">
+                        <h2>まずはお気軽にお問い合わせください</h2>
+                        <p>
+                            ご不明な点やご質問がございましたら、<br>
+                            X (Twitter) で24時間いつでもお気軽にお問い合わせください。<br>
+                            面接・見学も随時受け付けております。
+                        </p>
+                        
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fab fa-twitter"></i>
+                                <div>
+                                    <h4>X (Twitter) でのお問い合わせ</h4>
+                                    <p>@ainaru_massage<br>24時間いつでも受付</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <h4>面接場所</h4>
+                                    <p>福岡市内（詳細は応募時にご案内）<br>駅近の便利な立地です</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <h4>面接時間</h4>
+                                    <p>平日・土日祝日対応<br>お時間はご相談ください</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 予約・お問い合わせ -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>あなたの技術で多くの方を癒しませんか？</h2>
+                    <p>経験豊富な先輩スタッフがしっかりとサポートいたします</p>
+                    <div class="cta-buttons">
+                        <a href="https://twitter.com/ainaru_massage" target="_blank" class="btn btn-primary btn-large">
+                            <i class="fab fa-twitter"></i>
+                            X (Twitter) で応募
+                        </a>
+                    </div>
+                    <p style="margin-top: var(--space-6); font-size: 0.95rem; opacity: 0.8;">
+                        24時間受付 | 見学・面接随時受付
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>愛なるマッサージ</h3>
+                    <p>心と体に愛を込めた癒しの出張マッサージ・アカスリ専門店</p>
+                    <div style="margin-top: var(--space-6);">
+                        <h4 style="margin-bottom: var(--space-3); font-size: 1rem;">フォローする</h4>
+                        <a href="https://x.com/ainaru_massage" target="_blank" style="display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#1da1f2'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
+                            <i class="fab fa-x-twitter" style="font-size: 1.2rem;"></i>
+                            <span>@ainaru_massage</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>サービス</h4>
+                    <ul>
+                        <li><a href="services.html#massage">マッサージ</a></li>
+                        <li><a href="services.html#akasuri">アカスリ</a></li>
+                        <li><a href="services.html#combination">コンビネーション</a></li>
+                        <li><a href="safety.html">感染対策</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 愛なるマッサージ. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

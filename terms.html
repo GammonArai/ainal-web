@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ご利用にあたってのご案内 | 愛なるマッサージ</title>
+    <meta name="description" content="愛なるマッサージのご利用規約とガイドライン。安心・安全なサービスご利用のための重要事項をご確認ください。">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="site-config.js"></script>
+    <style>
+        .page-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.05)"/><circle cx="900" cy="250" r="80" fill="rgba(255,255,255,0.03)"/></svg>');
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-header-content h1 {
+            margin-bottom: var(--space-6);
+        }
+        
+        .page-header-content p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0;
+            padding: var(--space-4) var(--space-6);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .terms-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-20) var(--space-6);
+        }
+        
+        .terms-section {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-10);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .terms-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+        
+        .terms-section.warning::before {
+            background: var(--gradient-warning);
+        }
+        
+        .terms-section.danger::before {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-4);
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .section-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .section-icon.primary {
+            background: var(--gradient-primary);
+        }
+        
+        .section-icon.warning {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+        
+        .section-icon.danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .terms-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: var(--space-6);
+        }
+        
+        .terms-list {
+            list-style: none;
+            margin: var(--space-6) 0;
+            padding: 0;
+        }
+        
+        .terms-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--border-gray);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .terms-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .terms-list i {
+            color: var(--accent-purple);
+            margin-top: 2px;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+        
+        .warning-list i {
+            color: var(--admin-warning);
+        }
+        
+        .danger-list i {
+            color: var(--admin-danger);
+        }
+        
+        .highlight-box {
+            background: var(--light-gray);
+            border-left: 4px solid var(--accent-purple);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin: var(--space-6) 0;
+        }
+        
+        .highlight-box.warning {
+            border-left-color: var(--admin-warning);
+            background: rgba(245, 158, 11, 0.05);
+        }
+        
+        .highlight-box.danger {
+            border-left-color: var(--admin-danger);
+            background: rgba(239, 68, 68, 0.05);
+        }
+        
+        .highlight-text {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: var(--space-12) 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-gray);
+        }
+        
+        .divider-text {
+            background: var(--light-gray);
+            color: var(--text-muted);
+            padding: 0 var(--space-6);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .closing-message {
+            background: var(--gradient-dark);
+            color: white;
+            padding: var(--space-10);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            margin-top: var(--space-12);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .closing-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.03)"/><circle cx="900" cy="300" r="80" fill="rgba(255,255,255,0.02)"/></svg>');
+        }
+        
+        .closing-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .closing-message h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-4);
+            color: white;
+        }
+        
+        .closing-message p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            line-height: 1.7;
+        }
+        
+        @media (max-width: 768px) {
+            .terms-content {
+                padding: var(--space-12) var(--space-4);
+            }
+            
+            .terms-section {
+                padding: var(--space-6);
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body class="modern-massage">
+    <!-- ヘッダー（統一設定から自動生成） -->
+    <div id="unified-header"></div>
+    
+    <script>
+        // 統一ヘッダーを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerContainer = document.getElementById('unified-header');
+            if (headerContainer) {
+                headerContainer.innerHTML = generateUnifiedHeader('terms.html');
+            }
+        });
+    </script>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ページヘッダー -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1><i class="fas fa-shield-alt"></i> ご利用にあたってのご案内</h1>
+                    <p>安心・安全なサービスのために重要事項をご確認ください</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 利用規約コンテンツ -->
+        <div class="terms-content">
+            
+            <!-- 料金について -->
+            <section class="terms-section">
+                <div class="section-header">
+                    <div class="section-icon primary">
+                        <i class="fas fa-yen-sign"></i>
+                    </div>
+                    <h2 class="section-title">料金について</h2>
+                </div>
+                
+                <p class="terms-text">
+                    サービスをご利用の際は、表示されている基本料金に加えて、施設使用料（ホテルなどのご利用料金）が別途必要となります。<br>
+                    施設使用料はお客様ご自身のご負担となりますので、あらかじめご了承ください。
+                </p>
+                
+                <div class="highlight-box warning">
+                    <p class="highlight-text">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        基本料金とは別に、ホテルの施設使用料がお客様負担となります
+                    </p>
+                </div>
+            </section>
+
+            <div class="divider">
+                <span class="divider-text">⸻</span>
+            </div>
+
+            <!-- 安心・安全なご利用のために -->
+            <section class="terms-section warning">
+                <div class="section-header">
+                    <div class="section-icon warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h2 class="section-title">安心・安全なご利用のために</h2>
+                </div>
+                
+                <p class="terms-text">
+                    より安心してサービスをご利用いただくため、以下のような行為が確認された場合は、サービスを中断させていただく場合がございます。<br>
+                    また、状況によっては警察への通報や、損害に応じた法的対応を行うこともございます。
+                </p>
+                
+                <ul class="terms-list warning-list">
+                    <li>
+                        <i class="fas fa-hand-paper"></i>
+                        <span>スタッフへの無理な接触や、強引な言動</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-user-secret"></i>
+                        <span>店舗を通さず個人的な連絡や会う約束をする行為</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-camera"></i>
+                        <span>無断での撮影、録音、録画（スマートフォンやその他の機器を含む）</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-wine-bottle"></i>
+                        <span>アルコールや薬物の影響によって正常な判断が難しいと判断される場合</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-pills"></i>
+                        <span>違法薬物の所持・使用、またはそれらを勧める行為</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-angry"></i>
+                        <span>他のお客様やスタッフの安全を脅かす言動（暴言・威圧・脅しなど）</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-users"></i>
+                        <span>スタッフ以外の第三者が同席していることが確認された場合</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-ban"></i>
+                        <span>その他、当店が適切でないと判断した行為</span>
+                    </li>
+                </ul>
+            </section>
+
+            <div class="divider">
+                <span class="divider-text">⸻</span>
+            </div>
+
+            <!-- ご利用をお断りする場合 -->
+            <section class="terms-section danger">
+                <div class="section-header">
+                    <div class="section-icon danger">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="section-title">ご利用をお断りする場合</h2>
+                </div>
+                
+                <p class="terms-text">
+                    以下の項目に該当するお客様については、ご予約やご利用をお断りさせていただく場合がございます。
+                </p>
+                
+                <ul class="terms-list danger-list">
+                    <li>
+                        <i class="fas fa-birthday-cake"></i>
+                        <span>18歳未満の方、および高校在学中の方</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-user-tie"></i>
+                        <span>暴力団関係者、またはそれに準ずると判断される方</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-thermometer-half"></i>
+                        <span>発熱・咳など体調不良の症状が見られる場合（ご来店前・ご利用中含む）</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-wine-glass"></i>
+                        <span>強い酩酊状態にあるなど、スタッフが安全に対応できないと判断される場合</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-calendar-times"></i>
+                        <span>無断キャンセルや、ご予約の度重なるキャンセルがある方</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone-slash"></i>
+                        <span>連絡の取れない電話番号や、非通知設定でのお問い合わせの場合</span>
+                    </li>
+                </ul>
+            </section>
+
+            <div class="divider">
+                <span class="divider-text">⸻</span>
+            </div>
+
+            <!-- その他のご遠慮いただきたい行為 -->
+            <section class="terms-section">
+                <div class="section-header">
+                    <div class="section-icon primary">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h2 class="section-title">その他のご遠慮いただきたい行為</h2>
+                </div>
+                
+                <p class="terms-text">
+                    当店では、スタッフの安心と信頼関係を大切にしています。以下のような行為は固くお断りしております。
+                </p>
+                
+                <ul class="terms-list">
+                    <li>
+                        <i class="fas fa-user-friends"></i>
+                        <span>スタッフのプライベートに関わる質問や接触（SNS等での連絡を含む）</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-handshake"></i>
+                        <span>店舗を介さない個人的な接触の依頼</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-comment-slash"></i>
+                        <span>スタッフに対する過度な干渉や、嫌がる言動</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-share-alt"></i>
+                        <span>サービスに関する情報の無断開示や転載</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-briefcase"></i>
+                        <span>営業行為、勧誘、ネットワークビジネス等の目的でのご利用</span>
+                    </li>
+                </ul>
+            </section>
+
+            <div class="divider">
+                <span class="divider-text">⸻</span>
+            </div>
+
+            <!-- 最終メッセージ -->
+            <div class="closing-message">
+                <div class="closing-content">
+                    <h3>皆さまに気持ちよくご利用いただくために</h3>
+                    <p>
+                        皆さまに気持ちよくご利用いただける環境を守るため、ご理解とご協力をお願いいたします。<br>
+                        安心してご相談・ご利用いただけるよう、スタッフ一同、誠意をもって対応させていただきます。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 予約・お問い合わせ -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>ご不明な点がございましたらお気軽にお問い合わせください</h2>
+                    <p>安心してご利用いただけるよう、丁寧にご案内いたします</p>
+                    <div class="cta-buttons">
+                        <a href="https://t.me/AnalSenseiBot" target="_blank" class="btn btn-primary btn-large">
+                            <i class="fab fa-telegram"></i>
+                            Telegramで相談
+                        </a>
+                        <a href="index.html" class="btn btn-secondary btn-large">
+                            <i class="fas fa-home"></i>
+                            ホームに戻る
+                        </a>
+                    </div>
+                    <p style="margin-top: var(--space-6); font-size: 0.95rem; opacity: 0.8;">
+                        1日1件限定・完全予約制 | ご質問・ご相談はお気軽に
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター（統一設定から自動生成） -->
+    <div id="unified-footer"></div>
+    
+    <script>
+        // 統一フッターを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerContainer = document.getElementById('unified-footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = generateUnifiedFooter();
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

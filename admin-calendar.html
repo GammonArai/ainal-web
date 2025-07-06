@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>予約カレンダー | 愛なるマッサージ 管理画面</title>
+    <meta name="description" content="愛なるマッサージの予約カレンダー管理画面。月間・週間・日間ビューで予約状況を確認できます。">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --calendar-primary: #6366f1;
+            --calendar-secondary: #f8fafc;
+            --calendar-border: #e2e8f0;
+            --calendar-hover: #f1f5f9;
+            --calendar-today: #fef3c7;
+            --calendar-weekend: #f9fafb;
+            --booking-pending: #fbbf24;
+            --booking-confirmed: #10b981;
+            --booking-completed: #6b7280;
+            --booking-cancelled: #ef4444;
+        }
+
+        .calendar-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            border-bottom: 1px solid var(--calendar-border);
+            background: linear-gradient(135deg, var(--calendar-primary) 0%, #8b5cf6 100%);
+            color: white;
+        }
+
+        .calendar-navigation {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .calendar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .view-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .view-button.active,
+        .view-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .calendar-day-header {
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--calendar-secondary);
+            border-bottom: 1px solid var(--calendar-border);
+        }
+
+        .calendar-day {
+            min-height: 120px;
+            border-right: 1px solid var(--calendar-border);
+            border-bottom: 1px solid var(--calendar-border);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .calendar-day:hover {
+            background: var(--calendar-hover);
+        }
+
+        .calendar-day.weekend {
+            background: var(--calendar-weekend);
+        }
+
+        .calendar-day.today {
+            background: var(--calendar-today);
+        }
+
+        .calendar-day.other-month {
+            color: #9ca3af;
+            background: #f9fafb;
+        }
+
+        .day-number {
+            padding: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .day-bookings {
+            padding: 0.25rem;
+            height: calc(100% - 2rem);
+            overflow-y: auto;
+        }
+
+        .booking-item {
+            background: var(--booking-pending);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            margin-bottom: 0.25rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .booking-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .booking-item.confirmed {
+            background: var(--booking-confirmed);
+        }
+
+        .booking-item.completed {
+            background: var(--booking-completed);
+        }
+
+        .booking-item.cancelled {
+            background: var(--booking-cancelled);
+        }
+
+        .booking-time {
+            font-weight: 600;
+        }
+
+        .booking-service {
+            opacity: 0.9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .calendar-legend {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            background: var(--calendar-secondary);
+            border-top: 1px solid var(--calendar-border);
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .booking-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .booking-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--calendar-border);
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover {
+            color: var(--text-primary);
+        }
+
+        .booking-details {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .detail-value {
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-confirmed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-completed {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .status-cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--calendar-border);
+        }
+
+        .action-button {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-primary {
+            background: var(--calendar-primary);
+            color: white;
+        }
+
+        .action-primary:hover {
+            background: #5855eb;
+            transform: translateY(-2px);
+        }
+
+        .action-secondary {
+            background: #f3f4f6;
+            color: var(--text-primary);
+        }
+
+        .action-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .action-danger {
+            background: var(--booking-cancelled);
+            color: white;
+        }
+
+        .action-danger:hover {
+            background: #dc2626;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            animate: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .no-bookings {
+            text-align: center;
+            color: var(--text-secondary);
+            font-style: italic;
+            padding: 2rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .filter-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--calendar-border);
+            border-radius: 8px;
+            background: white;
+            font-size: 0.9rem;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--calendar-primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .calendar-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .calendar-navigation {
+                order: 2;
+            }
+
+            .view-selector {
+                order: 3;
+            }
+
+            .calendar-grid {
+                font-size: 0.8rem;
+            }
+
+            .calendar-day {
+                min-height: 80px;
+            }
+
+            .booking-item {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.4rem;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                width: calc(100% - 2rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- サイドバー（簡略版） -->
+        <aside class="admin-sidebar" style="width: 240px;">
+            <div class="admin-logo">
+                <i class="fas fa-spa"></i>
+                <h1>愛なるマッサージ</h1>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="admin.html" class="admin-nav-link"><i class="fas fa-dashboard"></i> ダッシュボード</a></li>
+                    <li><a href="admin-calendar.html" class="admin-nav-link active"><i class="fas fa-calendar"></i> 予約カレンダー</a></li>
+                    <li><a href="#" class="admin-nav-link"><i class="fas fa-users"></i> 顧客管理</a></li>
+                    <li><a href="#" class="admin-nav-link"><i class="fas fa-user-md"></i> セラピスト管理</a></li>
+                    <li><a href="#" class="admin-nav-link"><i class="fas fa-cog"></i> 設定</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- メインコンテンツ -->
+        <main class="admin-main" style="margin-left: 240px;">
+            <div class="admin-header">
+                <div>
+                    <h1 class="admin-title">📅 予約カレンダー</h1>
+                    <p style="margin: 0.5rem 0 0; color: var(--text-secondary);">月間・週間ビューで予約状況を管理</p>
+                </div>
+                <div class="admin-actions">
+                    <button class="action-btn primary" onclick="refreshCalendar()">
+                        <i class="fas fa-sync-alt"></i> 更新
+                    </button>
+                    <button class="action-btn secondary" onclick="exportCalendar()">
+                        <i class="fas fa-download"></i> エクスポート
+                    </button>
+                </div>
+            </div>
+
+            <!-- フィルター -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label class="filter-label">セラピスト</label>
+                    <select id="therapistFilter" class="filter-select" onchange="applyFilters()">
+                        <option value="">全て</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">ステータス</label>
+                    <select id="statusFilter" class="filter-select" onchange="applyFilters()">
+                        <option value="">全て</option>
+                        <option value="pending">保留中</option>
+                        <option value="confirmed">確認済み</option>
+                        <option value="completed">完了</option>
+                        <option value="cancelled">キャンセル</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- カレンダー -->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <div class="calendar-navigation">
+                        <button class="nav-button" onclick="previousMonth()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h2 class="calendar-title" id="calendarTitle">2024年6月</h2>
+                        <button class="nav-button" onclick="nextMonth()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="view-selector">
+                        <button class="view-button active" data-view="month">月</button>
+                        <button class="view-button" data-view="week">週</button>
+                        <button class="view-button" data-view="day">日</button>
+                    </div>
+                </div>
+
+                <div id="calendarContent">
+                    <div class="loading">
+                        <i class="fas fa-spinner spinner"></i>
+                        カレンダーを読み込み中...
+                    </div>
+                </div>
+
+                <div class="calendar-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--booking-pending);"></div>
+                        <span>保留中</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--booking-confirmed);"></div>
+                        <span>確認済み</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--booking-completed);"></div>
+                        <span>完了</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--booking-cancelled);"></div>
+                        <span>キャンセル</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 予約詳細モーダル -->
+    <div class="booking-modal" id="bookingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">予約詳細</h3>
+                <button class="close-button" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="booking-details" id="modalBookingDetails">
+                <!-- 動的に生成 -->
+            </div>
+            <div class="modal-actions" id="modalActions">
+                <!-- 動的に生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="site-config.js"></script>
+    <script>
+        // カレンダー管理クラス
+        class CalendarManager {
+            constructor() {
+                this.currentDate = new Date();
+                this.currentView = 'month';
+                this.bookings = {};
+                this.therapists = [];
+                this.filters = {
+                    therapist: '',
+                    status: ''
+                };
+                this.init();
+            }
+
+            async init() {
+                await this.loadTherapists();
+                await this.loadCalendar();
+                this.setupEventListeners();
+            }
+
+            async loadTherapists() {
+                try {
+                    // API呼び出し（仮想データを使用）
+                    this.therapists = [
+                        { id: 1, name: '田中 美香' },
+                        { id: 2, name: '佐藤 恵子' }
+                    ];
+
+                    // セラピストフィルターに追加
+                    const therapistFilter = document.getElementById('therapistFilter');
+                    this.therapists.forEach(therapist => {
+                        const option = document.createElement('option');
+                        option.value = therapist.id;
+                        option.textContent = therapist.name;
+                        therapistFilter.appendChild(option);
+                    });
+                } catch (error) {
+                    console.error('セラピスト読み込みエラー:', error);
+                }
+            }
+
+            async loadCalendar() {
+                try {
+                    const year = this.currentDate.getFullYear();
+                    const month = this.currentDate.getMonth() + 1;
+
+                    // タイトル更新
+                    document.getElementById('calendarTitle').textContent = 
+                        `${year}年${month}月`;
+
+                    // 仮想データ（実際にはAPIから取得）
+                    this.bookings = this.generateMockBookings(year, month);
+
+                    // カレンダー描画
+                    this.renderCalendar();
+                } catch (error) {
+                    console.error('カレンダー読み込みエラー:', error);
+                    document.getElementById('calendarContent').innerHTML = 
+                        '<div class="no-bookings">カレンダーの読み込みに失敗しました</div>';
+                }
+            }
+
+            generateMockBookings(year, month) {
+                const bookings = {};
+                const services = ['リラクゼーションマッサージ', 'アカスリ', 'セットコース'];
+                const statuses = ['pending', 'confirmed', 'completed'];
+                
+                // ランダムな予約を生成
+                for (let day = 1; day <= 30; day++) {
+                    const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                    
+                    if (Math.random() > 0.7) { // 30%の確率で予約あり
+                        bookings[date] = [];
+                        
+                        const bookingCount = Math.floor(Math.random() * 3) + 1;
+                        for (let i = 0; i < bookingCount; i++) {
+                            const hour = Math.floor(Math.random() * 12) + 10;
+                            bookings[date].push({
+                                id: Math.floor(Math.random() * 1000),
+                                bookingCode: `AM${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+                                startTime: `${hour.toString().padStart(2, '0')}:00`,
+                                endTime: `${(hour + 1).toString().padStart(2, '0')}:00`,
+                                serviceName: services[Math.floor(Math.random() * services.length)],
+                                therapistName: this.therapists[Math.floor(Math.random() * this.therapists.length)]?.name || '未割当',
+                                hotelName: 'グランドハイアット福岡',
+                                status: statuses[Math.floor(Math.random() * statuses.length)],
+                                totalPrice: (Math.floor(Math.random() * 5) + 5) * 1000,
+                                customerName: '田中太郎'
+                            });
+                        }
+                    }
+                }
+                
+                return bookings;
+            }
+
+            renderCalendar() {
+                const content = document.getElementById('calendarContent');
+                
+                if (this.currentView === 'month') {
+                    content.innerHTML = this.renderMonthView();
+                } else if (this.currentView === 'week') {
+                    content.innerHTML = this.renderWeekView();
+                } else {
+                    content.innerHTML = this.renderDayView();
+                }
+            }
+
+            renderMonthView() {
+                const year = this.currentDate.getFullYear();
+                const month = this.currentDate.getMonth();
+                
+                // 月の最初の日と最後の日を取得
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                
+                // カレンダーの開始日（前月の日曜日）
+                const startDate = new Date(firstDay);
+                startDate.setDate(startDate.getDate() - firstDay.getDay());
+                
+                let html = '<div class="calendar-grid">';
+                
+                // 曜日ヘッダー
+                const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
+                dayNames.forEach(day => {
+                    html += `<div class="calendar-day-header">${day}</div>`;
+                });
+                
+                // カレンダーの日付
+                const currentDate = new Date(startDate);
+                for (let week = 0; week < 6; week++) {
+                    for (let day = 0; day < 7; day++) {
+                        const isCurrentMonth = currentDate.getMonth() === month;
+                        const isToday = this.isToday(currentDate);
+                        const isWeekend = day === 0 || day === 6;
+                        const dateStr = currentDate.toISOString().split('T')[0];
+                        
+                        let classes = ['calendar-day'];
+                        if (!isCurrentMonth) classes.push('other-month');
+                        if (isToday) classes.push('today');
+                        if (isWeekend && isCurrentMonth) classes.push('weekend');
+                        
+                        html += `<div class="${classes.join(' ')}" onclick="selectDate('${dateStr}')">`;
+                        html += `<div class="day-number">${currentDate.getDate()}</div>`;
+                        html += '<div class="day-bookings">';
+                        
+                        // その日の予約を表示
+                        const dayBookings = this.bookings[dateStr] || [];
+                        const filteredBookings = this.filterBookings(dayBookings);
+                        
+                        filteredBookings.forEach(booking => {
+                            html += `
+                                <div class="booking-item ${booking.status}" onclick="showBookingDetails(${booking.id}); event.stopPropagation();">
+                                    <span class="booking-time">${booking.startTime}</span>
+                                    <span class="booking-service">${booking.serviceName}</span>
+                                </div>
+                            `;
+                        });
+                        
+                        html += '</div></div>';
+                        currentDate.setDate(currentDate.getDate() + 1);
+                    }
+                }
+                
+                html += '</div>';
+                return html;
+            }
+
+            renderWeekView() {
+                return '<div class="no-bookings">週表示は開発中です</div>';
+            }
+
+            renderDayView() {
+                return '<div class="no-bookings">日表示は開発中です</div>';
+            }
+
+            filterBookings(bookings) {
+                return bookings.filter(booking => {
+                    if (this.filters.status && booking.status !== this.filters.status) {
+                        return false;
+                    }
+                    if (this.filters.therapist && !booking.therapistName.includes(this.filters.therapist)) {
+                        return false;
+                    }
+                    return true;
+                });
+            }
+
+            isToday(date) {
+                const today = new Date();
+                return date.toDateString() === today.toDateString();
+            }
+
+            setupEventListeners() {
+                // ビュー切り替え
+                document.querySelectorAll('.view-button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        document.querySelectorAll('.view-button').forEach(b => b.classList.remove('active'));
+                        button.classList.add('active');
+                        this.currentView = button.dataset.view;
+                        this.renderCalendar();
+                    });
+                });
+
+                // モーダル外クリックで閉じる
+                document.getElementById('bookingModal').addEventListener('click', (e) => {
+                    if (e.target.id === 'bookingModal') {
+                        closeModal();
+                    }
+                });
+            }
+
+            previousMonth() {
+                this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+                this.loadCalendar();
+            }
+
+            nextMonth() {
+                this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+                this.loadCalendar();
+            }
+
+            applyFilters() {
+                this.filters.therapist = document.getElementById('therapistFilter').value;
+                this.filters.status = document.getElementById('statusFilter').value;
+                this.renderCalendar();
+            }
+
+            showBookingDetails(bookingId) {
+                // 全ての予約から該当するものを検索
+                let booking = null;
+                Object.values(this.bookings).forEach(dayBookings => {
+                    const found = dayBookings.find(b => b.id === bookingId);
+                    if (found) booking = found;
+                });
+
+                if (!booking) return;
+
+                const modal = document.getElementById('bookingModal');
+                const details = document.getElementById('modalBookingDetails');
+                const actions = document.getElementById('modalActions');
+
+                // 詳細情報を表示
+                details.innerHTML = `
+                    <div class="detail-row">
+                        <span class="detail-label">予約番号</span>
+                        <span class="detail-value">${booking.bookingCode}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">日時</span>
+                        <span class="detail-value">${booking.startTime} - ${booking.endTime}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">サービス</span>
+                        <span class="detail-value">${booking.serviceName}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">セラピスト</span>
+                        <span class="detail-value">${booking.therapistName}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">ホテル</span>
+                        <span class="detail-value">${booking.hotelName}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">お客様</span>
+                        <span class="detail-value">${booking.customerName}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">料金</span>
+                        <span class="detail-value">¥${booking.totalPrice.toLocaleString()}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">ステータス</span>
+                        <span class="detail-value">
+                            <span class="status-badge status-${booking.status}">
+                                ${this.getStatusText(booking.status)}
+                            </span>
+                        </span>
+                    </div>
+                `;
+
+                // アクションボタン
+                let actionsHtml = '';
+                if (booking.status === 'pending') {
+                    actionsHtml = `
+                        <button class="action-button action-primary" onclick="confirmBooking(${booking.id})">
+                            確認
+                        </button>
+                        <button class="action-button action-danger" onclick="cancelBooking(${booking.id})">
+                            キャンセル
+                        </button>
+                    `;
+                } else if (booking.status === 'confirmed') {
+                    actionsHtml = `
+                        <button class="action-button action-primary" onclick="completeBooking(${booking.id})">
+                            完了
+                        </button>
+                        <button class="action-button action-danger" onclick="cancelBooking(${booking.id})">
+                            キャンセル
+                        </button>
+                    `;
+                }
+                actionsHtml += `
+                    <button class="action-button action-secondary" onclick="editBooking(${booking.id})">
+                        編集
+                    </button>
+                `;
+
+                actions.innerHTML = actionsHtml;
+                modal.classList.add('active');
+            }
+
+            getStatusText(status) {
+                const statusMap = {
+                    'pending': '保留中',
+                    'confirmed': '確認済み',
+                    'completed': '完了',
+                    'cancelled': 'キャンセル'
+                };
+                return statusMap[status] || status;
+            }
+        }
+
+        // グローバル関数
+        let calendarManager;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calendarManager = new CalendarManager();
+        });
+
+        function previousMonth() {
+            calendarManager.previousMonth();
+        }
+
+        function nextMonth() {
+            calendarManager.nextMonth();
+        }
+
+        function applyFilters() {
+            calendarManager.applyFilters();
+        }
+
+        function selectDate(dateStr) {
+            console.log('Selected date:', dateStr);
+            // 日付選択時の処理
+        }
+
+        function showBookingDetails(bookingId) {
+            calendarManager.showBookingDetails(bookingId);
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+        }
+
+        function refreshCalendar() {
+            calendarManager.loadCalendar();
+        }
+
+        function exportCalendar() {
+            alert('エクスポート機能は開発中です');
+        }
+
+        function confirmBooking(bookingId) {
+            if (confirm('この予約を確認済みにしますか？')) {
+                // API呼び出し
+                alert('予約を確認しました');
+                closeModal();
+                refreshCalendar();
+            }
+        }
+
+        function cancelBooking(bookingId) {
+            const reason = prompt('キャンセル理由を入力してください:');
+            if (reason) {
+                // API呼び出し
+                alert('予約をキャンセルしました');
+                closeModal();
+                refreshCalendar();
+            }
+        }
+
+        function completeBooking(bookingId) {
+            if (confirm('この予約を完了済みにしますか？')) {
+                // API呼び出し
+                alert('予約を完了しました');
+                closeModal();
+                refreshCalendar();
+            }
+        }
+
+        function editBooking(bookingId) {
+            alert('編集機能は開発中です');
+        }
+    </script>
+</body>
+</html>

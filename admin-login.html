@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者ログイン | 愛なるマッサージ</title>
+    <meta name="description" content="愛なるマッサージの管理者専用ログインページ。セキュアな認証システム。">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1b3a 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .admin-login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-6);
+            position: relative;
+        }
+
+        .admin-login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="100" fill="rgba(99,102,241,0.1)"/><circle cx="800" cy="300" r="150" fill="rgba(99,102,241,0.05)"/><circle cx="300" cy="800" r="120" fill="rgba(99,102,241,0.08)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .admin-login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-12);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .admin-login-header {
+            text-align: center;
+            margin-bottom: var(--space-10);
+        }
+
+        .admin-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-6);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .admin-logo i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .admin-login-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1a1b3a;
+            margin-bottom: var(--space-2);
+            font-family: var(--font-serif);
+        }
+
+        .admin-login-subtitle {
+            color: #6b7280;
+            font-size: 1rem;
+            margin-bottom: var(--space-8);
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: var(--space-2);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-4) var(--space-5);
+            border: 2px solid #e5e7eb;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .password-input-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: var(--space-1);
+        }
+
+        .password-toggle:hover {
+            color: #374151;
+        }
+
+        .login-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: var(--space-4) var(--space-6);
+            border-radius: var(--radius-lg);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: var(--space-4);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 2px solid white;
+            animation: spin 1s linear infinite;
+            margin-right: var(--space-2);
+        }
+
+        .security-features {
+            margin-top: var(--space-8);
+            padding: var(--space-6);
+            background: rgba(239, 246, 255, 0.5);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .security-features h4 {
+            color: #1e40af;
+            margin-bottom: var(--space-4);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .security-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .security-list li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-1) 0;
+            font-size: 0.85rem;
+            color: #374151;
+        }
+
+        .security-list i {
+            color: #10b981;
+            width: 12px;
+        }
+
+        .failed-attempts {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin-top: var(--space-4);
+            color: #dc2626;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .two-factor-section {
+            display: none;
+            margin-top: var(--space-6);
+            padding: var(--space-6);
+            background: rgba(249, 250, 251, 0.8);
+            border-radius: var(--radius-lg);
+            border: 1px solid #e5e7eb;
+        }
+
+        .two-factor-title {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .code-input {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5em;
+            padding: var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: var(--space-6);
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #374151;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .admin-login-card {
+                padding: var(--space-8);
+                margin: var(--space-4);
+            }
+
+            .admin-login-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <div class="admin-login-card">
+            <div class="admin-login-header">
+                <div class="admin-logo">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h1 class="admin-login-title">管理者ログイン</h1>
+                <p class="admin-login-subtitle">セキュアな認証でアクセス</p>
+            </div>
+
+            <form class="login-form" id="adminLoginForm">
+                <div class="form-group">
+                    <label class="form-label" for="username">
+                        <i class="fas fa-user"></i> ユーザー名
+                    </label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        class="form-input" 
+                        placeholder="管理者ユーザー名を入力"
+                        required
+                        autocomplete="username"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">
+                        <i class="fas fa-lock"></i> パスワード
+                    </label>
+                    <div class="password-input-container">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-input" 
+                            placeholder="パスワードを入力"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="failed-attempts" id="failedAttempts">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    ログインに失敗しました。ユーザー名とパスワードを確認してください。
+                </div>
+
+                <button type="submit" class="login-button" id="loginButton">
+                    <div class="loading-spinner" id="loadingSpinner"></div>
+                    <span id="loginButtonText">ログイン</span>
+                </button>
+            </form>
+
+            <!-- 2段階認証セクション -->
+            <div class="two-factor-section" id="twoFactorSection">
+                <div class="two-factor-title">
+                    <i class="fas fa-mobile-alt"></i>
+                    2段階認証
+                </div>
+                <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: var(--space-4);">
+                    登録されたメールアドレスに送信された6桁のコードを入力してください。
+                </p>
+                <input 
+                    type="text" 
+                    id="twoFactorCode" 
+                    class="form-input code-input" 
+                    placeholder="000000"
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                >
+                <button type="button" class="login-button" onclick="verifyTwoFactor()">
+                    <span>認証</span>
+                </button>
+            </div>
+
+            <div class="security-features">
+                <h4>
+                    <i class="fas fa-shield-check"></i>
+                    セキュリティ機能
+                </h4>
+                <ul class="security-list">
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>2段階認証による保護</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>ブルートフォース攻撃対策</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>セッション管理とタイムアウト</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>アクセスログ記録</span>
+                    </li>
+                </ul>
+            </div>
+
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                トップページに戻る
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // セキュリティ設定
+        const SECURITY_CONFIG = {
+            maxFailedAttempts: 5,
+            lockoutDuration: 15 * 60 * 1000, // 15分
+            sessionTimeout: 2 * 60 * 60 * 1000, // 2時間
+            requiredPasswordLength: 8
+        };
+
+        // 管理者認証情報（デモ環境用 - 本番環境では環境変数またはAPI認証を使用）
+        const ADMIN_CREDENTIALS = {
+            username: 'admin',
+            password: 'demo123',
+            email: 'admin@example.com'
+        };
+
+        let failedAttempts = parseInt(localStorage.getItem('adminFailedAttempts') || '0');
+        let lockoutUntil = parseInt(localStorage.getItem('adminLockoutUntil') || '0');
+
+        // ページロード時の処理
+        window.addEventListener('load', function() {
+            checkLockoutStatus();
+            checkExistingSession();
+        });
+
+        // ロックアウト状態チェック
+        function checkLockoutStatus() {
+            const now = new Date().getTime();
+            if (lockoutUntil > now) {
+                const remainingTime = Math.ceil((lockoutUntil - now) / 60000);
+                showError(`アカウントがロックされています。あと${remainingTime}分後にお試しください。`);
+                disableForm(true);
+                return false;
+            }
+            return true;
+        }
+
+        // 既存セッションチェック
+        function checkExistingSession() {
+            const adminSession = localStorage.getItem('adminSession');
+            const sessionExpiry = parseInt(localStorage.getItem('adminSessionExpiry') || '0');
+            
+            if (adminSession && sessionExpiry > new Date().getTime()) {
+                // 有効なセッションが存在する場合
+                window.location.href = 'admin.html';
+            }
+        }
+
+        // フォーム送信処理
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!checkLockoutStatus()) return;
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                showError('ユーザー名とパスワードを入力してください。');
+                return;
+            }
+
+            if (password.length < SECURITY_CONFIG.requiredPasswordLength) {
+                showError('パスワードは8文字以上である必要があります。');
+                return;
+            }
+
+            authenticateUser(username, password);
+        });
+
+        // ユーザー認証
+        function authenticateUser(username, password) {
+            showLoading(true);
+
+            // 実際のAPIコールをシミュレート
+            setTimeout(() => {
+                if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                    // 認証成功
+                    resetFailedAttempts();
+                    showTwoFactorStep();
+                } else {
+                    // 認証失敗
+                    handleFailedLogin();
+                }
+                showLoading(false);
+            }, 1500);
+        }
+
+        // 認証失敗処理
+        function handleFailedLogin() {
+            failedAttempts++;
+            localStorage.setItem('adminFailedAttempts', failedAttempts.toString());
+            
+            if (failedAttempts >= SECURITY_CONFIG.maxFailedAttempts) {
+                // アカウントロック
+                lockoutUntil = new Date().getTime() + SECURITY_CONFIG.lockoutDuration;
+                localStorage.setItem('adminLockoutUntil', lockoutUntil.toString());
+                showError('ログイン試行回数が上限に達しました。15分後にお試しください。');
+                disableForm(true);
+                
+                // セキュリティアラート（実際の環境では管理者にメール通知）
+                console.warn('Security Alert: Multiple failed login attempts detected');
+            } else {
+                const remainingAttempts = SECURITY_CONFIG.maxFailedAttempts - failedAttempts;
+                showError(`ログインに失敗しました。残り${remainingAttempts}回試行できます。`);
+            }
+        }
+
+        // 失敗回数リセット
+        function resetFailedAttempts() {
+            failedAttempts = 0;
+            localStorage.removeItem('adminFailedAttempts');
+            localStorage.removeItem('adminLockoutUntil');
+        }
+
+        // 2段階認証ステップ表示
+        function showTwoFactorStep() {
+            document.getElementById('adminLoginForm').style.display = 'none';
+            document.getElementById('twoFactorSection').style.display = 'block';
+            
+            // 2段階認証コード送信をシミュレート
+            console.log('2FA Code sent to:', ADMIN_CREDENTIALS.email);
+            
+            // 実際の環境では、ここでメール送信APIを呼び出す
+            setTimeout(() => {
+                alert('認証コードを ' + ADMIN_CREDENTIALS.email + ' に送信しました。');
+            }, 500);
+        }
+
+        // 2段階認証コード検証
+        function verifyTwoFactor() {
+            const code = document.getElementById('twoFactorCode').value;
+            
+            if (!code || code.length !== 6) {
+                showError('6桁の認証コードを入力してください。');
+                return;
+            }
+
+            showLoading(true);
+
+            // 実際の環境では、サーバーでコード検証
+            setTimeout(() => {
+                // デモ用：123456 を正しいコードとして扱う
+                if (code === '123456') {
+                    // 認証成功
+                    createAdminSession();
+                    window.location.href = 'admin.html';
+                } else {
+                    showError('認証コードが正しくありません。');
+                    showLoading(false);
+                }
+            }, 1000);
+        }
+
+        // 管理者セッション作成
+        function createAdminSession() {
+            const sessionId = generateSessionId();
+            const expiry = new Date().getTime() + SECURITY_CONFIG.sessionTimeout;
+            
+            localStorage.setItem('adminSession', sessionId);
+            localStorage.setItem('adminSessionExpiry', expiry.toString());
+            localStorage.setItem('adminLoginTime', new Date().getTime().toString());
+            
+            // アクセスログ記録（実際の環境ではサーバーサイドで処理）
+            logAccess('LOGIN_SUCCESS', {
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                ip: 'xxx.xxx.xxx.xxx' // 実際の環境では実IPを取得
+            });
+        }
+
+        // セッションID生成
+        function generateSessionId() {
+            return 'admin_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+        }
+
+        // アクセスログ記録
+        function logAccess(action, details) {
+            const logs = JSON.parse(localStorage.getItem('adminAccessLogs') || '[]');
+            logs.push({
+                action,
+                ...details
+            });
+            
+            // 最新100件のみ保持
+            if (logs.length > 100) {
+                logs.splice(0, logs.length - 100);
+            }
+            
+            localStorage.setItem('adminAccessLogs', JSON.stringify(logs));
+        }
+
+        // パスワード表示切り替え
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('passwordToggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.className = 'fas fa-eye';
+            }
+        }
+
+        // ローディング表示制御
+        function showLoading(show) {
+            const button = document.getElementById('loginButton');
+            const spinner = document.getElementById('loadingSpinner');
+            const text = document.getElementById('loginButtonText');
+            
+            if (show) {
+                button.disabled = true;
+                spinner.style.display = 'inline-block';
+                text.textContent = '認証中...';
+            } else {
+                button.disabled = false;
+                spinner.style.display = 'none';
+                text.textContent = 'ログイン';
+            }
+        }
+
+        // エラー表示
+        function showError(message) {
+            const errorDiv = document.getElementById('failedAttempts');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // フォーム無効化
+        function disableForm(disable) {
+            const inputs = document.querySelectorAll('.form-input');
+            const button = document.getElementById('loginButton');
+            
+            inputs.forEach(input => {
+                input.disabled = disable;
+            });
+            button.disabled = disable;
+        }
+
+        // セキュリティ対策：開発者ツールの使用を検知
+        document.addEventListener('keydown', function(e) {
+            // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U を無効化
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+                (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+                console.warn('Developer tools access attempt detected');
+                return false;
+            }
+        });
+
+        // コンテキストメニュー無効化
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // コピー&ペースト制限
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'a' || e.key === 's')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>

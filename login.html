@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会員ログイン | 愛なるマッサージ</title>
+    <meta name="description" content="愛なるマッサージの会員ログインページ。Telegram認証によるログインシステム。">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            padding: var(--space-6);
+            position: relative;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.05)"/><circle cx="800" cy="300" r="150" fill="rgba(255,255,255,0.03)"/><circle cx="300" cy="800" r="120" fill="rgba(255,255,255,0.04)"/></svg>');
+        }
+
+        .login-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-12);
+            box-shadow: var(--shadow-2xl);
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: var(--space-10);
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-6);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .login-logo i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .login-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+        }
+
+        .login-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .login-form {
+            display: grid;
+            gap: var(--space-6);
+        }
+
+        .form-group {
+            display: grid;
+            gap: var(--space-2);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            padding: var(--space-4);
+            border: 2px solid var(--border-gray);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .phone-input-group {
+            display: flex;
+            gap: var(--space-3);
+            align-items: end;
+        }
+
+        .phone-input {
+            flex: 1;
+        }
+
+        .sms-send-btn {
+            flex-shrink: 0;
+            padding: var(--space-4) var(--space-6);
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .sms-send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sms-send-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .verification-step {
+            display: none;
+            background: var(--light-gray);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--accent-cyan);
+        }
+
+        .verification-step.active {
+            display: block;
+        }
+
+        .verification-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .verification-info i {
+            color: var(--accent-cyan);
+        }
+
+        .code-input {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5em;
+        }
+
+        .login-btn {
+            padding: var(--space-4);
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .login-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--admin-danger);
+            padding: var(--space-3);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            border-left: 4px solid var(--admin-danger);
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--admin-success);
+            padding: var(--space-3);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            border-left: 4px solid var(--admin-success);
+            display: none;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .login-footer a {
+            color: var(--accent-purple);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: var(--space-6);
+            left: var(--space-6);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: var(--space-3);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .back-to-home:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-4px);
+        }
+
+        @media (max-width: 768px) {
+            .login-card {
+                padding: var(--space-8);
+                margin: var(--space-4);
+            }
+
+            .phone-input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .sms-send-btn {
+                padding: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body class="modern-massage">
+    <div class="login-container">
+        <a href="index.html" class="back-to-home">
+            <i class="fas fa-arrow-left"></i>
+            ホームに戻る
+        </a>
+
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h1 class="login-title">会員ログイン・新規登録</h1>
+                <p class="login-subtitle">Telegram Botでアカウント作成・ログイン</p>
+            </div>
+
+            <form class="login-form" id="login-form">
+                <div class="error-message" id="error-message"></div>
+                <div class="success-message" id="success-message"></div>
+
+                <!-- Telegram認証ステップ -->
+                <div id="telegram-step">
+                    <div class="form-group">
+                        <label class="form-label" for="telegram-id">TelegramユーザーID</label>
+                        <div class="phone-input-group">
+                            <input 
+                                type="text" 
+                                id="telegram-id" 
+                                class="form-input phone-input" 
+                                placeholder="@username または数字ID"
+                                required
+                            >
+                            <button type="button" class="sms-send-btn" id="telegram-send-btn">
+                                ログイン・登録
+                            </button>
+                        </div>
+                        <small style="color: var(--text-muted); font-size: 0.85rem;">
+                            初回利用時は自動でアカウントが作成されます
+                        </small>
+                    </div>
+                    <div class="telegram-info" style="background: rgba(42, 171, 238, 0.1); padding: var(--space-4); border-radius: var(--radius-lg); margin-top: var(--space-4); border-left: 4px solid #2AABEE;">
+                        <div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2);">
+                            <i class="fab fa-telegram" style="color: #2AABEE; font-size: 1.2rem;"></i>
+                            <strong style="color: var(--text-primary);">Telegram Botの使い方</strong>
+                        </div>
+                        <ol style="margin: 0; padding-left: var(--space-5); color: var(--text-secondary); font-size: 0.9rem;">
+                            <li>Telegramで <strong><a href="http://t.me/AnalSenseiBot" target="_blank" style="color: #2AABEE; text-decoration: none;">@AnalSenseiBot</a></strong> を検索またはリンクをクリック</li>
+                            <li>Botを開始し、<strong>/start</strong> コマンドを送信してプロフィール登録</li>
+                            <li>BotからユーザーIDを確認し、上記に入力</li>
+                            <li>「ログイン・登録」ボタンをクリックしてワンタイムパスワードを受信</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- プロフィール登録ステップ -->
+                <div class="verification-step" id="profile-step" style="display: none;">
+                    <div class="verification-info">
+                        <i class="fas fa-user-edit" style="color: var(--accent-purple);"></i>
+                        新規アカウント作成のため、プロフィール情報を入力してください
+                    </div>
+                    <div style="display: grid; gap: var(--space-4);">
+                        <div class="form-group">
+                            <label class="form-label" for="customer-name">お名前（フルネーム）<span style="color: red;">*</span></label>
+                            <input 
+                                type="text" 
+                                id="customer-name" 
+                                class="form-input" 
+                                placeholder="山田 太郎"
+                                required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="customer-birthday">生年月日<span style="color: red;">*</span></label>
+                            <input 
+                                type="date" 
+                                id="customer-birthday" 
+                                class="form-input" 
+                                required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="customer-gender">性別</label>
+                            <select id="customer-gender" class="form-input">
+                                <option value="">選択してください</option>
+                                <option value="男性">男性</option>
+                                <option value="女性">女性</option>
+                                <option value="その他">その他</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="customer-notes">ご要望・アレルギー等</label>
+                            <textarea 
+                                id="customer-notes" 
+                                class="form-input" 
+                                rows="3"
+                                placeholder="アレルギー、ご要望、その他お聞かせください"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <button type="button" class="sms-send-btn" id="profile-submit-btn" style="width: 100%; margin-top: var(--space-4);">
+                        <i class="fas fa-user-check"></i>
+                        プロフィール登録完了
+                    </button>
+                </div>
+
+                <!-- Telegram認証コードステップ -->
+                <div class="verification-step" id="verification-step">
+                    <div class="verification-info">
+                        <i class="fab fa-telegram" style="color: #2AABEE;"></i>
+                        <span id="sent-telegram"></span>にワンタイムパスワードを送信しました
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="verification-code">ワンタイムパスワード（6桁）</label>
+                        <input 
+                            type="text" 
+                            id="verification-code" 
+                            class="form-input code-input" 
+                            placeholder="123456"
+                            maxlength="6"
+                            pattern="[0-9]{6}"
+                        >
+                        <small style="color: var(--text-muted); font-size: 0.85rem;">
+                            5分間有効です。届かない場合は再送信してください
+                        </small>
+                    </div>
+                    <button type="button" class="sms-send-btn" id="resend-btn" style="width: 100%; margin-top: var(--space-3);">
+                        <i class="fab fa-telegram"></i>
+                        ワンタイムパスワード再送信
+                    </button>
+                </div>
+
+                <button type="submit" class="login-btn" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    ログイン
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">
+                    Telegram Botでかんたん登録・ログイン<br>
+                    お困りの際は: <a href="https://t.me/AnalSenseiBot" target="_blank">Telegram Bot</a>
+                </p>
+                <p style="margin: var(--space-4) 0 0; color: var(--text-muted); font-size: 0.85rem;">
+                    <i class="fab fa-telegram" style="color: #2AABEE;"></i>
+                    Telegram: <strong><a href="http://t.me/AnalSenseiBot" target="_blank" style="color: #2AABEE; text-decoration: none;">@AnalSenseiBot</a></strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 会員データベース（実際の実装ではサーバーサイドで管理）
+        let memberDatabase = {
+            '@shotaimai': { 
+                name: '今井翔太', 
+                telegramId: '@shotaimai', 
+                visits: 10, 
+                registeredAt: '2024-01-01',
+                lastLogin: '2024-06-15',
+                status: 'vip',
+                birthday: '1990-01-01',
+                gender: '男性',
+                notes: 'テストアカウント'
+            },
+            '@tanaka_taro': { 
+                name: '田中太郎', 
+                telegramId: '@tanaka_taro', 
+                visits: 5, 
+                registeredAt: '2024-05-01',
+                lastLogin: '2024-06-10',
+                status: 'active'
+            },
+            '@sato_hanako': { 
+                name: '佐藤花子', 
+                telegramId: '@sato_hanako', 
+                visits: 3, 
+                registeredAt: '2024-05-15',
+                lastLogin: '2024-06-08',
+                status: 'active'
+            },
+            '@yamada_ichiro': { 
+                name: '山田一郎', 
+                telegramId: '@yamada_ichiro', 
+                visits: 8, 
+                registeredAt: '2024-04-20',
+                lastLogin: '2024-06-12',
+                status: 'vip'
+            },
+            '123456789': { 
+                name: '鈴木次郎', 
+                telegramId: '123456789', 
+                visits: 2, 
+                registeredAt: '2024-06-01',
+                lastLogin: '2024-06-05',
+                status: 'active'
+            },
+            '@test_user': { 
+                name: 'テストユーザー', 
+                telegramId: '@test_user', 
+                visits: 1, 
+                registeredAt: '2024-06-14',
+                lastLogin: '2024-06-14',
+                status: 'active'
+            }
+        };
+
+        // ワンタイムパスワードの保存（実際の実装ではサーバーサイドまたはRedis等で管理）
+        let otpDatabase = {};
+
+        let currentTelegramId = '';
+        let verificationCode = '';
+        let isVerificationSent = false;
+
+        // DOM要素
+        const telegramInput = document.getElementById('telegram-id');
+        const telegramSendBtn = document.getElementById('telegram-send-btn');
+        const verificationStep = document.getElementById('verification-step');
+        const verificationCodeInput = document.getElementById('verification-code');
+        const loginBtn = document.getElementById('login-btn');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+        const sentTelegramSpan = document.getElementById('sent-telegram');
+        const resendBtn = document.getElementById('resend-btn');
+        const profileSubmitBtn = document.getElementById('profile-submit-btn');
+
+        // TelegramIDフォーマット
+        function formatTelegramId(telegramId) {
+            telegramId = telegramId.trim();
+            if (telegramId.startsWith('@')) {
+                return telegramId.toLowerCase();
+            }
+            // 数字のみの場合はそのまま返す
+            if (/^\d+$/.test(telegramId)) {
+                return telegramId;
+            }
+            // @がない場合は追加
+            return '@' + telegramId.toLowerCase();
+        }
+
+        // エラー表示
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+
+        // 成功メッセージ表示
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+        }
+
+        // エラー・成功メッセージ非表示
+        function hideMessages() {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+
+        // Telegram Bot API設定
+        const TELEGRAM_BOT_TOKEN = '8112391212:AAFL1KvxMv6C8kqVCtFCumWIfR3MxBjGhYM';
+        const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
+
+        // プロフィール情報を一時保存
+        let tempProfileData = {};
+        let isNewAccountCreation = false;
+
+        // 新規アカウント作成機能
+        function createNewAccount(telegramId, profileData) {
+            const now = new Date();
+            const birthday = new Date(profileData.birthday);
+            const age = new Date().getFullYear() - birthday.getFullYear();
+            
+            const newAccount = {
+                name: profileData.name,
+                telegramId: telegramId,
+                phone: profileData.phone,
+                birthday: profileData.birthday,
+                age: age,
+                gender: profileData.gender || '未設定',
+                notes: profileData.notes || '',
+                visits: 0,
+                registeredAt: now.toISOString().split('T')[0],
+                lastLogin: now.toISOString().split('T')[0],
+                status: 'active',
+                totalSpent: 0,
+                allergies: profileData.notes || '',
+                preferredTherapist: '',
+                communicationMethod: 'telegram'
+            };
+            
+            memberDatabase[telegramId] = newAccount;
+            console.log(`新規アカウントを作成しました: ${telegramId}`, newAccount);
+            return newAccount;
+        }
+
+        // プロフィール情報の検証
+        function validateProfileData() {
+            const name = document.getElementById('customer-name').value.trim();
+            const phone = document.getElementById('customer-phone').value.trim();
+            const birthday = document.getElementById('customer-birthday').value;
+            
+            if (!name) {
+                showError('お名前を入力してください');
+                return false;
+            }
+            
+            if (!phone) {
+                showError('電話番号を入力してください');
+                return false;
+            }
+            
+            // 電話番号の形式チェック
+            const phoneRegex = /^0\d{1,4}-?\d{1,4}-?\d{4}$/;
+            if (!phoneRegex.test(phone.replace(/-/g, ''))) {
+                showError('正しい電話番号を入力してください（例：090-1234-5678）');
+                return false;
+            }
+            
+            if (!birthday) {
+                showError('生年月日を入力してください');
+                return false;
+            }
+            
+            // 年齢チェック（18歳以上）
+            const birthDate = new Date(birthday);
+            const age = new Date().getFullYear() - birthDate.getFullYear();
+            if (age < 18) {
+                showError('18歳以上の方のみご利用いただけます');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // ワンタイムパスワード生成・保存機能
+        function generateOTP(telegramId) {
+            const otp = Math.floor(100000 + Math.random() * 900000).toString();
+            const expiryTime = Date.now() + (5 * 60 * 1000); // 5分後
+            
+            otpDatabase[telegramId] = {
+                code: otp,
+                expiryTime: expiryTime,
+                attempts: 0
+            };
+            
+            return otp;
+        }
+
+        // OTP検証機能
+        function verifyOTP(telegramId, inputCode) {
+            const otpData = otpDatabase[telegramId];
+            
+            if (!otpData) {
+                return { success: false, message: 'ワンタイムパスワードが見つかりません' };
+            }
+            
+            if (Date.now() > otpData.expiryTime) {
+                delete otpDatabase[telegramId];
+                return { success: false, message: 'ワンタイムパスワードの有効期限が切れています' };
+            }
+            
+            otpData.attempts++;
+            
+            if (otpData.attempts > 3) {
+                delete otpDatabase[telegramId];
+                return { success: false, message: '試行回数が上限に達しました。再度ワンタイムパスワードを取得してください' };
+            }
+            
+            if (otpData.code !== inputCode) {
+                return { success: false, message: 'ワンタイムパスワードが正しくありません' };
+            }
+            
+            // 成功時はOTPを削除
+            delete otpDatabase[telegramId];
+            return { success: true, message: '認証成功' };
+        }
+
+        // Telegram Bot送信機能
+        async function sendTelegramMessage(telegramId, isNewAccount = false) {
+            const otp = generateOTP(telegramId);
+            
+            let message;
+            if (isNewAccount) {
+                message = `【愛なるマッサージ】新規アカウント作成完了！\n\nワンタイムパスワード: ${otp}\n\n✨ ご登録ありがとうございます\n🕐 有効期限: 5分間\n\nこのパスワードでログインしてください。`;
+            } else {
+                const member = memberDatabase[telegramId];
+                message = `【愛なるマッサージ】ログイン認証\n\nワンタイムパスワード: ${otp}\n\n👋 ${member.name}様、お疲れ様です\n🕐 有効期限: 5分間\n\nこのパスワードでログインしてください。`;
+            }
+
+            try {
+                console.log(`Telegram Bot送信: ${telegramId} にワンタイムパスワード ${otp} を送信`);
+                console.log(`メッセージ内容: "${message}"`);
+                console.log(`実際の送信は以下のAPIを使用: ${TELEGRAM_API_URL}/sendMessage`);
+                
+                // 本番環境では以下のようにAPIを呼び出し
+                /*
+                const response = await fetch(`${TELEGRAM_API_URL}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: telegramId,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Telegram送信に失敗しました');
+                }
+                */
+                
+                return Promise.resolve(true);
+            } catch (error) {
+                console.error('Telegram送信エラー:', error);
+                return Promise.reject(error);
+            }
+        }
+
+        // Telegram認証送信ボタンクリック
+        telegramSendBtn.addEventListener('click', async function() {
+            hideMessages();
+            
+            const telegramId = formatTelegramId(telegramInput.value);
+            
+            if (!telegramId) {
+                showError('TelegramIDを入力してください');
+                return;
+            }
+
+            currentTelegramId = telegramId;
+            telegramSendBtn.disabled = true;
+            telegramSendBtn.innerHTML = '<div class="loading-spinner"></div> 処理中...';
+
+            try {
+                // @shotaimaiの場合はパスワードなしでログイン
+                if (telegramId === '@shotaimai') {
+                    const memberInfo = memberDatabase[telegramId];
+                    
+                    // 最終ログイン時刻を更新
+                    memberInfo.lastLogin = new Date().toISOString().split('T')[0];
+                    
+                    // セッション情報を保存
+                    localStorage.setItem('memberLogin', JSON.stringify({
+                        telegramId: telegramId,
+                        name: memberInfo.name,
+                        visits: memberInfo.visits,
+                        status: memberInfo.status,
+                        loginTime: new Date().toISOString()
+                    }));
+
+                    showSuccess('テストアカウントでログインしました。施術内容ページへ移動します...');
+                    
+                    console.log(`テストログイン成功: ${memberInfo.name} (${telegramId})`);
+                    
+                    setTimeout(() => {
+                        window.location.href = 'services.html';
+                    }, 1500);
+                    
+                    return;
+                }
+                
+                // 既存会員かチェック
+                if (!memberDatabase[telegramId]) {
+                    // 新規ユーザーの場合、プロフィール登録画面を表示
+                    isNewAccountCreation = true;
+                    document.getElementById('profile-step').style.display = 'block';
+                    telegramSendBtn.innerHTML = 'ログイン・登録';
+                    telegramSendBtn.disabled = false;
+                    showSuccess('新規登録です。プロフィール情報を入力してください');
+                    document.getElementById('customer-name').focus();
+                } else {
+                    // 既存会員の場合、直接OTP送信
+                    await sendTelegramMessage(telegramId, false);
+                    
+                    // 認証ステップを表示
+                    verificationStep.classList.add('active');
+                    sentTelegramSpan.textContent = telegramInput.value;
+                    showSuccess('Telegramにワンタイムパスワードを送信しました');
+                    isVerificationSent = true;
+                    
+                    // ボタンテキストを戻す
+                    telegramSendBtn.innerHTML = 'ログイン・登録';
+                    telegramSendBtn.disabled = false;
+                    
+                    // 認証コード入力にフォーカス
+                    verificationCodeInput.focus();
+                }
+                
+            } catch (error) {
+                showError('処理に失敗しました。もう一度お試しください。');
+                telegramSendBtn.innerHTML = 'ログイン・登録';
+                telegramSendBtn.disabled = false;
+            }
+        });
+
+        // Telegram認証コード再送信
+        resendBtn.addEventListener('click', async function() {
+            hideMessages();
+            resendBtn.disabled = true;
+            resendBtn.innerHTML = '<div class="loading-spinner"></div> 再送信中...';
+
+            try {
+                const isExistingMember = memberDatabase[currentTelegramId];
+                await sendTelegramMessage(currentTelegramId, !isExistingMember);
+                showSuccess('ワンタイムパスワードを再送信しました');
+                resendBtn.innerHTML = '<i class="fab fa-telegram"></i> ワンタイムパスワード再送信';
+                resendBtn.disabled = false;
+            } catch (error) {
+                showError('再送信に失敗しました。');
+                resendBtn.innerHTML = '<i class="fab fa-telegram"></i> ワンタイムパスワード再送信';
+                resendBtn.disabled = false;
+            }
+        });
+
+        // プロフィール登録完了ボタンクリック
+        profileSubmitBtn.addEventListener('click', async function() {
+            hideMessages();
+            
+            if (!validateProfileData()) {
+                return;
+            }
+            
+            // プロフィール情報を取得
+            tempProfileData = {
+                name: document.getElementById('customer-name').value.trim(),
+                phone: document.getElementById('customer-phone').value.trim(),
+                birthday: document.getElementById('customer-birthday').value,
+                gender: document.getElementById('customer-gender').value,
+                notes: document.getElementById('customer-notes').value.trim()
+            };
+            
+            profileSubmitBtn.disabled = true;
+            profileSubmitBtn.innerHTML = '<div class="loading-spinner"></div> 登録中...';
+            
+            try {
+                // アカウントを作成
+                createNewAccount(currentTelegramId, tempProfileData);
+                
+                // OTPを送信
+                await sendTelegramMessage(currentTelegramId, true);
+                
+                // プロフィール入力画面を非表示にして認証画面を表示
+                document.getElementById('profile-step').style.display = 'none';
+                verificationStep.classList.add('active');
+                sentTelegramSpan.textContent = telegramInput.value;
+                
+                showSuccess('アカウント登録完了！Telegramにワンタイムパスワードを送信しました');
+                isVerificationSent = true;
+                
+                profileSubmitBtn.innerHTML = '<i class="fas fa-user-check"></i> プロフィール登録完了';
+                profileSubmitBtn.disabled = false;
+                
+                // 認証コード入力にフォーカス
+                verificationCodeInput.focus();
+                
+            } catch (error) {
+                showError('登録に失敗しました。もう一度お試しください。');
+                profileSubmitBtn.innerHTML = '<i class="fas fa-user-check"></i> プロフィール登録完了';
+                profileSubmitBtn.disabled = false;
+            }
+        });
+
+        // 認証コード入力時の自動フォーマット
+        verificationCodeInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^\d]/g, '');
+        });
+
+        // フォーム送信
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            hideMessages();
+
+            if (!isVerificationSent) {
+                showError('まずTelegram認証を行ってください');
+                return;
+            }
+
+            const inputCode = verificationCodeInput.value;
+            
+            if (!inputCode || inputCode.length !== 6) {
+                showError('6桁のワンタイムパスワードを入力してください');
+                return;
+            }
+
+            // OTP検証
+            const verificationResult = verifyOTP(currentTelegramId, inputCode);
+            
+            if (!verificationResult.success) {
+                showError(verificationResult.message);
+                return;
+            }
+
+            // ログイン成功
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<div class="loading-spinner"></div> ログイン中...';
+
+            setTimeout(() => {
+                const memberInfo = memberDatabase[currentTelegramId];
+                
+                // 最終ログイン時刻を更新
+                memberInfo.lastLogin = new Date().toISOString().split('T')[0];
+                
+                // セッション情報を保存
+                localStorage.setItem('memberLogin', JSON.stringify({
+                    telegramId: currentTelegramId,
+                    name: memberInfo.name,
+                    visits: memberInfo.visits,
+                    status: memberInfo.status,
+                    loginTime: new Date().toISOString()
+                }));
+
+                showSuccess('ログインしました。施術内容ページへ移動します...');
+                
+                console.log(`ログイン成功: ${memberInfo.name} (${currentTelegramId})`);
+                
+                setTimeout(() => {
+                    window.location.href = 'services.html';
+                }, 1500);
+            }, 1000);
+        });
+
+        // TelegramID入力時の処理
+        telegramInput.addEventListener('input', function() {
+            hideMessages();
+        });
+
+        // ページ読み込み時のログイン状態チェック
+        window.addEventListener('load', function() {
+            const memberLogin = localStorage.getItem('memberLogin');
+            if (memberLogin) {
+                const loginData = JSON.parse(memberLogin);
+                const loginTime = new Date(loginData.loginTime);
+                const now = new Date();
+                const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+                
+                // 24時間以内なら自動でサービスページへ
+                if (hoursDiff < 24) {
+                    window.location.href = 'services.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

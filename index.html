@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>愛なるマッサージ | 福岡・中洲エリア出張マッサージ・アカスリ専門店</title>
+    <meta name="description" content="福岡市中洲エリア専門の出張マッサージ・アカスリサービス「愛なるマッサージ」。ホテルへお伺いして本格的なマッサージとアカスリで心身ともにリフレッシュ。完全予約制で極上の癒し体験をお届けします。">
+    <meta name="keywords" content="マッサージ,アカスリ,中洲,福岡,博多,天神,リラクゼーション,出張,癒し,完全予約制">
+    
+    <!-- PWAマニフェスト -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- PWAメタタグ -->
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="愛なるマッサージ">
+    <meta name="msapplication-TileColor" content="#6366f1">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- アプリアイコン -->
+    <link rel="apple-touch-icon" href="/images/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-192x192.png">
+    <link rel="shortcut icon" href="/images/icon-192x192.png">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link rel="stylesheet" href="pwa-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="i18n/translations.js"></script>
+    <script src="language-selector.js"></script>
+    <script src="site-config.js"></script>
+</head>
+<body class="modern-massage">
+    <!-- ヘッダー（統一設定から自動生成） -->
+    <div id="unified-header"></div>
+    
+    <script>
+        // 統一ヘッダーを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerContainer = document.getElementById('unified-header');
+            if (headerContainer) {
+                headerContainer.innerHTML = generateUnifiedHeader('index.html');
+            }
+        });
+    </script>
+
+    <!-- キャンペーンバナー -->
+    <div id="campaign-banners" style="display: none;">
+        <!-- JavaScriptで動的に生成されます -->
+    </div>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- 1. ヒーローセクション - インパクトのあるファーストビュー -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        福岡・中洲エリア<br>
+                        <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">完全予約制</span><br>
+                        出張マッサージ・アカスリ
+                    </h1>
+                    <p class="hero-subtitle">
+                        経験豊富なプロセラピストが、ホテルの個室でお客様だけの特別な時間をご提供。<br>
+                        <strong>1日1組限定</strong>の最高級サービスで、心身ともに深くリフレッシュしていただけます。
+                    </p>
+                    
+                    <!-- 重要なポイントを視覚的に -->
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <i class="fas fa-user-check"></i>
+                            <span>1日1組限定</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>完全予約制</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-money-bill"></i>
+                            <span>現金決済</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>中洲エリア</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <a href="#booking-flow" class="btn btn-primary btn-large pulse">
+                            <i class="fas fa-calendar-check"></i>
+                            予約の流れを見る
+                        </a>
+                        <a href="services.html" class="btn btn-secondary btn-large">
+                            <i class="fas fa-spa"></i>
+                            料金・詳細を見る
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-visual">
+                        <img src="images/analsensei.png" alt="愛なるマッサージ" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 緊急告知・重要なお知らせ -->
+        <section style="background: rgba(255, 193, 7, 0.1); border-top: 3px solid #ffc107; border-bottom: 3px solid #ffc107; padding: var(--space-8) 0;">
+            <div class="container">
+                <div style="text-align: center;">
+                    <h2 style="color: #f57c00; margin-bottom: var(--space-4); font-size: 1.5rem;">
+                        <i class="fas fa-exclamation-triangle" style="margin-right: var(--space-2);"></i>
+                        初回ご利用の方へ重要なお知らせ
+                    </h2>
+                    <div class="grid grid-2" style="gap: var(--space-6); max-width: 900px; margin: 0 auto;">
+                        <div style="background: white; padding: var(--space-6); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                            <h3 style="color: #dc2626; margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2);">
+                                <i class="fas fa-yen-sign"></i>
+                                初回費用について
+                            </h3>
+                            <p style="margin: 0; line-height: 1.6;">
+                                入会金事務手数料 <strong>¥30,000</strong><br>
+                                同意書への署名と身分証明書のコピーが必要です
+                            </p>
+                        </div>
+                        <div style="background: white; padding: var(--space-6); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                            <h3 style="color: #f59e0b; margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2);">
+                                <i class="fas fa-clock"></i>
+                                所要時間について
+                            </h3>
+                            <p style="margin: 0; line-height: 1.6;">
+                                初回のみ事務手続きのため<br>
+                                <strong>通常より15分長く</strong>お時間をいただきます
+                            </p>
+                        </div>
+                    </div>
+                    <div style="margin-top: var(--space-6);">
+                        <a href="terms.html" style="color: #6366f1; text-decoration: none; font-weight: 600; border: 2px solid #6366f1; padding: var(--space-3) var(--space-6); border-radius: var(--radius-lg); display: inline-block; transition: all 0.3s ease;">
+                            <i class="fas fa-file-contract" style="margin-right: var(--space-2);"></i>
+                            ご利用規約・注意事項を確認する
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. サービス概要 - 3つのコースを簡潔に -->
+        <section style="padding: var(--space-20) 0; background: white;">
+            <div class="container">
+                <h2 class="section-title">3つの施術コース</h2>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: var(--space-12); font-size: 1.1rem;">
+                    お客様のご希望に合わせて最適なコースをお選びいただけます
+                </p>
+                
+                <div class="grid grid-3" style="gap: var(--space-8);">
+                    <!-- アナル開発コース -->
+                    <div class="service-card-simple">
+                        <div class="service-icon-large">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <h3>アナル開発コース</h3>
+                        <p class="service-subtitle">リラクゼーション中心の癒し系</p>
+                        <div class="service-tags">
+                            <span class="tag">癒し重視</span>
+                            <span class="tag">ストレス解消</span>
+                        </div>
+                        <a href="services.html#atype" class="btn btn-outline-full">
+                            <i class="fas fa-arrow-right"></i>
+                            詳細・料金を見る
+                        </a>
+                    </div>
+
+                    <!-- M性感コース -->
+                    <div class="service-card-simple featured">
+                        <div class="popular-badge">人気No.1</div>
+                        <div class="service-icon-large">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <h3>M性感コース</h3>
+                        <p class="service-subtitle">本格的な疲労回復重視</p>
+                        <div class="service-tags">
+                            <span class="tag">疲労回復</span>
+                            <span class="tag">深層筋ケア</span>
+                        </div>
+                        <a href="services.html#mtype" class="btn btn-primary-full">
+                            <i class="fas fa-arrow-right"></i>
+                            詳細・料金を見る
+                        </a>
+                    </div>
+
+                    <!-- アナル拡張コース -->
+                    <div class="service-card-simple">
+                        <div class="service-icon-large">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h3>アナル拡張コース</h3>
+                        <p class="service-subtitle">柔軟性向上と体調管理</p>
+                        <div class="service-tags">
+                            <span class="tag">柔軟性</span>
+                            <span class="tag">姿勢改善</span>
+                        </div>
+                        <a href="services.html#stretch" class="btn btn-outline-full">
+                            <i class="fas fa-arrow-right"></i>
+                            詳細・料金を見る
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 予約の流れ - 最重要セクション -->
+        <section id="booking-flow" style="padding: var(--space-20) 0; background: var(--light-gray);">
+            <div class="container">
+                <h2 class="section-title">ご予約の流れ</h2>
+                <p class="section-subtitle">完全会員制・紹介制のため、以下の手順でご予約をお願いいたします</p>
+                
+                <div class="booking-steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3><i class="fab fa-twitter"></i> 公式Xアカウントをフォロー</h3>
+                            <p>@ainaru_massage をフォローして、毎月更新される会員ページの情報を確認してください。</p>
+                            <a href="https://twitter.com/ainaru_massage" target="_blank" class="btn btn-sm btn-twitter">
+                                <i class="fab fa-twitter"></i> フォローする
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3><i class="fas fa-lock"></i> パスワード保護された会員ページにアクセス</h3>
+                            <p>月替わりのパスワードでGoogle SitesまたはSTUDIOの会員専用ページにログインします。</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3><i class="fas fa-id-card"></i> Google Formsで身分確認</h3>
+                            <p>安全性確保のため、Google Formsでの身分証明書提出が必要です。</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3><i class="fas fa-calendar-check"></i> 希望日時を予約</h3>
+                            <p>ご希望の日時、コース、ホテルを選択して予約を確定します。</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3><i class="fas fa-spa"></i> 施術当日</h3>
+                            <p>ホテルの個室で、プロセラピストによる極上の施術をお楽しみください。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: var(--space-12);">
+                    <a href="https://twitter.com/ainaru_massage" target="_blank" class="btn btn-primary btn-large pulse">
+                        <i class="fab fa-twitter"></i>
+                        今すぐ公式Xをフォローして予約開始
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 施術者紹介 - 信頼性向上 -->
+        <section style="padding: var(--space-20) 0; background: white;">
+            <div class="container">
+                <h2 class="section-title">経験豊富なプロセラピスト</h2>
+                <p class="section-subtitle">国家資格・認定資格を持つ専門セラピストがお客様をお待ちしています</p>
+                
+                <div class="therapist-grid">
+                    <div class="therapist-preview">
+                        <div class="therapist-photo-mini">
+                            <div class="image-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <h4>田中美香</h4>
+                        <p>アロマセラピー専門<br>経験8年・認定資格保有</p>
+                    </div>
+                    <div class="therapist-preview">
+                        <div class="therapist-photo-mini">
+                            <div class="image-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <h4>佐藤恵子</h4>
+                        <p>理学療法士・指圧専門<br>経験12年・国家資格保有</p>
+                    </div>
+                    <div class="therapist-preview">
+                        <div class="therapist-photo-mini">
+                            <div class="image-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <h4>山田智子</h4>
+                        <p>アカスリ専門・美容<br>経験6年・管理栄養士</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: var(--space-8);">
+                    <a href="therapists.html" class="btn btn-outline">
+                        <i class="fas fa-users"></i>
+                        セラピスト詳細を見る
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. 対応ホテル - 安心感提供 -->
+        <section style="padding: var(--space-20) 0; background: var(--light-gray);">
+            <div class="container">
+                <h2 class="section-title">中洲エリア対応ホテル</h2>
+                <p class="section-subtitle">24時間対応可能な清潔で安全なホテルでサービスをご提供</p>
+                
+                <div class="hotel-grid-mini">
+                    <div class="hotel-item-mini">
+                        <i class="fas fa-building"></i>
+                        <h4>ホテルサンライズ中洲</h4>
+                        <p>24時間対応・駅近</p>
+                    </div>
+                    <div class="hotel-item-mini">
+                        <i class="fas fa-building"></i>
+                        <h4>ホテルムーンサイド中洲</h4>
+                        <p>高級アメニティ完備</p>
+                    </div>
+                    <div class="hotel-item-mini">
+                        <i class="fas fa-building"></i>
+                        <h4>ホテルプラチナ中洲</h4>
+                        <p>中洲中心部・最短10分</p>
+                    </div>
+                    <div class="hotel-item-mini">
+                        <i class="fas fa-building"></i>
+                        <h4>ホテルスターライト中洲</h4>
+                        <p>モダン内装・川端駅近</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: var(--space-8);">
+                    <a href="hotels.html" class="btn btn-outline">
+                        <i class="fas fa-list"></i>
+                        全ホテル一覧・電話番号を見る
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. 安全・安心への取り組み -->
+        <section style="padding: var(--space-20) 0; background: white;">
+            <div class="container">
+                <h2 class="section-title">安全・安心への取り組み</h2>
+                
+                <div class="safety-grid">
+                    <div class="safety-item">
+                        <i class="fas fa-shield-virus"></i>
+                        <h4>徹底した感染対策</h4>
+                        <p>医療レベルの消毒・滅菌処理</p>
+                    </div>
+                    <div class="safety-item">
+                        <i class="fas fa-user-check"></i>
+                        <h4>身分確認システム</h4>
+                        <p>Google Formsでの厳格な本人確認</p>
+                    </div>
+                    <div class="safety-item">
+                        <i class="fas fa-lock"></i>
+                        <h4>完全予約制</h4>
+                        <p>1日1組限定の安心サービス</p>
+                    </div>
+                    <div class="safety-item">
+                        <i class="fas fa-certificate"></i>
+                        <h4>有資格者のみ</h4>
+                        <p>国家資格・認定資格保有者のみ</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: var(--space-8);">
+                    <a href="safety.html" class="btn btn-outline">
+                        <i class="fas fa-info-circle"></i>
+                        感染対策の詳細を見る
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. お客様の声 - コンパクト版 -->
+        <section style="padding: var(--space-12) 0; background: var(--light-gray);">
+            <div class="container">
+                <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: var(--space-4);">お客様の声</h2>
+                
+                <div class="reviews-compact">
+                    <div class="review-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">4.9</span>
+                            <div class="rating-stars">
+                                ★★★★★
+                            </div>
+                            <span class="stat-label">平均評価</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">98%</span>
+                            <span class="stat-label">お客様満足度</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">156</span>
+                            <span class="stat-label">レビュー総数</span>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-reviews">
+                        <div class="mini-review">
+                            <div class="mini-review-header">
+                                <span class="reviewer-initial">T</span>
+                                <div>
+                                    <span class="reviewer-name">田中様</span>
+                                    <span class="rating">★★★★★</span>
+                                </div>
+                            </div>
+                            <p class="mini-review-text">「プロの技術で肩こりが劇的に改善しました。完全個室で安心です。」</p>
+                        </div>
+                        
+                        <div class="mini-review">
+                            <div class="mini-review-header">
+                                <span class="reviewer-initial">S</span>
+                                <div>
+                                    <span class="reviewer-name">佐々木様</span>
+                                    <span class="rating">★★★★★</span>
+                                </div>
+                            </div>
+                            <p class="mini-review-text">「本場の技術が体験できました。衛生管理も完璧で安心です。」</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: var(--space-6);">
+                    <a href="reviews.html" class="btn btn-outline btn-small">
+                        <i class="fas fa-comments"></i>
+                        もっと見る
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. よくある質問 - 簡潔版 -->
+        <section style="padding: var(--space-20) 0; background: var(--light-gray);">
+            <div class="container">
+                <h2 class="section-title">よくある質問</h2>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4><i class="fas fa-question-circle"></i> 料金はいくらですか？</h4>
+                        <p>コースにより¥12,000〜¥35,000です。詳細は<a href="services.html">料金ページ</a>をご確認ください。</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4><i class="fas fa-question-circle"></i> 予約はどうすればいいですか？</h4>
+                        <p>公式Xアカウントをフォロー後、会員ページから予約可能です。</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4><i class="fas fa-question-circle"></i> キャンセルはできますか？</h4>
+                        <p>やむを得ない場合は必ずご連絡ください。無断キャンセルは今後の予約をお断りします。</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4><i class="fas fa-question-circle"></i> どのエリアに対応していますか？</h4>
+                        <p>福岡市中洲エリアのホテルに対応しています。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. 最終CTA - 行動促進 -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>極上の癒し体験を、あなたにも</h2>
+                    <p>
+                        1日1組限定だからこそ実現できる、最高品質のサービス。<br>
+                        経験豊富なプロセラピストが、お客様だけの特別な時間をお約束いたします。
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="https://twitter.com/ainaru_massage" target="_blank" class="btn btn-primary btn-large pulse">
+                            <i class="fab fa-twitter"></i>
+                            公式Xをフォローして予約開始
+                        </a>
+                        <a href="services.html" class="btn btn-secondary btn-large">
+                            <i class="fas fa-info-circle"></i>
+                            詳細・料金を確認する
+                        </a>
+                    </div>
+                    <p style="margin-top: var(--space-6); font-size: 0.95rem; opacity: 0.8;">
+                        <i class="fas fa-shield-alt"></i> 完全予約制・現金決済のみ・中洲エリア限定
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター（統一設定から自動生成） -->
+    <div id="unified-footer"></div>
+    
+    <script>
+        // 統一フッターを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerContainer = document.getElementById('unified-footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = generateUnifiedFooter();
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+    <script>
+        function checkAgeVerification() {
+            const ageVerified = sessionStorage.getItem('ageVerified');
+            const verifiedTime = sessionStorage.getItem('ageVerifiedTime');
+            
+            if (!ageVerified || ageVerified !== 'true') {
+                window.location.href = 'age-verification.html';
+                return false;
+            }
+            
+            if (verifiedTime) {
+                const hoursSinceVerification = (new Date().getTime() - parseInt(verifiedTime)) / (1000 * 60 * 60);
+                if (hoursSinceVerification >= 24) {
+                    sessionStorage.removeItem('ageVerified');
+                    sessionStorage.removeItem('ageVerifiedTime');
+                    window.location.href = 'age-verification.html';
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        window.addEventListener('load', function() {
+            checkAgeVerification();
+        });
+    </script>
+
+    <style>
+        /* 新しいホームページ専用スタイル */
+        .hero-features {
+            display: flex;
+            gap: var(--space-4);
+            margin: var(--space-8) 0;
+            flex-wrap: wrap;
+        }
+
+        .hero-features .feature-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: rgba(255, 255, 255, 0.9);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hero-features .feature-item i {
+            color: var(--accent-purple);
+        }
+
+        .service-card-simple {
+            background: white;
+            padding: var(--space-8);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card-simple:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-card-simple.featured {
+            border: 3px solid var(--accent-purple);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.02) 0%, rgba(118, 75, 162, 0.02) 100%);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .service-icon-large {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-6);
+            font-size: 2rem;
+            color: white;
+        }
+
+        .service-tags {
+            display: flex;
+            gap: var(--space-2);
+            justify-content: center;
+            margin: var(--space-4) 0 var(--space-6);
+        }
+
+        .tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-purple);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .btn-outline-full, .btn-primary-full {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+
+        .btn-outline-full {
+            border: 2px solid var(--accent-purple);
+            color: var(--accent-purple);
+            background: white;
+        }
+
+        .btn-outline-full:hover {
+            background: var(--accent-purple);
+            color: white;
+        }
+
+        .btn-primary-full {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+        }
+
+        .booking-steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-8);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step-item {
+            display: flex;
+            gap: var(--space-6);
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            font-size: 1.2rem;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-4);
+        }
+
+        .btn-sm {
+            padding: var(--space-2) var(--space-4);
+            font-size: 0.9rem;
+        }
+
+        .btn-twitter {
+            background: #1da1f2;
+            color: white;
+            border: none;
+        }
+
+        .therapist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-8) 0;
+        }
+
+        .therapist-preview {
+            text-align: center;
+            padding: var(--space-6);
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .therapist-photo-mini {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto var(--space-4);
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hotel-grid-mini {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-8) 0;
+        }
+
+        .hotel-item-mini {
+            text-align: center;
+            padding: var(--space-6);
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hotel-item-mini i {
+            font-size: 2rem;
+            color: var(--accent-purple);
+            margin-bottom: var(--space-3);
+        }
+
+        .safety-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-8) 0;
+        }
+
+        .safety-item {
+            text-align: center;
+            padding: var(--space-6);
+        }
+
+        .safety-item i {
+            font-size: 2.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: var(--space-4);
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-8) 0;
+        }
+
+        .faq-item {
+            background: white;
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-item h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .faq-item h4 i {
+            color: var(--accent-purple);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+        }
+
+        /* コンパクトなお客様の声セクション */
+        .reviews-compact {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .review-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-8);
+            margin-bottom: var(--space-8);
+            padding: var(--space-6);
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-purple);
+            margin-bottom: var(--space-1);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: var(--space-1);
+        }
+
+        .rating-stars {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin: var(--space-1) 0;
+        }
+
+        .featured-reviews {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .mini-review {
+            background: white;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mini-review-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+        }
+
+        .reviewer-initial {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .rating {
+            color: #fbbf24;
+            font-size: 0.9rem;
+        }
+
+        .mini-review-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+            font-style: italic;
+        }
+
+        .btn-small {
+            padding: var(--space-2) var(--space-4);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .step-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-features {
+                justify-content: center;
+            }
+            
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

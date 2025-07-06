@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>施術者紹介 | 愛なるマッサージ中洲店</title>
+    <meta name="description" content="愛なるマッサージ中洲店の施術者紹介。経験豊富なプロフェッショナルが、お客様一人ひとりに最適な施術をご提供いたします。">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="site-config.js"></script>
+    <style>
+        .page-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.05)"/><circle cx="900" cy="250" r="80" fill="rgba(255,255,255,0.03)"/></svg>');
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-header-content h1 {
+            margin-bottom: var(--space-6);
+        }
+        
+        .page-header-content p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0;
+            padding: var(--space-4) var(--space-6);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .therapist-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        
+        .therapist-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+        }
+        
+        .therapist-header {
+            display: flex;
+            gap: var(--space-6);
+            margin-bottom: var(--space-6);
+            align-items: center;
+        }
+        
+        .therapist-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .therapist-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .therapist-photo .placeholder-text {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .therapist-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+        
+        .therapist-title {
+            color: var(--accent-purple);
+            font-weight: 600;
+            margin-bottom: var(--space-3);
+        }
+        
+        .experience-years {
+            background: var(--gradient-accent);
+            color: white;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .specialties {
+            margin: var(--space-6) 0;
+        }
+        
+        .specialty-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-top: var(--space-3);
+        }
+        
+        .specialty-tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-purple);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .instagram-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin: var(--space-6) 0;
+            text-align: center;
+        }
+        
+        .instagram-section h4 {
+            color: white;
+            margin-bottom: var(--space-3);
+            font-size: 1.2rem;
+        }
+        
+        .instagram-section p {
+            margin-bottom: var(--space-4);
+            opacity: 0.9;
+        }
+        
+        .instagram-section .btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
+        .instagram-section .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .day-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .day-status {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .available .day-status {
+            color: var(--accent-cyan);
+        }
+        
+        .busy .day-status {
+            color: var(--accent-pink);
+        }
+        
+        .booking-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin-top: var(--space-6);
+        }
+        
+        .hours-list {
+            list-style: none;
+            margin: var(--space-4) 0;
+        }
+        
+        .hours-list li {
+            padding: var(--space-2) 0;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--light-gray);
+            border: 2px dashed var(--border-gray);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-align: center;
+            padding: var(--space-4);
+        }
+        
+        .image-placeholder i {
+            font-size: 2rem;
+            margin-bottom: var(--space-2);
+            opacity: 0.6;
+        }
+        
+        .image-placeholder span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: var(--space-1);
+        }
+        
+        .image-placeholder small {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            line-height: 1.2;
+        }
+        
+        @media (max-width: 768px) {
+            .therapist-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .therapist-photo {
+                width: 150px;
+                height: 150px;
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="modern-massage">
+    <!-- ヘッダー（統一設定から自動生成） -->
+    <div id="unified-header"></div>
+    
+    <script>
+        // 統一ヘッダーを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerContainer = document.getElementById('unified-header');
+            if (headerContainer) {
+                headerContainer.innerHTML = generateUnifiedHeader('therapists.html');
+            }
+        });
+    </script>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ページヘッダー -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1><i class="fas fa-user-friends"></i> 施術者紹介</h1>
+                    <p>経験豊富なプロフェッショナルが、お客様一人ひとりに最適な施術をご提供いたします</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 施術者一覧 -->
+        <section style="padding: var(--space-32) 0;">
+            <div class="container">
+                <div class="grid" style="gap: var(--space-16);">
+                    
+                    <!-- 施術者1: 田中美香 -->
+                    <div class="therapist-card">
+                        <div class="therapist-header">
+                            <div class="therapist-photo">
+                                <img src="images/tanaka-mika.jpg" alt="田中美香" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display:none;">
+                                    <i class="fas fa-image"></i>
+                                    <span>画像アップロード予定</span>
+                                    <small>CMSでプロフィール写真を追加</small>
+                                </div>
+                            </div>
+                            <div class="therapist-info">
+                                <h3>田中 美香</h3>
+                                <div class="therapist-title">アロマセラピー専門セラピスト</div>
+                                <div class="experience-years">経験年数 8年</div>
+                            </div>
+                        </div>
+                        
+                        <div class="therapist-description">
+                            <p>アロマテラピー検定1級、リンパドレナージュ認定資格を持つベテランセラピスト。お客様一人ひとりの体調や気分に合わせたアロマオイルを選定し、心身ともにリラックスしていただける施術をご提供します。特に首・肩のコリでお悩みの方に定評があります。</p>
+                        </div>
+
+                        <div class="specialties">
+                            <h4><i class="fas fa-star"></i> 専門分野</h4>
+                            <div class="specialty-tags">
+                                <span class="specialty-tag">アロマオイルマッサージ</span>
+                                <span class="specialty-tag">リンパドレナージュ</span>
+                                <span class="specialty-tag">ホットストーンマッサージ</span>
+                                <span class="specialty-tag">首・肩集中ケア</span>
+                            </div>
+                        </div>
+
+                        <div class="instagram-section">
+                            <h4><i class="fab fa-instagram"></i> Instagram</h4>
+                            <p>日常のケア方法や施術シーンを投稿しています</p>
+                            <a href="https://instagram.com/tanaka_mika_massage" target="_blank" class="btn btn-outline">
+                                <i class="fab fa-instagram"></i>
+                                @tanaka_mika_massage
+                            </a>
+                        </div>
+
+                        <div style="margin-top: var(--space-6);">
+                            <h4>勤務体制</h4>
+                            <div style="padding: var(--space-4); background: var(--light-gray); border-radius: var(--radius-lg);">
+                                <p><strong>完全予約制：</strong>お客様のご都合に合わせて調整いたします</p>
+                                <p><strong>対応時間：</strong>深夜・早朝でもご相談ください</p>
+                                <p><strong>予約方法：</strong>会員制予約システムで事前にご相談</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 施術者2: 佐藤恵子 -->
+                    <div class="therapist-card">
+                        <div class="therapist-header">
+                            <div class="therapist-photo">
+                                <img src="images/sato-keiko.jpg" alt="佐藤恵子" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display:none;">
+                                    <i class="fas fa-image"></i>
+                                    <span>画像アップロード予定</span>
+                                    <small>CMSでプロフィール写真を追加</small>
+                                </div>
+                            </div>
+                            <div class="therapist-info">
+                                <h3>佐藤 恵子</h3>
+                                <div class="therapist-title">理学療法士・指圧マッサージ専門</div>
+                                <div class="experience-years">経験年数 12年</div>
+                            </div>
+                        </div>
+                        
+                        <div class="therapist-description">
+                            <p>国家資格理学療法士、あん摩マッサージ指圧師の資格を持つ当店のエキスパート。医学的知識に基づいた施術で、慢性的な腰痛や肩こりの根本改善をサポートします。深層筋肉にアプローチする確かな技術で、多くのお客様から信頼をいただいています。</p>
+                        </div>
+
+                        <div class="specialties">
+                            <h4><i class="fas fa-star"></i> 専門分野</h4>
+                            <div class="specialty-tags">
+                                <span class="specialty-tag">理学療法</span>
+                                <span class="specialty-tag">指圧・もみほぐし</span>
+                                <span class="specialty-tag">ヘッドスパ</span>
+                                <span class="specialty-tag">腰痛改善</span>
+                            </div>
+                        </div>
+
+                        <div class="instagram-section">
+                            <h4><i class="fab fa-instagram"></i> Instagram</h4>
+                            <p>アカスリの技術やお手入れ方法を紹介しています</p>
+                            <a href="https://instagram.com/sato_keiko_skincare" target="_blank" class="btn btn-outline">
+                                <i class="fab fa-instagram"></i>
+                                @sato_keiko_skincare
+                            </a>
+                        </div>
+
+                        <div style="margin-top: var(--space-6);">
+                            <h4>勤務体制</h4>
+                            <div style="padding: var(--space-4); background: var(--light-gray); border-radius: var(--radius-lg);">
+                                <p><strong>完全予約制：</strong>お客様のご都合に合わせて調整いたします</p>
+                                <p><strong>対応時間：</strong>深夜・早朝でもご相談ください</p>
+                                <p><strong>予約方法：</strong>会員制予約システムで事前にご相談</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 施術者3: 山田智子 -->
+                    <div class="therapist-card">
+                        <div class="therapist-header">
+                            <div class="therapist-photo">
+                                <img src="images/yamada-tomoko.jpg" alt="山田智子" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display:none;">
+                                    <i class="fas fa-image"></i>
+                                    <span>画像アップロード予定</span>
+                                    <small>CMSでプロフィール写真を追加</small>
+                                </div>
+                            </div>
+                            <div class="therapist-info">
+                                <h3>山田 智子</h3>
+                                <div class="therapist-title">アカスリ専門・美容スペシャリスト</div>
+                                <div class="experience-years">経験年数 6年</div>
+                            </div>
+                        </div>
+                        
+                        <div class="therapist-description">
+                            <p>韓国式アカスリの本場で技術を習得した美容スペシャリスト。管理栄養士の資格も持ち、美肌づくりを内側と外側の両面からサポートします。アカスリ施術では、肌質に合わせた最適な強さで古い角質を除去し、つるつるの美肌へと導きます。</p>
+                        </div>
+
+                        <div class="specialties">
+                            <h4><i class="fas fa-star"></i> 専門分野</h4>
+                            <div class="specialty-tags">
+                                <span class="specialty-tag">韓国式アカスリ</span>
+                                <span class="specialty-tag">美容リンパマッサージ</span>
+                                <span class="specialty-tag">フェイシャルケア</span>
+                                <span class="specialty-tag">美容相談</span>
+                            </div>
+                        </div>
+
+                        <div class="instagram-section">
+                            <h4><i class="fab fa-instagram"></i> Instagram</h4>
+                            <p>ストレッチや体調管理のコツをシェアしています</p>
+                            <a href="https://instagram.com/yamada_tomoko_wellness" target="_blank" class="btn btn-outline">
+                                <i class="fab fa-instagram"></i>
+                                @yamada_tomoko_wellness
+                            </a>
+                        </div>
+
+                        <div style="margin-top: var(--space-6);">
+                            <h4>勤務体制</h4>
+                            <div style="padding: var(--space-4); background: var(--light-gray); border-radius: var(--radius-lg);">
+                                <p><strong>完全予約制：</strong>お客様のご都合に合わせて調整いたします</p>
+                                <p><strong>対応時間：</strong>深夜・早朝でもご相談ください</p>
+                                <p><strong>予約方法：</strong>会員制予約システムで事前にご相談</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 予約案内 -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>セラピストの施術で癒しの時間を</h2>
+                    <p>経験豊富なセラピストが、お客様のご希望に応じたコースで癒しの時間をご提供いたします</p>
+                    <div class="cta-buttons">
+                        <a href="index.html#booking-flow" class="btn btn-primary btn-large">
+                            <i class="fas fa-calendar-check"></i>
+                            予約の流れを見る
+                        </a>
+                        <a href="services.html" class="btn btn-secondary btn-large">
+                            <i class="fas fa-spa"></i>
+                            施術内容を見る
+                        </a>
+                    </div>
+                    <p style="margin-top: var(--space-6); font-size: 0.95rem; opacity: 0.8;">
+                        1日1件限定・完全予約制 | 現金決済のみ
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター（統一設定から自動生成） -->
+    <div id="unified-footer"></div>
+    
+    <script>
+        // 統一フッターを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerContainer = document.getElementById('unified-footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = generateUnifiedFooter();
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+    <script>
+        function checkAgeVerification() {
+            const ageVerified = sessionStorage.getItem('ageVerified');
+            const verifiedTime = sessionStorage.getItem('ageVerifiedTime');
+            
+            if (!ageVerified || ageVerified !== 'true') {
+                window.location.href = 'age-verification.html';
+                return false;
+            }
+            
+            if (verifiedTime) {
+                const hoursSinceVerification = (new Date().getTime() - parseInt(verifiedTime)) / (1000 * 60 * 60);
+                if (hoursSinceVerification >= 24) {
+                    sessionStorage.removeItem('ageVerified');
+                    sessionStorage.removeItem('ageVerifiedTime');
+                    window.location.href = 'age-verification.html';
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        window.addEventListener('load', function() {
+            checkAgeVerification();
+        });
+    </script>
+</body>
+</html>

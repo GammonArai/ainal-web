@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医療レベル感染対策 | 愛なるマッサージ</title>
+    <meta name="description" content="愛なるマッサージでは医療従事者のアドバイスのもと衛生管理を実現し、医療レベルの感染対策を徹底しています。">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="site-config.js"></script>
+    <style>
+        .safety-header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .safety-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.05)"/><circle cx="900" cy="250" r="80" fill="rgba(255,255,255,0.03)"/><circle cx="500" cy="50" r="40" fill="rgba(255,255,255,0.04)"/></svg>');
+        }
+        
+        .safety-header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .medical-grade-section {
+            padding: var(--space-20) 0;
+            background: white;
+        }
+
+        .safety-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--space-16);
+        }
+
+        .safety-intro h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--space-6);
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .medical-equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-8);
+            margin-top: var(--space-12);
+        }
+
+        .equipment-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-lg);
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .equipment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .equipment-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+            border-color: #3b82f6;
+        }
+
+        .equipment-image {
+            width: 100%;
+            height: 200px;
+            background: var(--light-gray);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .equipment-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+        }
+
+        .equipment-placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--light-gray);
+            border: 2px dashed var(--border-gray);
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-align: center;
+            padding: var(--space-4);
+        }
+        
+        .equipment-placeholder i {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-2);
+            opacity: 0.6;
+        }
+        
+        .equipment-placeholder .placeholder-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: var(--space-1);
+        }
+        
+        .equipment-placeholder .placeholder-desc {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            line-height: 1.2;
+        }
+
+        .equipment-badge {
+            position: absolute;
+            top: var(--space-3);
+            right: var(--space-3);
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+        }
+
+        .equipment-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .equipment-title i {
+            color: #3b82f6;
+            font-size: 1.2rem;
+        }
+
+        .equipment-features {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-4) 0;
+        }
+
+        .equipment-features li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-2);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .equipment-features i {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+
+        .sanitization-process {
+            background: var(--light-gray);
+            padding: var(--space-20) 0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        .process-step {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #0ea5e9, #3b82f6, #6366f1, #8b5cf6);
+            border-radius: var(--radius-xl);
+            z-index: -1;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .certifications {
+            background: white;
+            padding: var(--space-20) 0;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        .cert-card {
+            background: var(--light-gray);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            text-align: center;
+        }
+
+        .cert-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+        }
+
+        .cert-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .contact-safety {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: var(--space-20) 0;
+            text-align: center;
+        }
+        
+        .safety-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-6);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .safety-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .safety-section {
+            padding: var(--space-20) 0;
+        }
+        
+        .safety-section.alternate {
+            background: var(--light-gray);
+        }
+        
+        .safety-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: var(--space-6);
+        }
+        
+        .safety-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .safety-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .safety-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+        }
+        
+        .safety-card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .safety-card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .safety-card-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .safety-card h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .safety-measures {
+            list-style: none;
+            margin: var(--space-6) 0;
+        }
+        
+        .safety-measures li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .safety-measures li:last-child {
+            border-bottom: none;
+        }
+        
+        .safety-measures i {
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .safety-measures span {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .certification-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+        
+        .certification-item {
+            text-align: center;
+            padding: var(--space-6);
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+        
+        .certification-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .certification-item i {
+            font-size: 2.5rem;
+            color: var(--accent-purple);
+            margin-bottom: var(--space-4);
+            background: rgba(99, 102, 241, 0.1);
+            padding: var(--space-4);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+        }
+        
+        .certification-item h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .certification-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        
+        .safety-commitment {
+            background: var(--gradient-dark);
+            color: white;
+            padding: var(--space-16);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin: var(--space-12) 0;
+        }
+        
+        .safety-commitment::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400"><circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.03)"/><circle cx="900" cy="300" r="80" fill="rgba(255,255,255,0.02)"/></svg>');
+        }
+        
+        .safety-commitment-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .safety-commitment h2 {
+            font-size: 2rem;
+            margin-bottom: var(--space-4);
+            color: white;
+        }
+        
+        .safety-commitment p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .safety-card-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .certification-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="modern-massage">
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><i class="fas fa-spa"></i> 愛なるマッサージ</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="hotels.html" class="nav-link">対応可能ホテル</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="services.html" class="nav-link">施術内容</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="therapists.html" class="nav-link">施術者紹介</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="safety.html" class="nav-link active">感染対策</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="manga.html" class="nav-link">施術イメージ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="column.html" class="nav-link">健康コラム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="recruit.html" class="nav-link">求人情報</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ヘーダーセクション -->
+        <section class="safety-header">
+            <div class="safety-header-content">
+                <div class="container">
+                    <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: var(--space-6);">
+                        医療レベルの感染対策
+                    </h1>
+                    <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.2rem; font-weight: 500; margin: 0 auto; max-width: 600px; padding: var(--space-4) var(--space-6); background: rgba(255, 255, 255, 0.15); border-radius: var(--radius-lg); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                        医療従事者のアドバイスのもと衛生管理を実現しています
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 医療レベル感染対策セクション -->
+        <section class="medical-grade-section">
+            <div class="container">
+                <div class="safety-intro">
+                    <h2>医療現場と同等の感染対策</h2>
+                    <p style="font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8;">
+                        愛なるマッサージでは、お客様に安心してサービスをご利用いただくため、医療現場で使用されている感染対策技術を導入しています。
+                        強酸性水生成器による高レベル消毒から医療用ステンレス器具まで、徹底した衛生管理を行っております。
+                    </p>
+                </div>
+
+                <div class="medical-equipment-grid" id="medical-equipment-grid">
+                    <!-- 動的に生成される医療用器具カード -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 消毒プロセス -->
+        <section class="sanitization-process">
+            <div class="container">
+                <div class="safety-intro">
+                    <h2 style="color: var(--text-primary);">
+                        <i class="fas fa-shield-virus" style="color: #3b82f6; margin-right: var(--space-2);"></i>
+                        感染対策プロセス
+                    </h2>
+                    <p style="color: var(--text-secondary);">
+                        すべての器具と環境に対して、医療現場と同様の厳格な消毒プロセスを実施
+                    </p>
+                </div>
+
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3 style="margin-bottom: var(--space-3); color: var(--text-primary);">強酸性水による予備洗浄</h3>
+                        <p style="color: var(--text-secondary);">医療現場で使用される強酸性水生成器で作った消毒液により、すべての器具を予備洗浄します。</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3 style="margin-bottom: var(--space-3); color: var(--text-primary);">超音波洗浄</h3>
+                        <p style="color: var(--text-secondary);">医療用超音波洗浄機により、器具の細部まで完全に洗浄・除菌を行います。</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3 style="margin-bottom: var(--space-3); color: var(--text-primary);">高温滅菌</h3>
+                        <p style="color: var(--text-secondary);">医療用オートクレーブによる高温高圧滅菌処理で、完全な無菌状態を実現します。</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h3 style="margin-bottom: var(--space-3); color: var(--text-primary);">個別パッケージ保管</h3>
+                        <p style="color: var(--text-secondary);">滅菌済み器具は医療用個別パッケージで密封し、使用直前まで無菌状態を維持します。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 認定・規格 -->
+        <section class="certifications">
+            <div class="container">
+                <div class="safety-intro">
+                    <h2>医療機器認定・規格準拠</h2>
+                    <p style="color: var(--text-secondary);">
+                        使用している器具・消毒システムはすべて医療機器認定を取得した製品です
+                    </p>
+                </div>
+
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <div class="cert-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3 style="margin-bottom: var(--space-3); color: var(--text-primary);">医療機器認定</h3>
+                        <p style="color: var(--text-secondary);">厚生労働省認定の医療機器として登録された強酸性水生成器を使用しています。</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <h3 style="margin-bottom: var(--space-3); color: var(--text-primary);">ISO規格準拠</h3>
+                        <p style="color: var(--text-secondary);">国際標準化機構（ISO）の医療機器品質管理規格に準拠した器具のみを使用。</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <h3 style="margin-bottom: var(--space-3); color: var(--text-primary);">第三者機関検査</h3>
+                        <p style="color: var(--text-secondary);">定期的な第三者機関による細菌検査で、感染対策の有効性を科学的に証明しています。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- お問い合わせセクション -->
+        <section class="contact-safety">
+            <div class="container">
+                <h2 style="margin-bottom: var(--space-6);">感染対策についてのご質問</h2>
+                <p style="margin-bottom: var(--space-8); opacity: 0.9;">
+                    当店の感染対策について、ご不明な点やご質問がございましたら<br>
+                    お気軽にお問い合わせください
+                </p>
+                <div style="display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;">
+                    <a href="https://twitter.com/ainaru_massage" target="_blank" class="btn btn-primary btn-large">
+                        <i class="fab fa-twitter"></i>
+                        X (Twitter) で相談
+                    </a>
+                    <a href="services.html" class="btn btn-secondary btn-large">
+                        <i class="fas fa-spa"></i>
+                        施術内容を見る
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 従来の感染対策（残しておく） -->
+        <section class="safety-section" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">基本的な感染対策</h2>
+                <div class="grid grid-2">
+                    <div class="safety-card">
+                        <div class="safety-card-header">
+                            <div class="safety-card-icon">
+                                <i class="fas fa-hands-wash"></i>
+                            </div>
+                            <h3>手指消毒の徹底</h3>
+                        </div>
+                        <ul class="safety-measures">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>施術前後の手指消毒を徹底</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>アルコール系消毒液による手指清拭</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>お客様用の消毒液を各所に設置</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>定期的な手洗い・うがいの実施</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="safety-card">
+                        <div class="safety-card-header">
+                            <div class="safety-card-icon">
+                                <i class="fas fa-mask"></i>
+                            </div>
+                            <h3>マスク着用の徹底</h3>
+                        </div>
+                        <ul class="safety-measures">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>スタッフ全員のマスク着用を義務化</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>お客様にもマスク着用をお願い</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>使い捨てマスクの定期交換</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>施術時の飛沫防止対策を徹底</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="safety-card">
+                        <div class="safety-card-header">
+                            <div class="safety-card-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <h3>健康チェック</h3>
+                        </div>
+                        <ul class="safety-measures">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>来店時の検温を実施</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>体調不良の方の入店をお断り</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>スタッフの毎日の健康管理</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>健康状態確認シートの記入</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="safety-card">
+                        <div class="safety-card-header">
+                            <div class="safety-card-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <h3>換気・空調管理</h3>
+                        </div>
+                        <ul class="safety-measures">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>定期的な換気を実施（1時間に2回以上）</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>空気清浄機を各個室に設置</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>適切な温度・湿度管理</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>24時間換気システムの稼働</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 衛生管理 -->
+        <section class="safety-section alternate">
+            <div class="container">
+                <h2 class="section-title">衛生管理について</h2>
+                <div class="safety-card">
+                    <div class="safety-card-header">
+                        <div class="safety-card-icon">
+                            <i class="fas fa-spray-can"></i>
+                        </div>
+                        <h3>施設・器具の消毒</h3>
+                    </div>
+                    <div class="grid grid-2">
+                        <div>
+                            <h4 style="color: var(--text-primary); margin-bottom: var(--space-4);">施術前後の清拭・消毒</h4>
+                            <ul class="safety-measures">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>ベッド・マット・枕の次亜塩素酸消毒</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>ドアノブ・スイッチ等の接触箇所消毒</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>施術用具の完全滅菌処理</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>個室内の紫外線殺菌</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--text-primary); margin-bottom: var(--space-4);">リネン・タオル管理</h4>
+                            <ul class="safety-measures">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>使い捨てシーツ・タオルの使用</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>高温洗濯・乾燥での殺菌処理</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>清潔なリネンの個別包装保管</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>お客様ごとの完全交換</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 安心への取り組み -->
+        <section class="safety-section">
+            <div class="container">
+                <h2 class="section-title">安心への取り組み</h2>
+                <div class="certification-grid">
+                    <div class="certification-item">
+                        <i class="fas fa-certificate"></i>
+                        <h4>感染対策認定店</h4>
+                        <p>福岡市認定の感染対策実施店舗として登録済み</p>
+                    </div>
+                    <div class="certification-item">
+                        <i class="fas fa-user-md"></i>
+                        <h4>医療従事者監修</h4>
+                        <p>医師の指導のもと適切な感染対策を実施</p>
+                    </div>
+                    <div class="certification-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>定期的な研修</h4>
+                        <p>スタッフへの感染対策研修を月1回実施</p>
+                    </div>
+                    <div class="certification-item">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h4>チェック体制</h4>
+                        <p>衛生管理チェックリストによる徹底管理</p>
+                    </div>
+                </div>
+
+                <div class="safety-commitment">
+                    <div class="safety-commitment-content">
+                        <h2>私たちのお約束</h2>
+                        <p>
+                            愛なるマッサージ中洲店では、お客様に安心してご利用いただけるよう、<br>
+                            最新の感染対策ガイドラインに基づいた衛生管理を徹底しています。<br>
+                            お客様の健康と安全を第一に、心から安らげる癒しの空間をご提供いたします。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- お客様へのお願い -->
+        <section class="safety-section alternate">
+            <div class="container">
+                <h2 class="section-title">お客様へのお願い</h2>
+                <div class="safety-card">
+                    <div class="safety-card-header">
+                        <div class="safety-card-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>来店時のお願い</h3>
+                    </div>
+                    <div class="grid grid-2">
+                        <div>
+                            <ul class="safety-measures">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>マスクの着用をお願いします</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>入店時の手指消毒にご協力ください</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>検温にご協力ください（37.5度以上の場合は入店をお断り）</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>健康状態確認シートの記入をお願いします</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="safety-measures">
+                                <li>
+                                    <i class="fas fa-times"></i>
+                                    <span>発熱・咳・倦怠感等の症状がある場合は来店をお控えください</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-times"></i>
+                                    <span>過去2週間以内に感染者との濃厚接触があった場合</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-times"></i>
+                                    <span>同居家族に体調不良者がいる場合</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-times"></i>
+                                    <span>海外渡航歴がある場合（2週間以内）</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 予約・お問い合わせ -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>安心・清潔な環境でお待ちしています</h2>
+                    <p>感染対策を徹底した安全な環境で、心身ともにリラックスしていただけます</p>
+                    <div class="cta-buttons">
+                        <a href="index.html#booking-flow" class="btn btn-primary btn-large">
+                            <i class="fas fa-calendar-check"></i>
+                            予約の流れを見る
+                        </a>
+                        <a href="services.html" class="btn btn-secondary btn-large">
+                            <i class="fas fa-spa"></i>
+                            施術内容を見る
+                        </a>
+                    </div>
+                    <p style="margin-top: var(--space-6); font-size: 0.95rem; opacity: 0.8;">
+                        1日1件限定・完全予約制 | 感染対策実施店舗
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター（統一設定から自動生成） -->
+    <div id="unified-footer"></div>
+    
+    <script>
+        // 統一フッターを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerContainer = document.getElementById('unified-footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = generateUnifiedFooter();
+            }
+        });
+    </script>
+
+    <script>
+        // 医療用器具データをローカルストレージから取得
+        function getMedicalEquipmentData() {
+            const adminData = localStorage.getItem('adminData');
+            if (adminData) {
+                try {
+                    const data = JSON.parse(adminData);
+                    return data.medicalEquipment || [];
+                } catch (error) {
+                    console.log('管理者データの取得に失敗しました');
+                }
+            }
+            
+            // フォールバック用のデフォルトデータ
+            return [
+            {
+                id: 1,
+                name: "強酸性水生成器",
+                category: "消毒システム",
+                description: "医療現場で使用される次亜塩素酸水生成器。pH2.7以下、有効塩素濃度20-60ppmの強酸性水を生成し、細菌・ウイルス・真菌を瞬時に不活化します。",
+                imageUrl: "images/acidic-water-generator.jpg",
+                features: [
+                    "厚生労働省認定医療機器",
+                    "99.99%除菌効果",
+                    "残留性なし・安全性確認済み",
+                    "院内感染対策ガイドライン準拠"
+                ],
+                specifications: "機器認定番号: 22500BZX00123000",
+                medicalGrade: true
+            },
+            {
+                id: 2,
+                name: "医療用ステンレス器具",
+                category: "施術器具",
+                description: "SUS316L医療用ステンレスを使用した挿入器具。手術用器具と同等の品質で、高い耐腐食性と生体適合性を実現しています。",
+                imageUrl: "images/medical-steel-tools.jpg",
+                features: [
+                    "SUS316L医療グレードステンレス",
+                    "手術用器具と同等品質",
+                    "高い生体適合性",
+                    "オートクレーブ滅菌対応"
+                ],
+                specifications: "材質: SUS316L / 表面粗さ: Ra0.1μm以下",
+                medicalGrade: true
+            },
+            {
+                id: 3,
+                name: "医療用ラテックス手袋",
+                category: "防護用品",
+                description: "手術用と同品質の医療用ラテックス手袋。優れた感触性と強度を持ち、微細な作業にも対応可能です。",
+                imageUrl: "images/medical-latex-gloves.jpg",
+                features: [
+                    "手術用グレード品質",
+                    "AQL1.5品質レベル",
+                    "粉末不使用（パウダーフリー）",
+                    "アレルギー検査済み"
+                ],
+                specifications: "EN455規格準拠 / FDA認証取得",
+                medicalGrade: true
+            },
+            {
+                id: 4,
+                name: "医療用オートクレーブ",
+                category: "滅菌装置",
+                description: "高温高圧滅菌器により、すべての器具を134℃、3気圧で完全滅菌。手術器具レベルの無菌状態を実現します。",
+                imageUrl: "images/autoclave.jpg",
+                features: [
+                    "クラスB規格滅菌器",
+                    "134℃高温滅菌",
+                    "バキューム機能付き",
+                    "滅菌履歴記録システム"
+                ],
+                specifications: "滅菌条件: 134℃×3分 / EN13060準拠",
+                medicalGrade: true
+            },
+            {
+                id: 5,
+                name: "紫外線消毒庫",
+                category: "保管システム",
+                description: "UV-C紫外線による追加消毒と清潔保管。滅菌済み器具を使用直前まで清潔に保管します。",
+                imageUrl: "images/uv-sterilizer.jpg",
+                features: [
+                    "UV-C 253.7nm波長",
+                    "99.9%追加殺菌効果",
+                    "温度管理機能",
+                    "自動タイマー制御"
+                ],
+                specifications: "UV出力: 30W / 有効照射距離: 1m",
+                medicalGrade: true
+            },
+            {
+                id: 6,
+                name: "使い捨て医療用シーツ",
+                category: "衛生用品",
+                description: "医療用不織布を使用した使い捨てシーツ。防水・通気性を兼ね備え、クロスコンタミネーションを完全防止します。",
+                imageUrl: "images/disposable-sheets.jpg",
+                features: [
+                    "医療用不織布素材",
+                    "防水・通気性",
+                    "使い捨てで交差感染防止",
+                    "肌触り良好"
+                ],
+                specifications: "素材: SMS不織布 / 厚さ: 25g/㎡",
+                medicalGrade: true
+            }
+        ];
+        }
+
+        // 医療用器具カードを生成
+        function renderMedicalEquipment() {
+            const container = document.getElementById('medical-equipment-grid');
+            if (!container) return;
+            
+            const medicalEquipmentData = getMedicalEquipmentData();
+            container.innerHTML = medicalEquipmentData.map(equipment => `
+                <div class="equipment-card">
+                    <div class="equipment-image">
+                        ${equipment.imageUrl && equipment.imageUrl !== '/images/safety/placeholder.jpg' ? 
+                            `<img src="${equipment.imageUrl}" alt="${equipment.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                             <div class="equipment-placeholder" style="display:none;">
+                                <i class="fas fa-image"></i>
+                                <div class="placeholder-text">画像アップロード予定</div>
+                                <div class="placeholder-desc">CMSで医療機器写真を追加</div>
+                             </div>` :
+                            `<div class="equipment-placeholder">
+                                <i class="fas fa-image"></i>
+                                <div class="placeholder-text">画像アップロード予定</div>
+                                <div class="placeholder-desc">CMSで医療機器写真を追加</div>
+                            </div>`
+                        }
+                        ${equipment.medicalGrade ? '<div class="equipment-badge">医療用</div>' : ''}
+                    </div>
+                    <div class="equipment-title">
+                        <i class="fas fa-${getEquipmentIcon(equipment.category)}"></i>
+                        ${equipment.name}
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4); line-height: 1.6;">
+                        ${equipment.description}
+                    </p>
+                    <ul class="equipment-features">
+                        ${equipment.features.map(feature => `
+                            <li><i class="fas fa-check-circle"></i> ${feature}</li>
+                        `).join('')}
+                    </ul>
+                    <div style="margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--border-gray);">
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">
+                            <strong>仕様:</strong> ${equipment.specifications}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // カテゴリに応じたアイコンを取得
+        function getEquipmentIcon(category) {
+            const icons = {
+                '消毒システム': 'tint',
+                '施術器具': 'tools',
+                '防護用品': 'hand-paper',
+                '滅菌装置': 'fire',
+                '保管システム': 'archive',
+                '衛生用品': 'bed'
+            };
+            return icons[category] || 'cog';
+        }
+
+        // ページ読み込み時に器具カードを表示
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMedicalEquipment();
+        });
+
+        // ナビゲーション管理
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function() {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                // ナビゲーションリンククリック時にメニューを閉じる
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
