@@ -556,7 +556,8 @@
         }
 
         // Telegram Bot API設定
-        const TELEGRAM_BOT_TOKEN = '8112391212:AAFL1KvxMv6C8kqVCtFCumWIfR3MxBjGhYM';
+        // トークンは環境変数から取得すべきです
+        const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; // 実際の本番環境では環境変数を使用
         const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 
         // プロフィール情報を一時保存
