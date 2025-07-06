@@ -32,10 +32,11 @@
         .manga-header {
             background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
             color: white;
-            padding: 80px 20px 40px;
+            padding: 40px 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            margin-top: 80px; /* ナビゲーションメニュー分のスペース */
         }
 
         .manga-header::before {
@@ -244,6 +245,19 @@
     </style>
 </head>
 <body>
+    <!-- 統一ヘッダー -->
+    <div id="unified-header"></div>
+    
+    <script>
+        // 統一ヘッダーを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerContainer = document.getElementById('unified-header');
+            if (headerContainer) {
+                headerContainer.innerHTML = generateUnifiedHeader('manga.html');
+            }
+        });
+    </script>
+    
     <div class="manga-container">
         <!-- ヘッダー -->
         <header class="manga-header">
