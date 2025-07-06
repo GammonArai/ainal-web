@@ -493,6 +493,15 @@
                     successMsg.style.display = 'block';
                     errorMsg.style.display = 'none';
                     
+                    // ローカルストレージに保存（モック）
+                    localStorage.setItem('authToken', 'mock-token-123456');
+                    localStorage.setItem('userData', JSON.stringify({
+                        telegramUsername: username,
+                        memberNumber: 'AM24011234',
+                        displayName: '山田 太郎',
+                        memberRank: 'silver'
+                    }));
+                    
                     setTimeout(() => {
                         window.location.href = '/member-dashboard.html';
                     }, 2000);

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会員ダッシュボード | 愛なるマッサージ</title>
+    <meta name="description" content="会員様専用ページ。予約履歴、ポイント確認、紹介コード発行など。">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="site-config.js"></script>
+    
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 100px auto 40px;
+            padding: 0 20px;
+        }
+        
+        .welcome-section {
+            background: linear-gradient(135deg, #8854d0 0%, #6366f1 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .member-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .member-details h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .member-number {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .member-rank {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .member-stats {
+            display: flex;
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .card-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: gap 0.3s ease;
+        }
+        
+        .card-action:hover {
+            gap: 12px;
+        }
+        
+        .referral-section {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .referral-code-box {
+            background: white;
+            border: 2px dashed var(--primary);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .referral-code {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 3px;
+            margin: 20px 0;
+        }
+        
+        .copy-button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(136, 84, 208, 0.3);
+        }
+        
+        .booking-history {
+            margin-bottom: 40px;
+        }
+        
+        .history-table {
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .history-table th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .history-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-completed {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .logout-section {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .logout-button {
+            background: #e0e0e0;
+            color: #666;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-button:hover {
+            background: #d0d0d0;
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .member-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .member-stats {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .referral-code {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 統一ヘッダー -->
+    <div id="unified-header"></div>
+    
+    <div class="dashboard-container">
+        <!-- ウェルカムセクション -->
+        <section class="welcome-section">
+            <div class="welcome-content">
+                <div class="member-info">
+                    <div class="member-details">
+                        <h2>こんにちは、山田 太郎 様</h2>
+                        <p class="member-number">会員番号: AM24011234</p>
+                        <span class="member-rank">
+                            <i class="fas fa-medal"></i> シルバー会員
+                        </span>
+                    </div>
+                    <div class="member-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">12</span>
+                            <span class="stat-label">総利用回数</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">5%</span>
+                            <span class="stat-label">会員割引率</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ダッシュボードグリッド -->
+        <div class="dashboard-grid">
+            <!-- 新規予約 -->
+            <div class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fas fa-calendar-plus"></i>
+                </div>
+                <h3 class="card-title">新規予約</h3>
+                <p class="card-description">
+                    Telegramから簡単予約。会員様限定の優先枠をご用意しています。
+                </p>
+                <a href="https://t.me/AnalSenseiBot" class="card-action">
+                    予約する <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <!-- 予約履歴 -->
+            <div class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3 class="card-title">予約履歴</h3>
+                <p class="card-description">
+                    過去のご利用履歴を確認できます。領収書の再発行も可能です。
+                </p>
+                <a href="#booking-history" class="card-action">
+                    履歴を見る <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <!-- 会員特典 -->
+            <div class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3 class="card-title">会員特典</h3>
+                <p class="card-description">
+                    現在のランクと特典内容を確認。次のランクまであと少し！
+                </p>
+                <a href="#benefits" class="card-action">
+                    特典を確認 <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- 紹介プログラム -->
+        <section class="referral-section">
+            <h2 style="text-align: center; margin-bottom: 20px;">
+                <i class="fas fa-user-friends"></i> お友達紹介プログラム
+            </h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 30px;">
+                お友達を紹介すると、双方に5,000円分のクレジットをプレゼント！
+            </p>
+            <div class="referral-code-box">
+                <p style="margin: 0 0 10px 0; color: var(--text-secondary);">あなたの紹介コード</p>
+                <div class="referral-code" id="referralCode">GOLD2024</div>
+                <button class="copy-button" onclick="copyReferralCode()">
+                    <i class="fas fa-copy"></i> コピーする
+                </button>
+            </div>
+            <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+                紹介実績：3名 | 獲得クレジット：15,000円
+            </p>
+        </section>
+        
+        <!-- 予約履歴 -->
+        <section class="booking-history" id="booking-history">
+            <h2 style="margin-bottom: 20px;">
+                <i class="fas fa-clock"></i> 予約履歴
+            </h2>
+            <div class="history-table">
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>日付</th>
+                            <th>サービス</th>
+                            <th>セラピスト</th>
+                            <th>料金</th>
+                            <th>ステータス</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024/06/15</td>
+                            <td>オイルマッサージ90分</td>
+                            <td>佐藤 恵子</td>
+                            <td>¥23,750</td>
+                            <td><span class="status-badge status-completed">完了</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024/06/01</td>
+                            <td>アロママッサージ120分</td>
+                            <td>田中 美香</td>
+                            <td>¥31,350</td>
+                            <td><span class="status-badge status-completed">完了</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024/06/20</td>
+                            <td>アカスリ+オイル120分</td>
+                            <td>山田 智子</td>
+                            <td>¥33,250</td>
+                            <td><span class="status-badge status-pending">予約中</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- ログアウト -->
+        <div class="logout-section">
+            <button class="logout-button" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> ログアウト
+            </button>
+        </div>
+    </div>
+    
+    <!-- 統一フッター -->
+    <div id="unified-footer"></div>
+    
+    <script>
+        // 統一ヘッダー/フッター読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerContainer = document.getElementById('unified-header');
+            const footerContainer = document.getElementById('unified-footer');
+            
+            if (headerContainer) {
+                headerContainer.innerHTML = generateUnifiedHeader('member-dashboard.html');
+            }
+            
+            if (footerContainer) {
+                footerContainer.innerHTML = generateUnifiedFooter();
+            }
+            
+            // ログインチェック（モック）
+            checkAuth();
+        });
+        
+        // 認証チェック
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                // 未ログインの場合はログインページへ
+                window.location.href = '/telegram-login.html';
+            }
+        }
+        
+        // 紹介コードコピー
+        function copyReferralCode() {
+            const code = document.getElementById('referralCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const button = event.target.closest('button');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> コピーしました！';
+                button.style.background = '#4caf50';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                }, 2000);
+            });
+        }
+        
+        // ログアウト
+        function logout() {
+            if (confirm('ログアウトしますか？')) {
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('userData');
+                window.location.href = '/index.html';
+            }
+        }
+    </script>
+</body>
+</html>

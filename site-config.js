@@ -81,6 +81,12 @@ function generateUnifiedHeader(currentPage = '') {
                             </li>
                         `).join('')}
                     </ul>
+                    <div class="nav-auth">
+                        <a href="/telegram-login.html" class="btn-member">
+                            <i class="fas fa-user-circle"></i>
+                            <span>会員ページ</span>
+                        </a>
+                    </div>
                     <div class="hamburger">
                         <span class="bar"></span>
                         <span class="bar"></span>
