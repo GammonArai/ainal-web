@@ -47,6 +47,9 @@
   "env": {
     "NODE_ENV": "production"
   },
+  "analytics": {
+    "enable": true
+  },
   "functions": {
     "api/telegram-webhook.js": {
       "maxDuration": 10

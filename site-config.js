@@ -62,6 +62,23 @@ function getSiteConfig() {
     };
 }
 
+// Analytics自動追加
+function injectAnalytics() {
+    if (!document.querySelector('script[src*="analytics.js"]')) {
+        const script = document.createElement('script');
+        script.src = '/scripts/analytics.js';
+        script.defer = true;
+        document.head.appendChild(script);
+    }
+}
+
+// ページ読み込み時にAnalyticsを注入
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectAnalytics);
+} else {
+    injectAnalytics();
+}
+
 // 統一ヘッダーを生成
 function generateUnifiedHeader(currentPage = '') {
     const config = getSiteConfig();
