@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会員登録 | 愛なるマッサージ - 完全会員制</title>
+    <meta name="description" content="愛なるマッサージの会員登録ページ。紹介制による安心・安全な出張マッサージサービスです。">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .registration-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .registration-header {
+            background: var(--gradient-primary);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .registration-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .registration-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .membership-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .membership-badge i {
+            font-size: 1.2rem;
+            color: #ffd700;
+        }
+        
+        .registration-form {
+            padding: 40px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-label .required {
+            color: var(--accent-red);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(136, 84, 208, 0.1);
+        }
+        
+        .referral-code-input {
+            position: relative;
+        }
+        
+        .referral-code-input input {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .referral-code-hint {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+        
+        .password-requirements {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+        
+        .password-requirements li {
+            margin-left: 20px;
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .terms-checkbox input[type="checkbox"] {
+            margin-top: 3px;
+        }
+        
+        .terms-checkbox label {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+        
+        .terms-checkbox a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(136, 84, 208, 0.3);
+        }
+        
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .benefits-section {
+            background: #f8f9fa;
+            padding: 30px;
+            margin-top: 40px;
+            border-radius: 15px;
+        }
+        
+        .benefits-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .benefit-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .benefit-item span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .loading-spinner {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .loading-spinner i {
+            font-size: 3rem;
+            color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .back-to-home {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .back-to-home a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .back-to-home a:hover {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .registration-header {
+                padding: 30px 20px;
+            }
+            
+            .registration-form {
+                padding: 30px 20px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <div class="registration-header">
+            <h1><i class="fas fa-spa"></i> 会員登録</h1>
+            <p>完全紹介制・会員制サロン</p>
+            <div class="membership-badge">
+                <i class="fas fa-crown"></i>
+                <span>Exclusive Members Only</span>
+            </div>
+        </div>
+        
+        <form id="registrationForm" class="registration-form">
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            
+            <!-- 紹介コード -->
+            <div class="form-group referral-code-input">
+                <label for="referralCode" class="form-label">
+                    紹介コード <span class="required">*</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="referralCode" 
+                    name="referralCode" 
+                    class="form-input" 
+                    placeholder="ABCD1234"
+                    maxlength="8"
+                    required
+                >
+                <p class="referral-code-hint">
+                    <i class="fas fa-info-circle"></i>
+                    既存会員様から発行された8桁のコードを入力してください
+                </p>
+            </div>
+            
+            <!-- お名前 -->
+            <div class="form-group">
+                <label for="displayName" class="form-label">
+                    お名前（ニックネーム可） <span class="required">*</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="displayName" 
+                    name="displayName" 
+                    class="form-input" 
+                    placeholder="山田 太郎"
+                    required
+                >
+            </div>
+            
+            <!-- メールアドレス -->
+            <div class="form-group">
+                <label for="email" class="form-label">
+                    メールアドレス <span class="required">*</span>
+                </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="form-input" 
+                    placeholder="example@email.com"
+                    required
+                >
+            </div>
+            
+            <!-- 電話番号 -->
+            <div class="form-group">
+                <label for="phoneNumber" class="form-label">
+                    電話番号 <span class="required">*</span>
+                </label>
+                <input 
+                    type="tel" 
+                    id="phoneNumber" 
+                    name="phoneNumber" 
+                    class="form-input" 
+                    placeholder="090-1234-5678"
+                    required
+                >
+            </div>
+            
+            <!-- パスワード -->
+            <div class="form-group">
+                <label for="password" class="form-label">
+                    パスワード <span class="required">*</span>
+                </label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="form-input" 
+                    placeholder="••••••••"
+                    minlength="8"
+                    required
+                >
+                <ul class="password-requirements">
+                    <li>8文字以上</li>
+                    <li>英数字を含む</li>
+                </ul>
+            </div>
+            
+            <!-- 利用規約同意 -->
+            <div class="terms-checkbox">
+                <input type="checkbox" id="agreeTerms" required>
+                <label for="agreeTerms">
+                    <a href="/terms.html" target="_blank">利用規約</a>および
+                    <a href="/privacy.html" target="_blank">プライバシーポリシー</a>
+                    に同意します
+                </label>
+            </div>
+            
+            <!-- 送信ボタン -->
+            <button type="submit" class="submit-button" id="submitButton">
+                <i class="fas fa-user-plus"></i> 会員登録する
+            </button>
+            
+            <!-- 会員特典 -->
+            <div class="benefits-section">
+                <h3 class="benefits-title">会員特典</h3>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="fas fa-percentage"></i>
+                        <span>会員限定料金</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>優先予約</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-gift"></i>
+                        <span>紹介特典</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-crown"></i>
+                        <span>ランク制度</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="back-to-home">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i> トップページに戻る
+                </a>
+            </div>
+        </form>
+    </div>
+    
+    <!-- ローディング -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner"></i>
+            <p>登録処理中...</p>
+        </div>
+    </div>
+    
+    <script>
+        // フォーム送信処理
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('successMessage');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const submitButton = document.getElementById('submitButton');
+            
+            // エラーメッセージクリア
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            // フォームデータ取得
+            const formData = {
+                referralCode: document.getElementById('referralCode').value.toUpperCase(),
+                displayName: document.getElementById('displayName').value,
+                email: document.getElementById('email').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                password: document.getElementById('password').value
+            };
+            
+            // 入力検証
+            if (!document.getElementById('agreeTerms').checked) {
+                errorMsg.textContent = '利用規約に同意してください';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            // ローディング表示
+            loadingOverlay.style.display = 'flex';
+            submitButton.disabled = true;
+            
+            try {
+                // API呼び出し
+                const response = await fetch('/api/member-registration', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
+                    // 成功
+                    successMsg.innerHTML = `
+                        <i class="fas fa-check-circle"></i> 
+                        ${result.message}<br>
+                        会員番号: <strong>${result.data.memberNumber}</strong><br>
+                        ログインページへ自動的に移動します...
+                    `;
+                    successMsg.style.display = 'block';
+                    
+                    // 3秒後にログインページへ
+                    setTimeout(() => {
+                        window.location.href = '/login.html';
+                    }, 3000);
+                    
+                } else {
+                    // エラー
+                    errorMsg.textContent = result.error || '登録に失敗しました';
+                    errorMsg.style.display = 'block';
+                    submitButton.disabled = false;
+                }
+                
+            } catch (error) {
+                console.error('Registration error:', error);
+                errorMsg.textContent = 'システムエラーが発生しました';
+                errorMsg.style.display = 'block';
+                submitButton.disabled = false;
+                
+            } finally {
+                loadingOverlay.style.display = 'none';
+            }
+        });
+        
+        // 紹介コード自動大文字変換
+        document.getElementById('referralCode').addEventListener('input', function(e) {
+            e.target.value = e.target.value.toUpperCase();
+        });
+        
+        // 電話番号自動フォーマット
+        document.getElementById('phoneNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^\d]/g, '');
+            if (value.length > 0) {
+                if (value.length <= 3) {
+                    value = value;
+                } else if (value.length <= 7) {
+                    value = value.slice(0, 3) + '-' + value.slice(3);
+                } else {
+                    value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+                }
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
