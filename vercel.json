@@ -10,6 +10,10 @@
       }
     },
     {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "*.html",
       "use": "@vercel/static"
     },
@@ -24,6 +28,14 @@
   ],
   "routes": [
     {
+      "src": "/api/telegram-webhook",
+      "dest": "/api/telegram-webhook.js"
+    },
+    {
+      "src": "/api/set-telegram-webhook",
+      "dest": "/api/set-telegram-webhook.js"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/backend/server.js"
     },
@@ -34,5 +46,13 @@
   ],
   "env": {
     "NODE_ENV": "production"
+  },
+  "functions": {
+    "api/telegram-webhook.js": {
+      "maxDuration": 10
+    },
+    "api/set-telegram-webhook.js": {
+      "maxDuration": 5
+    }
   }
 }
