@@ -443,47 +443,8 @@
     </style>
 </head>
 <body class="modern-massage">
-    <!-- ヘッダー -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <h1><i class="fas fa-spa"></i> 愛なるマッサージ</h1>
-                </div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="index.html" class="nav-link">ホーム</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="hotels.html" class="nav-link">対応可能ホテル</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="services.html" class="nav-link">施術内容</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="therapists.html" class="nav-link">施術者紹介</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="safety.html" class="nav-link">感染対策</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="manga.html" class="nav-link">施術イメージ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="column.html" class="nav-link">健康コラム</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="recruit.html" class="nav-link active">求人情報</a>
-                    </li>
-                </ul>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <!-- 統一ヘッダー -->
+    <div id="unified-header"></div>
 
     <!-- メインコンテンツ -->
     <main>
@@ -857,36 +818,24 @@
         </section>
     </main>
 
-    <!-- フッター -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>愛なるマッサージ</h3>
-                    <p>心と体に愛を込めた癒しの出張マッサージ・アカスリ専門店</p>
-                    <div style="margin-top: var(--space-6);">
-                        <h4 style="margin-bottom: var(--space-3); font-size: 1rem;">フォローする</h4>
-                        <a href="https://x.com/ainaru_massage" target="_blank" style="display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#1da1f2'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
-                            <i class="fab fa-x-twitter" style="font-size: 1.2rem;"></i>
-                            <span>@ainaru_massage</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>サービス</h4>
-                    <ul>
-                        <li><a href="services.html#massage">マッサージ</a></li>
-                        <li><a href="services.html#akasuri">アカスリ</a></li>
-                        <li><a href="services.html#combination">コンビネーション</a></li>
-                        <li><a href="safety.html">感染対策</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 愛なるマッサージ. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- 統一フッター -->
+    <div id="unified-footer"></div>
 
+    <script>
+        // 統一ヘッダー・フッターを生成
+        document.addEventListener('DOMContentLoaded', function() {
+            // ヘッダーを生成
+            const headerElement = document.getElementById('unified-header');
+            if (headerElement) {
+                headerElement.innerHTML = generateUnifiedHeader('recruit.html');
+            }
+            
+            // フッターを生成
+            const footerElement = document.getElementById('unified-footer');
+            if (footerElement) {
+                footerElement.innerHTML = generateUnifiedFooter();
+            }
+        });
+    </script>
 </body>
 </html>

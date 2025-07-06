@@ -944,5 +944,18 @@
             color: white;
         }
     </style>
+    
+    <!-- 統一フッター -->
+    <div id="unified-footer"></div>
+    
+    <script>
+        // 統一フッターを読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerContainer = document.getElementById('unified-footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = generateUnifiedFooter();
+            }
+        });
+    </script>
 </body>
 </html>
