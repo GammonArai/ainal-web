@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegramログイン | 愛なるマッサージ</title>
+    <meta name="description" content="Telegramアカウントでログイン。ワンタイムパスワードで安全にアクセス。">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #0088cc 0%, #005a9e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #0088cc 0%, #005a9e 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .login-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .login-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .telegram-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .login-form {
+            padding: 40px 30px;
+        }
+        
+        .login-step {
+            display: none;
+        }
+        
+        .login-step.active {
+            display: block;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .step-dot.active {
+            background: #0088cc;
+            width: 30px;
+            border-radius: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #0088cc;
+            box-shadow: 0 0 0 3px rgba(0, 136, 204, 0.1);
+        }
+        
+        .otp-inputs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .otp-input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .otp-input:focus {
+            outline: none;
+            border-color: #0088cc;
+            box-shadow: 0 0 0 3px rgba(0, 136, 204, 0.1);
+            transform: scale(1.05);
+        }
+        
+        .otp-input.filled {
+            background: #e3f2fd;
+            border-color: #0088cc;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #0088cc 0%, #005a9e 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 136, 204, 0.3);
+        }
+        
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .telegram-info {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .telegram-info i {
+            font-size: 2rem;
+            color: #0088cc;
+            margin-bottom: 10px;
+        }
+        
+        .telegram-info p {
+            color: #1976d2;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .countdown {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .countdown-timer {
+            font-weight: 600;
+            color: #0088cc;
+            font-size: 1.2rem;
+        }
+        
+        .resend-button {
+            background: none;
+            border: none;
+            color: #0088cc;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .resend-button:hover {
+            color: #005a9e;
+        }
+        
+        .resend-button:disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            text-decoration: none;
+        }
+        
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .back-link a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link a:hover {
+            color: #0088cc;
+        }
+        
+        @media (max-width: 768px) {
+            .login-header {
+                padding: 30px 20px;
+            }
+            
+            .login-form {
+                padding: 30px 20px;
+            }
+            
+            .otp-input {
+                width: 45px;
+                height: 55px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <i class="fab fa-telegram telegram-icon"></i>
+            <h1>Telegramログイン</h1>
+            <p>ワンタイムパスワードで安全にログイン</p>
+        </div>
+        
+        <form id="loginForm" class="login-form">
+            <!-- ステップインジケーター -->
+            <div class="step-indicator">
+                <span class="step-dot active" id="step1Dot"></span>
+                <span class="step-dot" id="step2Dot"></span>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            
+            <!-- ステップ1: Telegramユーザー名入力 -->
+            <div class="login-step active" id="step1">
+                <div class="telegram-info">
+                    <i class="fab fa-telegram-plane"></i>
+                    <p>
+                        会員登録時のTelegramユーザー名を入力してください。<br>
+                        パスワードをTelegramに送信します。
+                    </p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telegramUsername" class="form-label">
+                        Telegramユーザー名
+                    </label>
+                    <input 
+                        type="text" 
+                        id="telegramUsername" 
+                        name="telegramUsername" 
+                        class="form-input" 
+                        placeholder="@username または username"
+                        pattern="^@?[a-zA-Z0-9_]{5,32}$"
+                        required
+                    >
+                </div>
+                
+                <button type="button" class="submit-button" id="sendOtpButton">
+                    <i class="fas fa-paper-plane"></i>
+                    パスワードを送信
+                </button>
+            </div>
+            
+            <!-- ステップ2: OTP入力 -->
+            <div class="login-step" id="step2">
+                <div class="telegram-info">
+                    <i class="fas fa-shield-alt"></i>
+                    <p>
+                        Telegramに送信された6桁のパスワードを入力してください
+                    </p>
+                </div>
+                
+                <div class="otp-inputs">
+                    <input type="text" class="otp-input" maxlength="1" data-index="0">
+                    <input type="text" class="otp-input" maxlength="1" data-index="1">
+                    <input type="text" class="otp-input" maxlength="1" data-index="2">
+                    <input type="text" class="otp-input" maxlength="1" data-index="3">
+                    <input type="text" class="otp-input" maxlength="1" data-index="4">
+                    <input type="text" class="otp-input" maxlength="1" data-index="5">
+                </div>
+                
+                <button type="button" class="submit-button" id="verifyOtpButton">
+                    <i class="fas fa-sign-in-alt"></i>
+                    ログイン
+                </button>
+                
+                <div class="countdown">
+                    パスワードの有効期限：<span class="countdown-timer" id="countdownTimer">05:00</span>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button type="button" class="resend-button" id="resendButton" disabled>
+                        パスワードを再送信
+                    </button>
+                </div>
+            </div>
+            
+            <div class="back-link">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i> トップページに戻る
+                </a>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // OTP入力フィールドの処理
+        const otpInputs = document.querySelectorAll('.otp-input');
+        let otpTimer;
+        let countdown = 300; // 5分
+        
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                const value = e.target.value;
+                
+                if (value && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                    input.classList.add('filled');
+                }
+                
+                // 全て入力されたかチェック
+                checkOtpComplete();
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+            
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text').slice(0, 6);
+                
+                for (let i = 0; i < pastedData.length; i++) {
+                    if (i < otpInputs.length) {
+                        otpInputs[i].value = pastedData[i];
+                        otpInputs[i].classList.add('filled');
+                    }
+                }
+                
+                checkOtpComplete();
+            });
+        });
+        
+        function checkOtpComplete() {
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            document.getElementById('verifyOtpButton').disabled = otp.length !== 6;
+        }
+        
+        // ステップ1: OTP送信
+        document.getElementById('sendOtpButton').addEventListener('click', async function() {
+            const username = document.getElementById('telegramUsername').value.replace('@', '');
+            const errorMsg = document.getElementById('errorMessage');
+            const button = this;
+            
+            if (!username) {
+                errorMsg.textContent = 'Telegramユーザー名を入力してください';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送信中...';
+            
+            try {
+                // API呼び出し（モック）
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // 成功した場合
+                document.getElementById('step1').classList.remove('active');
+                document.getElementById('step2').classList.add('active');
+                document.getElementById('step1Dot').classList.remove('active');
+                document.getElementById('step2Dot').classList.add('active');
+                
+                // カウントダウン開始
+                startCountdown();
+                
+            } catch (error) {
+                errorMsg.textContent = 'エラーが発生しました';
+                errorMsg.style.display = 'block';
+            } finally {
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-paper-plane"></i> パスワードを送信';
+            }
+        });
+        
+        // ステップ2: OTP検証
+        document.getElementById('verifyOtpButton').addEventListener('click', async function() {
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('successMessage');
+            const button = this;
+            
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 確認中...';
+            
+            try {
+                // API呼び出し（モック）
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // 成功した場合（モック：123456で成功）
+                if (otp === '123456') {
+                    successMsg.textContent = 'ログインに成功しました。リダイレクトしています...';
+                    successMsg.style.display = 'block';
+                    errorMsg.style.display = 'none';
+                    
+                    setTimeout(() => {
+                        window.location.href = '/member-dashboard.html';
+                    }, 2000);
+                } else {
+                    errorMsg.textContent = 'パスワードが正しくありません';
+                    errorMsg.style.display = 'block';
+                    
+                    // OTP入力をクリア
+                    otpInputs.forEach(input => {
+                        input.value = '';
+                        input.classList.remove('filled');
+                    });
+                    otpInputs[0].focus();
+                }
+                
+            } catch (error) {
+                errorMsg.textContent = 'エラーが発生しました';
+                errorMsg.style.display = 'block';
+            } finally {
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-sign-in-alt"></i> ログイン';
+            }
+        });
+        
+        // カウントダウンタイマー
+        function startCountdown() {
+            countdown = 300;
+            updateCountdownDisplay();
+            
+            otpTimer = setInterval(() => {
+                countdown--;
+                updateCountdownDisplay();
+                
+                if (countdown <= 0) {
+                    clearInterval(otpTimer);
+                    document.getElementById('resendButton').disabled = false;
+                    document.getElementById('countdownTimer').textContent = '期限切れ';
+                }
+            }, 1000);
+        }
+        
+        function updateCountdownDisplay() {
+            const minutes = Math.floor(countdown / 60);
+            const seconds = countdown % 60;
+            document.getElementById('countdownTimer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // 再送信ボタン
+        document.getElementById('resendButton').addEventListener('click', function() {
+            this.disabled = true;
+            document.getElementById('sendOtpButton').click();
+        });
+        
+        // Telegramユーザー名の自動フォーマット
+        document.getElementById('telegramUsername').addEventListener('input', function(e) {
+            // @を削除して小文字に
+            let value = e.target.value.toLowerCase();
+            if (value.startsWith('@')) {
+                value = value.substring(1);
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
