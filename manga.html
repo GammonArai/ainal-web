@@ -14,16 +14,366 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
     
-    <script>
-        // manga-toon.htmlにリダイレクト
-        window.location.href = 'manga-toon.html';
-    </script>
+    <!-- フォント -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- スタイル -->
+    <link rel="stylesheet" href="modern-styles.css">
+    
+    <style>
+        /* 韓国式縦読み漫画（TOON）スタイル */
+        .manga-container {
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .manga-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 80px 20px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manga-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .manga-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .manga-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .reading-info {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .reading-info i {
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .manga-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+        }
+
+        .manga-episode {
+            width: 100%;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .manga-episode:hover {
+            transform: scale(1.02);
+        }
+
+        .episode-divider {
+            background: linear-gradient(to right, #ff6b6b, #feca57);
+            height: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .episode-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: slide 3s infinite;
+        }
+
+        @keyframes slide {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #ff6b6b;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(255,107,107,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-indicator:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 30px rgba(255,107,107,0.4);
+        }
+
+        .chapter-nav {
+            background: #f8f9fa;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .chapter-nav h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .chapter-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .chapter-btn {
+            background: white;
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-btn:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+        }
+
+        .chapter-btn.active {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .manga-title {
+                font-size: 2rem;
+            }
+            
+            .manga-subtitle {
+                font-size: 1rem;
+            }
+            
+            .reading-info {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+            
+            .scroll-indicator {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* ローディングアニメーション */
+        .loading-spinner {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading-spinner i {
+            font-size: 3rem;
+            color: #ff6b6b;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-    <div style="text-align: center; padding: 50px; font-family: 'Inter', sans-serif;">
-        <h1>📖 韓国式TOON漫画に移動中...</h1>
-        <p>新しい韓国式縦読み漫画ビューアーに自動で移動します。</p>
-        <p>移動しない場合は<a href="manga-toon.html">こちらをクリック</a>してください。</p>
+    <div class="manga-container">
+        <!-- ヘッダー -->
+        <header class="manga-header">
+            <h1 class="manga-title">
+                <i class="fas fa-book-open"></i> 施術イメージ漫画
+            </h1>
+            <p class="manga-subtitle">愛なるマッサージの施術を楽しくご紹介</p>
+            <div class="reading-info">
+                <i class="fas fa-mobile-alt"></i>
+                <span>韓国式縦読みTOON形式</span>
+                <i class="fas fa-arrow-down"></i>
+            </div>
+        </header>
+
+        <!-- 漫画コンテンツ -->
+        <div class="manga-content">
+            <!-- エピソード1 -->
+            <img src="images/manga-01.jpg" alt="施術漫画 エピソード1" class="manga-episode" loading="lazy">
+            <div class="episode-divider"></div>
+            
+            <!-- エピソード2 -->
+            <img src="images/manga-02.jpg" alt="施術漫画 エピソード2" class="manga-episode" loading="lazy">
+            <div class="episode-divider"></div>
+            
+            <!-- エピソード3 -->
+            <img src="images/manga-03.jpg" alt="施術漫画 エピソード3" class="manga-episode" loading="lazy">
+            <div class="episode-divider"></div>
+            
+            <!-- エピソード4 -->
+            <img src="images/manga-04.jpg" alt="施術漫画 エピソード4" class="manga-episode" loading="lazy">
+            <div class="episode-divider"></div>
+            
+            <!-- エピソード5 -->
+            <img src="images/manga-05.jpg" alt="施術漫画 エピソード5" class="manga-episode" loading="lazy">
+            <div class="episode-divider"></div>
+            
+            <!-- 続きのエピソード -->
+            <img src="images/manga-06.jpg" alt="施術漫画 エピソード6" class="manga-episode" loading="lazy">
+            <img src="images/manga-07.jpg" alt="施術漫画 エピソード7" class="manga-episode" loading="lazy">
+            <img src="images/manga-08.jpg" alt="施術漫画 エピソード8" class="manga-episode" loading="lazy">
+            <img src="images/manga-09.jpg" alt="施術漫画 エピソード9" class="manga-episode" loading="lazy">
+            <img src="images/manga-10.jpg" alt="施術漫画 エピソード10" class="manga-episode" loading="lazy">
+        </div>
+
+        <!-- チャプターナビゲーション -->
+        <div class="chapter-nav">
+            <h3>他のコンテンツも見る</h3>
+            <div class="chapter-buttons">
+                <a href="services.html" class="chapter-btn">
+                    <i class="fas fa-spa"></i> 施術内容
+                </a>
+                <a href="therapists.html" class="chapter-btn">
+                    <i class="fas fa-user-md"></i> 施術者紹介
+                </a>
+                <a href="hotels.html" class="chapter-btn">
+                    <i class="fas fa-building"></i> 対応ホテル
+                </a>
+                <a href="column.html" class="chapter-btn">
+                    <i class="fas fa-blog"></i> 健康コラム
+                </a>
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <footer class="footer" style="background: #333; color: white; padding: 40px 20px; text-align: center;">
+            <div class="container">
+                <p>&copy; 2024 愛なるマッサージ. All rights reserved.</p>
+                <p>
+                    <a href="privacy.html" style="color: #ff6b6b; text-decoration: none;">プライバシーポリシー</a> |
+                    <a href="terms.html" style="color: #ff6b6b; text-decoration: none;">利用規約</a>
+                </p>
+            </div>
+        </footer>
+
+        <!-- スクロールインジケーター -->
+        <div class="scroll-indicator" onclick="window.scrollBy({top: 500, behavior: 'smooth'})">
+            <i class="fas fa-arrow-down"></i>
+        </div>
     </div>
+
+    <!-- サイト設定読み込み -->
+    <script src="site-config.js"></script>
+    
+    <script>
+        // 画像の遅延読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.manga-episode');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.style.opacity = '0';
+                        img.style.transform = 'translateY(20px)';
+                        
+                        setTimeout(() => {
+                            img.style.transition = 'all 0.6s ease';
+                            img.style.opacity = '1';
+                            img.style.transform = 'translateY(0)';
+                        }, 100);
+                        
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            images.forEach(img => imageObserver.observe(img));
+            
+            // スクロールインジケーターの表示/非表示
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            let scrollTimeout;
+            
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollIndicator.style.opacity = '0.3';
+                
+                scrollTimeout = setTimeout(() => {
+                    scrollIndicator.style.opacity = '1';
+                }, 1000);
+                
+                // 最下部に近づいたら上向き矢印に変更
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+                    scrollIndicator.innerHTML = '<i class="fas fa-arrow-up"></i>';
+                    scrollIndicator.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+                } else {
+                    scrollIndicator.innerHTML = '<i class="fas fa-arrow-down"></i>';
+                    scrollIndicator.onclick = () => window.scrollBy({top: 500, behavior: 'smooth'});
+                }
+            });
+        });
+    </script>
 </body>
 </html>

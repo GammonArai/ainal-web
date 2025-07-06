@@ -46,13 +46,13 @@ function getSiteConfig() {
                 { title: '施術内容', url: 'services.html', icon: 'fas fa-spa' },
                 { title: '施術者紹介', url: 'therapists.html', icon: 'fas fa-user-md' },
                 { title: '感染対策', url: 'safety.html', icon: 'fas fa-shield-virus' },
-                { title: '施術イメージ', url: 'manga-toon.html', icon: 'fas fa-images' },
+                { title: '施術イメージ', url: 'manga.html', icon: 'fas fa-images' },
                 { title: '健康コラム', url: 'column.html', icon: 'fas fa-blog' },
                 { title: '求人情報', url: 'recruit.html', icon: 'fas fa-briefcase' }
             ],
             footer: [
                 { title: '対応可能ホテル', url: 'hotels.html' },
-                { title: '施術イメージ', url: 'manga-toon.html' },
+                { title: '施術イメージ', url: 'manga.html' },
                 { title: '健康コラム', url: 'column.html' },
                 { title: '求人情報', url: 'recruit.html' },
                 { title: 'プライバシーポリシー', url: 'privacy.html' },
