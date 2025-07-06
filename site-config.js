@@ -64,11 +64,27 @@ function getSiteConfig() {
 
 // Analytics自動追加
 function injectAnalytics() {
+    // カスタムAnalyticsスクリプト
     if (!document.querySelector('script[src*="analytics.js"]')) {
         const script = document.createElement('script');
         script.src = '/scripts/analytics.js';
         script.defer = true;
         document.head.appendChild(script);
+    }
+    
+    // Vercel Analytics Scripts
+    if (!document.querySelector('script[src*="_vercel/insights"]')) {
+        const insightsScript = document.createElement('script');
+        insightsScript.defer = true;
+        insightsScript.src = '/_vercel/insights/script.js';
+        document.head.appendChild(insightsScript);
+    }
+    
+    if (!document.querySelector('script[src*="_vercel/speed-insights"]')) {
+        const speedScript = document.createElement('script');
+        speedScript.defer = true;
+        speedScript.src = '/_vercel/speed-insights/script.js';
+        document.head.appendChild(speedScript);
     }
 }
 

@@ -1,19 +1,20 @@
-// Vercel Analytics Integration
+// Vercel Analytics Integration for Static Sites
 // This script should be included in all HTML pages
 
-// Analytics初期化
+// Vercel Analytics用のスクリプトタグを追加
 (function() {
-    // Vercel Analyticsスクリプトを動的に読み込む
-    const script = document.createElement('script');
-    script.defer = true;
-    script.src = '/_vercel/insights/script.js';
-    document.head.appendChild(script);
+    // Vercel Analytics
+    const analyticsScript = document.createElement('script');
+    analyticsScript.defer = true;
+    analyticsScript.setAttribute('data-website-id', window.location.hostname);
+    analyticsScript.src = 'https://va.vercel-scripts.com/v1/script.debug.js';
     
-    // Web Vitalsも追加（オプション）
-    const vitalsScript = document.createElement('script');
-    vitalsScript.defer = true;
-    vitalsScript.src = '/_vercel/speed-insights/script.js';
-    document.head.appendChild(vitalsScript);
+    // 本番環境では debug を外す
+    if (window.location.hostname !== 'localhost') {
+        analyticsScript.src = 'https://va.vercel-scripts.com/v1/script.js';
+    }
+    
+    document.head.appendChild(analyticsScript);
 })();
 
 // カスタムイベントトラッキング
